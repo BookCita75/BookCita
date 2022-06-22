@@ -28,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -125,6 +127,21 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
         Toast.makeText(this, "motCle : " + keyword, Toast.LENGTH_SHORT).show();
         parseJSON();
     }
+
+    public String convertirLienEnHttps(String lien){
+        try {
+            URL url_lien = new URL(lien);
+            URL url_lienHttps = new URL("https", url_lien.getHost(),url_lien.getPort(),url_lien.getFile());
+
+            String lienHttps = url_lienHttps.toString();
+            return lienHttps;
+
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     private void parseJSON() throws UnsupportedEncodingException {
         //https://www.googleapis.com/books/v1/volumes?q=souris
