@@ -6,15 +6,17 @@ public class ModelBook {
     private String titre;
     private String auteur;
     private String isbn;
+    private String id;
 
     public ModelBook() {
     }
 
-    public ModelBook(String coverUrl, String titre, String auteur, String isbn) {
+    public ModelBook(String coverUrl, String titre, String auteur, String isbn, String id) {
         this.coverUrl = coverUrl;
         this.titre = titre;
         this.auteur = auteur;
         this.isbn = isbn;
+        this.id = id;
     }
 
     public String getCoverUrl() {
@@ -47,5 +49,13 @@ public class ModelBook {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

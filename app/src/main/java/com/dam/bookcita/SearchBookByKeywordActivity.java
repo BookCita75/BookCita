@@ -54,18 +54,18 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;  //Pour volley
 
-    private void remplissageArrayListeEnDur() {
-        ModelBook modelBook1 = new ModelBook("https://books.google.com/books/content?id=StXltAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api", "Aucun Autre", "John Mac Arthur", "9782890823136");
-        ModelBook modelBook2 = new ModelBook("", "La force d'aimer", "Martin Luther King", "9782356140630");
-
-        bookArrayList.add(modelBook1);
-        bookArrayList.add(modelBook2);
-
-        adapterBook = new AdapterBook(this, bookArrayList);
-
-        rvBookByKeyword.setAdapter(adapterBook);
-
-    }
+//    private void remplissageArrayListeEnDur() {
+//        ModelBook modelBook1 = new ModelBook("https://books.google.com/books/content?id=StXltAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api", "Aucun Autre", "John Mac Arthur", "9782890823136");
+//        ModelBook modelBook2 = new ModelBook("", "La force d'aimer", "Martin Luther King", "9782356140630");
+//
+//        bookArrayList.add(modelBook1);
+//        bookArrayList.add(modelBook2);
+//
+//        adapterBook = new AdapterBook(this, bookArrayList);
+//
+//        rvBookByKeyword.setAdapter(adapterBook);
+//
+//    }
 
     // Methode pour verifier les permissions de l'application
     public boolean checkPermission() {
@@ -166,6 +166,9 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
 
+                        String id = item.getString("id");
+                        Log.i(TAG, "onResponse: id : " + id);
+
                         JSONObject volumeInfo = item.getJSONObject("volumeInfo");
                         String titre = "";
                         if (volumeInfo.has("title")) {
@@ -212,7 +215,7 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
 
                         Log.i(TAG, "onResponse: coverUrl : " + coverUrl);
 
-                        bookArrayList.add(new ModelBook(coverUrl, titre, auteur, isbn));
+                        bookArrayList.add(new ModelBook(coverUrl, titre, auteur, isbn, id));
 
                     }
 
