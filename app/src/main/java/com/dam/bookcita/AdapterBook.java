@@ -26,6 +26,9 @@ public class AdapterBook extends RecyclerView.Adapter<AdapterBook.MyViewHolder> 
         this.bookArrayList = bookArrayList;
     }
 
+    // La gestion du click
+    public OnItemClickListener onItemClickListener;
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -80,6 +83,22 @@ public class AdapterBook extends RecyclerView.Adapter<AdapterBook.MyViewHolder> 
             tvAuteur = itemView.findViewById(R.id.tvAuteur);
             ivCover = itemView.findViewById(R.id.ivCover);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(getAdapterPosition(),v);
+                }
+            });
+
         }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, View view);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
 }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,12 +35,14 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class SearchBookByKeywordActivity extends AppCompatActivity {
+public class SearchBookByKeywordActivity extends AppCompatActivity implements AdapterBook.OnItemClickListener{
 
     private static final String TAG = "SearchBookByKeywordActi";
 
     private static final int MAX = 20;
     private static final String MAX_RESULTS = "40";
+    private static final String ISBN = "isbn";
+    private static final String ID = "id";
 
     private EditText etKeyword;
     private String keyword = "";
@@ -221,7 +224,7 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
 
                     adapterBook = new AdapterBook(SearchBookByKeywordActivity.this, bookArrayList);
                     rvBookByKeyword.setAdapter(adapterBook);
-
+                    adapterBook.setOnItemClickListener(SearchBookByKeywordActivity.this);
 
                 } catch (
                         JSONException e) {
@@ -237,4 +240,14 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
+
+    @Override
+    public void onItemClick(int position, View view) {
+        Intent detailIntent = new Intent(this, RecupererLivreISBN.class);
+        ModelBook clickItemBook = bookArrayList.get(position);
+        detailIntent.putExtra(ISBN, clickItemBook.getIsbn());
+        detailIntent.putExtra(ID, clickItemBook.getId());
+
+        startActivity(detailIntent);
+    }
 }

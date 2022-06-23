@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -50,6 +52,9 @@ public class RecupererLivreISBN extends AppCompatActivity{
     private ImageView iv_couverture_livre;
     private static final String TAG = "tag";
 
+    private static final String ISBN = "isbn";
+    private static final String ID = "id";
+
     private RequestQueue requestQueue;
 
 
@@ -79,19 +84,37 @@ public class RecupererLivreISBN extends AppCompatActivity{
 
     }
 
-    public void getBooksFromApi() throws IOException {
-        String urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q=%22%22+isbn:9782714310859";
-        //Log.i(TAG, "parseJSON: " + urlJSONFile);
+    public void getBooksFromApi(String isbn, String id) throws IOException {
+
+        String urlJSONFile = "";
+        if (isbn.equals("")) {
+
+            //Toast.makeText(this, "Pas d'isbn", Toast.LENGTH_SHORT).show();
+            //https://www.googleapis.com/books/v1/volumes/0W-S9jGe51cC?key=AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0
+            urlJSONFile = "https://www.googleapis.com/books/v1/volumes/" + id + "?key=AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+
+        } else {
+            urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q=%22%22+isbn:" + isbn;
+            //Log.i(TAG, "parseJSON: " + urlJSONFile);
+        }
+
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlJSONFile, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
                 try {
-                    JSONArray jsonArray = response.getJSONArray("items");
-                    JSONObject item = jsonArray.getJSONObject(0);
+                    JSONObject volumeInfo;
 
-                    JSONObject volumeInfo = item.getJSONObject("volumeInfo");
+                    if (!isbn.equals("")) {
+                        JSONArray jsonArray = response.getJSONArray("items");
+                        JSONObject item = jsonArray.getJSONObject(0);
+
+                        volumeInfo = item.getJSONObject("volumeInfo");
+                    }
+                    else {
+                        volumeInfo = response.getJSONObject("volumeInfo");
+                    }
                     String titre = "";
                     if (volumeInfo.has("title")) {
                         titre = volumeInfo.getString("title");
@@ -209,8 +232,16 @@ public class RecupererLivreISBN extends AppCompatActivity{
         getSupportActionBar().hide();
         setContentView(R.layout.activity_recuperer_livre_isbn);
         initUI();
+
+        /** #1 Récupération de l'intent **/
+        Intent intent = getIntent();
+        String isbn = intent.getStringExtra(ISBN);
+        String id = intent.getStringExtra(ID);
+
+
+
         try {
-            getBooksFromApi();
+            getBooksFromApi(isbn, id);
         }
         catch (IOException e) {
             e.printStackTrace();
