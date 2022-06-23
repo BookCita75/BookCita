@@ -184,7 +184,20 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
                         String isbn = jsonObjectIsbn13.getString("identifier");*/
                         String isbn = "";
                         Log.i(TAG, "onResponse: isbn : " + isbn);
-                        bookArrayList.add(new ModelBook("", titre, auteur, isbn));
+
+                        String coverUrl = "";
+                        // recuperation de l'url de 'image de couverture
+                        if (volumeInfo.has("imageLinks")) {
+                            JSONObject jsonObjectImageLinks = volumeInfo.getJSONObject("imageLinks");
+                            if (jsonObjectImageLinks.has("thumbnail")) {
+                                coverUrl = jsonObjectImageLinks.getString("thumbnail");
+                                coverUrl = convertirLienEnHttps(coverUrl);
+                            }
+                        }
+
+                        Log.i(TAG, "onResponse: coverUrl : " + coverUrl);
+
+                        bookArrayList.add(new ModelBook(coverUrl, titre, auteur, isbn));
 
                     }
 
