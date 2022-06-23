@@ -128,10 +128,10 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
         parseJSON();
     }
 
-    public String convertirLienEnHttps(String lien){
+    public String convertirLienEnHttps(String lien) {
         try {
             URL url_lien = new URL(lien);
-            URL url_lienHttps = new URL("https", url_lien.getHost(),url_lien.getPort(),url_lien.getFile());
+            URL url_lienHttps = new URL("https", url_lien.getHost(), url_lien.getPort(), url_lien.getFile());
 
             String lienHttps = url_lienHttps.toString();
             return lienHttps;
@@ -179,10 +179,25 @@ public class SearchBookByKeywordActivity extends AppCompatActivity {
                             auteur = jsonArrayAuthors.get(0).toString();
                         }
                         Log.i(TAG, "onResponse: auteur : " + auteur);
-                        /*JSONArray jsonArrayIndustryIdentifiers = volumeInfo.getJSONArray("industryIdentifiers");
-                        JSONObject jsonObjectIsbn13 = jsonArrayIndustryIdentifiers.getJSONObject(1);
-                        String isbn = jsonObjectIsbn13.getString("identifier");*/
+
                         String isbn = "";
+                        if (volumeInfo.has("industryIdentifiers")) {
+                            JSONArray jsonArrayIndustryIdentifiers = volumeInfo.getJSONArray("industryIdentifiers");
+                            // l'ordre des isbn peut varier
+                            for (int j = 0; j < jsonArrayIndustryIdentifiers.length(); j++) {
+                                JSONObject jsonObjectIsbn = jsonArrayIndustryIdentifiers.getJSONObject(j);
+                                if (jsonObjectIsbn.has("type")) {
+                                    if (jsonObjectIsbn.getString("type").equals("ISBN_13")) {
+                                        if (jsonObjectIsbn.has("identifier")) {
+                                            isbn = jsonObjectIsbn.getString("identifier");
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+
                         Log.i(TAG, "onResponse: isbn : " + isbn);
 
                         String coverUrl = "";

@@ -52,8 +52,8 @@ public class AdapterBook extends RecyclerView.Adapter<AdapterBook.MyViewHolder> 
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
-                .error(R.mipmap.ic_launcher)
-                .placeholder(R.mipmap.ic_launcher);
+                .error(R.drawable.open_book_default)
+                .placeholder(R.drawable.open_book_default);
 
         // methode normale
         Glide.with(context)
