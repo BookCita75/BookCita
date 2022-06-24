@@ -46,7 +46,7 @@ public class SearchBookByKeywordActivity extends AppCompatActivity implements Ad
     private static final String MAX_RESULTS = "40";
     private static final String ISBN = "isbn";
     private static final String ID = "id";
-
+    // test pour rebase
     private EditText etKeyword;
     private String keyword = "";
     private String totalItems;
