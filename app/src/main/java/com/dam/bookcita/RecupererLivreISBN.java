@@ -138,7 +138,10 @@ public class RecupererLivreISBN extends AppCompatActivity{
                     }
                     Log.i(TAG, "CoverUrl : " + coverUrl);
 
-                   ModelDetailsLivre detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl);
+
+
+
+                   ModelDetailsLivre detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,"ISBN : ",2);
 
                     Log.i(TAG, "Details Livre  : " + detailsLivre.getTitle_livre() + " || " + detailsLivre.getAuteur_livre() +" || " + detailsLivre.getEditeur_livre()+" || "+detailsLivre.getDate_parution_livre());
 

@@ -70,7 +70,6 @@
                 android:id="@+id/tv_title_livre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="Titre de livre"
                 android:textColor="#000000"
                 android:textSize="34sp"
@@ -80,33 +79,47 @@
 
             <TextView
                 android:id="@+id/tv_auteur_livre"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Auteurs"
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_livre" />
+                android:layout_weight="1"
+                android:text="AUTEUR "
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_editeur_livre"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Editeur"
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_auteur_livre" />
+                android:layout_weight="1"
+                android:text="EDITEUR "
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_isbn_livre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ISBN : "
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_nombres_pages_livres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nbre des pages"
+                    android:textColor="@color/black" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_parution_livre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:text="Date de parution"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -145,7 +158,8 @@
             android:paddingLeft="8dp"
             android:scrollbars="vertical"
             android:textAlignment="viewStart"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </LinearLayout>
 
     <LinearLayout
