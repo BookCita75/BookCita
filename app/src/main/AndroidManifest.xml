@@ -35,6 +35,9 @@
             android:name=".RecupererLivreISBN"
             android:exported="false" />
         <activity
+            android:name=".ImportCitationsAnnotationsJSON"
+            android:exported="false" />
+        <activity
             android:name=".Splash"
             android:exported="true">
             <intent-filter>
