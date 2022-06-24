@@ -50,6 +50,8 @@ public class RecupererLivreISBN extends AppCompatActivity{
     private TextView tv_editeur_livre;
     private TextView tv_parution_livre;
     private TextView tv_resume_livre;
+    private TextView tv_isbn_livre;
+    private TextView tv_nombres_pages_livres;
     private ImageView iv_couverture_livre;
     private static final String TAG = "tag";
 
@@ -65,6 +67,8 @@ public class RecupererLivreISBN extends AppCompatActivity{
         tv_editeur_livre = findViewById(R.id.tv_editeur_livre);
         tv_parution_livre = findViewById(R.id.tv_parution_livre);
         tv_resume_livre = findViewById(R.id.tv_resume_livre);
+        tv_isbn_livre = findViewById(R.id.tv_isbn_livre);
+        tv_nombres_pages_livres = findViewById(R.id.tv_nombres_pages_livres);
         iv_couverture_livre = (ImageView) findViewById(R.id.iv_couverture_livre);
         tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
 
@@ -117,6 +121,7 @@ public class RecupererLivreISBN extends AppCompatActivity{
                     else {
                         volumeInfo = response.getJSONObject("volumeInfo");
                     }
+
                     String titre = "";
                     if (volumeInfo.has("title")) {
                         titre = volumeInfo.getString("title");
@@ -162,9 +167,31 @@ public class RecupererLivreISBN extends AppCompatActivity{
                     Log.i(TAG, "CoverUrl : " + coverUrl);
 
 
+                    int pageCount=0;
+                    if (volumeInfo.has("pageCount")) {
+                        pageCount = volumeInfo.getInt("pageCount");
+                    }
+                    Log.i(TAG, "pageCount : " + pageCount);
+
+                    String isbn = "";
+                    if (volumeInfo.has("industryIdentifiers")) {
+                        JSONArray jsonArrayIndustryIdentifiers = volumeInfo.getJSONArray("industryIdentifiers");
+                        // l'ordre des isbn peut varier
+                        for (int j = 0; j < jsonArrayIndustryIdentifiers.length(); j++) {
+                            JSONObject jsonObjectIsbn = jsonArrayIndustryIdentifiers.getJSONObject(j);
+                            if (jsonObjectIsbn.has("type")) {
+                                if (jsonObjectIsbn.getString("type").equals("ISBN_13")) {
+                                    if (jsonObjectIsbn.has("identifier")) {
+                                        isbn = "ISBN:"+jsonObjectIsbn.getString("identifier");
+                                    }
+                                }
+
+                            }
+                        }
+                    }
 
 
-                   ModelDetailsLivre detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,"ISBN : ",2);
+                   ModelDetailsLivre detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount);
 
                     Log.i(TAG, "Details Livre  : " + detailsLivre.getTitle_livre() + " || " + detailsLivre.getAuteur_livre() +" || " + detailsLivre.getEditeur_livre()+" || "+detailsLivre.getDate_parution_livre());
 
@@ -173,6 +200,8 @@ public class RecupererLivreISBN extends AppCompatActivity{
                     tv_parution_livre.setText(dateApparition);
                     tv_resume_livre.setText(description);
                     tv_editeur_livre.setText(editeur);
+                    tv_isbn_livre.setText(isbn);
+                    tv_nombres_pages_livres.setText(String.valueOf(pageCount)+"p.");
 
 //                    Uri myUri = Uri.parse(coverUrl);
 //                    iv_couverture_livre.setImageURI(myUri);
