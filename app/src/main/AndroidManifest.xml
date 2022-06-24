@@ -15,6 +15,9 @@
             android:name=".SearchBookByKeywordActivity"
             android:exported="false" />
         <activity
+            android:name=".ImportCitationsAnnotationsJSON"
+            android:exported="false" />
+        <activity
             android:name=".AjouterUnLivre"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
             android:name=".RecupererLivreISBN"
             android:exported="false" />
         <activity
-            android:name=".ImportCitationsAnnotationsJSON"
+            android:name=".Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
