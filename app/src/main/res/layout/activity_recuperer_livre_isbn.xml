@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F3F3"
+    android:background="@color/greige"
     tools:context=".RecupererLivreISBN">
 
     <ImageView
@@ -45,9 +45,11 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_light_color"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
         <ImageView
@@ -58,8 +60,9 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/secondary_light_color"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -80,7 +83,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:gravity="center"
                 android:text="Auteurs"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +95,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
                 android:text="Editeur"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +107,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
                 android:text="Date de parution"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -118,22 +118,35 @@
         </LinearLayout>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/tv_resume_livre"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textMultiLine"
-        android:maxLines="9"
-        android:scrollbars="vertical"
-        android:textAlignment="inherit"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/butthgon"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:text="Résumé : "
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/tv_resume_livre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:maxLines="15"
+            android:paddingLeft="8dp"
+            android:scrollbars="vertical"
+            android:textAlignment="viewStart"
+            android:textColor="#000000" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -156,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_books_bottom_bar_24" />
+                app:srcCompat="@drawable/ic_accueil_24" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -164,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="LIVRES"
+                android:text="ACCUEIL"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -179,7 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_citations_bottom_barre_24" />
+                app:srcCompat="@drawable/ic_books_bottom_bar_24" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -187,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="CITATIONS"
+                android:text="MES LIVRES"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -203,7 +216,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_search_barre_bottom_24" />
+                app:srcCompat="@drawable/ic_citations_bottom_barre_24" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -211,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="RECHERCHES"
+                android:text="MES CITATIONS"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -227,7 +240,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_profile_barre_bottom_24" />
+                app:srcCompat="@drawable/ic_search_barre_bottom_24" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -235,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="CITATIONS"
+                android:text="RECHERCHER"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -247,7 +260,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:text="Button"
+        android:text="AJOUTER A MES LIVRES"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
