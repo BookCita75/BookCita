@@ -12,8 +12,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,6 +51,8 @@ public class SearchBookByKeywordActivity extends AppCompatActivity implements Ad
     private String keyword = "";
     private String totalItems;
     private RecyclerView rvBookByKeyword;
+
+    private Button btnClearText;
 
     private ArrayList<ModelBook> bookArrayList;
 
@@ -103,6 +108,7 @@ public class SearchBookByKeywordActivity extends AppCompatActivity implements Ad
     private void init() {
         etKeyword = findViewById(R.id.etKeyword);
         rvBookByKeyword = findViewById(R.id.rvBookByKeyword);
+        btnClearText = findViewById(R.id.btnClearText);
 
         bookArrayList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
@@ -122,12 +128,40 @@ public class SearchBookByKeywordActivity extends AppCompatActivity implements Ad
         if (checkPermission()) {
             //remplissageArrayListeEnDur();
         }
+        btnClearText.setVisibility(View.INVISIBLE);
+
+        etKeyword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() != 0) {
+                    btnClearText.setVisibility(View.VISIBLE);
+                } else {
+                    btnClearText.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    public void clearText (View view) {
+        etKeyword.setText("");
+        btnClearText.setVisibility(View.GONE);
     }
 
     public void searchBook(View view) throws UnsupportedEncodingException {
         bookArrayList.clear();
         keyword = etKeyword.getText().toString().trim();
-        Toast.makeText(this, "motCle : " + keyword, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "motCle : " + keyword, Toast.LENGTH_SHORT).show();
         parseJSON();
     }
 

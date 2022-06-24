@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:padding="8dp"
-    app:cardBackgroundColor="@color/primary_light_color"
+    app:cardBackgroundColor="@color/secondary_light_color"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp">
 
@@ -28,10 +28,11 @@
 
         <TextView
             android:id="@+id/tvTitre"
-            android:layout_width="328dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/ivCover"
@@ -40,9 +41,10 @@
 
         <TextView
             android:id="@+id/tvAuteur"
-            android:layout_width="324dp"
+            android:layout_width="250dp"
             android:layout_height="32dp"
             android:layout_marginTop="12dp"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/tvTitre"
             app:layout_constraintTop_toBottomOf="@+id/tvTitre"
             tools:text="Auteur" />
