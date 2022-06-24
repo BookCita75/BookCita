@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class RecupererLivreISBN extends AppCompatActivity{
         tv_parution_livre = findViewById(R.id.tv_parution_livre);
         tv_resume_livre = findViewById(R.id.tv_resume_livre);
         iv_couverture_livre = (ImageView) findViewById(R.id.iv_couverture_livre);
+        tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
 
         requestQueue = Volley.newRequestQueue(this);
 
