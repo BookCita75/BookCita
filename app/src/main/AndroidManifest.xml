@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
+            android:name=".SearchBookByKeywordActivity"
+            android:exported="false" />
+        <activity
             android:name=".AjouterUnLivre"
             android:exported="false" />
         <activity
@@ -21,7 +24,7 @@
             android:name=".RecupererLivreISBN"
             android:exported="false" />
         <activity
-            android:name=".SearchBookByKeywordActivity"
+            android:name=".ImportCitationsAnnotationsJSON"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
