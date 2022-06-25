@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
-            android:name=".ParseTxtToJSONActivity"
+            android:name=".GenerateJSONfromTxtActivity"
             android:exported="false" />
         <activity
             android:name=".AjouterUnLivre"

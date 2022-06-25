@@ -27,7 +27,7 @@ public class Splash extends AppCompatActivity {
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
-                                        startActivity(new Intent(Splash.this, ParseTxtToJSONActivity.class));
+                                        startActivity(new Intent(Splash.this, GenerateJSONfromTxtActivity.class));
                                     }
                                 })
                                 .start();

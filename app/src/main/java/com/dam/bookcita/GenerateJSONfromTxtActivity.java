@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,18 +16,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class ParseTxtToJSONActivity extends AppCompatActivity {
+public class GenerateJSONfromTxtActivity extends AppCompatActivity {
 
-    private static final String TAG = "ParseTxtToJSONActivity";
+    private static final String TAG = "GenerateJSONfromTxtActi";
 
     private EditText etResultJSON;
 
@@ -41,7 +36,7 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parse_txt_to_json);
+        setContentView(R.layout.activity_generate_json_from_txt);
 
         initUI();
     }
@@ -69,7 +64,7 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
     }
 
 
-    public void parseTxtToJson(View view) throws JsonProcessingException {
+    public void generateJSONfromTxt(View view) throws JsonProcessingException {
 
         String strTxt = readFileTxt();
 
@@ -84,20 +79,19 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
         String[] tabStrTxt = strTxt.split("-------------------");
         // -1 car apres le dernier ------------------- il y a un \n
         int nbCitations = tabStrTxt.length - 1;
-        Log.i(TAG, "parseTxtToJson: nbCitations : " + nbCitations);
+        Log.i(TAG, "generateJSONfromTxt: nbCitations : " + nbCitations);
         for (int i = 0; i < nbCitations; i++) {
 
             ObjectNode item = mapper.createObjectNode();
-            //Log.i(TAG, "parseTxtToJson: tabStrTxt[1]: " + tabStrTxt[1]);
 
             String[] tabItemCitationAnnotation = tabStrTxt[i].split("  |  ");
-            Log.i(TAG, "parseTxtToJson: tabItemCitationAnnotation[0] : " + tabItemCitationAnnotation[0]);
+            Log.i(TAG, "generateJSONfromTxt: tabItemCitationAnnotation[0] : " + tabItemCitationAnnotation[0]);
             String dateHeure;
 
             //Le premier item de citation contient aussi les infos du livre
             if (i == 0) {
                 int indexPremierRetourChariot = tabItemCitationAnnotation[0].indexOf('\n');
-                Log.i(TAG, "parseTxtToJson: indexPremierRetourChariot : " + indexPremierRetourChariot);
+                Log.i(TAG, "generateJSONfromTxt: indexPremierRetourChariot : " + indexPremierRetourChariot);
                 dateHeure = tabItemCitationAnnotation[0].substring(indexPremierRetourChariot);
             } else {
                 dateHeure = tabItemCitationAnnotation[0];
@@ -115,20 +109,20 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
             String[] tabDateHeure = dateHeure.split(" ");
 
             String date = tabDateHeure[0];
-            Log.i(TAG, "parseTxtToJson: date : " + date);
+            Log.i(TAG, "generateJSONfromTxt: date : " + date);
             String heure = tabDateHeure[1];
-            Log.i(TAG, "parseTxtToJson: heure : " + heure);
+            Log.i(TAG, "generateJSONfromTxt: heure : " + heure);
 
 
-            Log.i(TAG, "parseTxtToJson: tabItemCitationAnnotation[2] : " + tabItemCitationAnnotation[2]);
+            Log.i(TAG, "generateJSONfromTxt: tabItemCitationAnnotation[2] : " + tabItemCitationAnnotation[2]);
             int indexPremierRetourChariotApNumPage = tabItemCitationAnnotation[2].indexOf('\n');
-            Log.i(TAG, "parseTxtToJson: indexPremierRetourChariotApNumPage" + indexPremierRetourChariotApNumPage);
+            Log.i(TAG, "generateJSONfromTxt: indexPremierRetourChariotApNumPage" + indexPremierRetourChariotApNumPage);
             //Page No. : => fait 11 caractères
             String numeroPage = tabItemCitationAnnotation[2].substring(10, indexPremierRetourChariotApNumPage);
-            Log.i(TAG, "parseTxtToJson: numeroPage : " + numeroPage);
+            Log.i(TAG, "generateJSONfromTxt: numeroPage : " + numeroPage);
 
             int indexDebutNote = tabItemCitationAnnotation[2].indexOf('【');
-            Log.i(TAG, "parseTxtToJson: indexDebutNote : " + indexDebutNote);
+            Log.i(TAG, "generateJSONfromTxt: indexDebutNote : " + indexDebutNote);
 
             String citation;
             String annotation="";
@@ -136,13 +130,13 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
             if(indexDebutNote == -1) {
                 // item sans note :
                 citation = tabItemCitationAnnotation[2].substring(indexPremierRetourChariotApNumPage + 1, tabItemCitationAnnotation[2].length() - 1);
-                Log.i(TAG, "parseTxtToJson: citation (item sans note) : " + citation);
+                Log.i(TAG, "generateJSONfromTxt: citation (item sans note) : " + citation);
             } else {
                 citation = tabItemCitationAnnotation[2].substring(indexPremierRetourChariotApNumPage + 1, indexDebutNote - 1);
-                Log.i(TAG, "parseTxtToJson: citation : " + citation);
+                Log.i(TAG, "generateJSONfromTxt: citation : " + citation);
                 // L'annotation commence à 6 caractères après 【 car : 【Note】 fait 6 caractères
                 annotation = tabItemCitationAnnotation[2].substring(indexDebutNote + 6, tabItemCitationAnnotation[2].length() - 1);
-                Log.i(TAG, "parseTxtToJson: annotation : " + annotation);
+                Log.i(TAG, "generateJSONfromTxt: annotation : " + annotation);
             }
 
 
@@ -166,14 +160,14 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
         String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
         try {
             jsonObjectGeneratedFromTxt= new JSONObject(jsonString);
-            Log.i(TAG, "parseTxtToJson: jsonObjectGeneratedFromTxt : " + jsonObjectGeneratedFromTxt);
+            Log.i(TAG, "generateJSONfromTxt: jsonObjectGeneratedFromTxt : " + jsonObjectGeneratedFromTxt);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         etResultJSON.setText(strTxt + jsonString);
 
-        Log.i(TAG, "parseTxtToJson: jsonString " + jsonString);
+        Log.i(TAG, "generateJSONfromTxt: jsonString " + jsonString);
 
     }
 }
