@@ -44,7 +44,7 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
 
     private String readFileTxt() {
         String myData = "";
-        InputStream ips = getResources().openRawResource(R.raw.ts_ca);
+        InputStream ips = getResources().openRawResource(R.raw.bible_ca);
 
         try {
             InputStreamReader ipsr = new InputStreamReader(ips);
@@ -97,9 +97,19 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
             } else {
                 dateHeure = tabItemCitationAnnotation[0];
             }
-            String[] tabDateHeure = dateHeure.split(" ");
             //le premier caractère étant un \n
-            String date = tabDateHeure[0].substring(1);
+            dateHeure = dateHeure.substring(1);
+
+            // dans le cas ou il y a un titre avant la date et l'heure : il y a aussi un retour chariot
+            int indexRetourChariotAvDateHeure = dateHeure.indexOf('\n');
+            if (indexRetourChariotAvDateHeure != -1) {
+                // cas ou il y a un titre avant la date et l'heure
+                dateHeure = dateHeure.substring(indexRetourChariotAvDateHeure+1);
+            }
+
+            String[] tabDateHeure = dateHeure.split(" ");
+
+            String date = tabDateHeure[0];
             Log.i(TAG, "parseTxtToJson: date : " + date);
             String heure = tabDateHeure[1];
             Log.i(TAG, "parseTxtToJson: heure : " + heure);
