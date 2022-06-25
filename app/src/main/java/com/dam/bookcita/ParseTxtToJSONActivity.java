@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -28,6 +31,8 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
     private static final String TAG = "ParseTxtToJSONActivity";
 
     private EditText etResultJSON;
+
+    private JSONObject jsonObjectGeneratedFromTxt;
 
     private void initUI() {
         etResultJSON = findViewById(R.id.etResultJSON);
@@ -159,6 +164,13 @@ public class ParseTxtToJSONActivity extends AppCompatActivity {
         rootNode.putArray("items").addAll(arrayNodeItems);
 
         String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+        try {
+            jsonObjectGeneratedFromTxt= new JSONObject(jsonString);
+            Log.i(TAG, "parseTxtToJson: jsonObjectGeneratedFromTxt : " + jsonObjectGeneratedFromTxt);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         etResultJSON.setText(strTxt + jsonString);
 
         Log.i(TAG, "parseTxtToJson: jsonString " + jsonString);
