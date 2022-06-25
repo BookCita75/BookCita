@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,9 +22,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class GenerateJSONfromTxtActivity extends AppCompatActivity {
+public class ImportTxtFileActivity extends AppCompatActivity {
 
-    private static final String TAG = "GenerateJSONfromTxtActi";
+    private static final String TAG = "ImportTxtFileActivity";
 
     private EditText etResultJSON;
 
@@ -36,7 +37,7 @@ public class GenerateJSONfromTxtActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_generate_json_from_txt);
+        setContentView(R.layout.activity_import_txt_file);
 
         initUI();
     }
@@ -103,7 +104,7 @@ public class GenerateJSONfromTxtActivity extends AppCompatActivity {
             int indexRetourChariotAvDateHeure = dateHeure.indexOf('\n');
             if (indexRetourChariotAvDateHeure != -1) {
                 // cas ou il y a un titre avant la date et l'heure
-                dateHeure = dateHeure.substring(indexRetourChariotAvDateHeure+1);
+                dateHeure = dateHeure.substring(indexRetourChariotAvDateHeure + 1);
             }
 
             String[] tabDateHeure = dateHeure.split(" ");
@@ -125,9 +126,9 @@ public class GenerateJSONfromTxtActivity extends AppCompatActivity {
             Log.i(TAG, "generateJSONfromTxt: indexDebutNote : " + indexDebutNote);
 
             String citation;
-            String annotation="";
+            String annotation = "";
             //Certains items n'ont pas de note
-            if(indexDebutNote == -1) {
+            if (indexDebutNote == -1) {
                 // item sans note :
                 citation = tabItemCitationAnnotation[2].substring(indexPremierRetourChariotApNumPage + 1, tabItemCitationAnnotation[2].length() - 1);
                 Log.i(TAG, "generateJSONfromTxt: citation (item sans note) : " + citation);
@@ -140,12 +141,11 @@ public class GenerateJSONfromTxtActivity extends AppCompatActivity {
             }
 
 
-
             item.put("date", date);
             item.put("heure", heure);
             item.put("page", numeroPage);
             item.put("citation", citation);
-            if (indexDebutNote != -1){
+            if (indexDebutNote != -1) {
                 item.put("annotation", annotation);
             }
             arrayList.add(item);
@@ -159,7 +159,7 @@ public class GenerateJSONfromTxtActivity extends AppCompatActivity {
 
         String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
         try {
-            jsonObjectGeneratedFromTxt= new JSONObject(jsonString);
+            jsonObjectGeneratedFromTxt = new JSONObject(jsonString);
             Log.i(TAG, "generateJSONfromTxt: jsonObjectGeneratedFromTxt : " + jsonObjectGeneratedFromTxt);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -169,5 +169,39 @@ public class GenerateJSONfromTxtActivity extends AppCompatActivity {
 
         Log.i(TAG, "generateJSONfromTxt: jsonString " + jsonString);
 
+    }
+
+    public void parseJson (View view){
+        parseGeneratedJson();
+    }
+
+    private void parseGeneratedJson() {
+        try {
+            JSONArray jsonArray = jsonObjectGeneratedFromTxt.getJSONArray("items");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String date = item.getString("date");
+                Log.i(TAG, "parseGeneratedJson: date : " + date);
+
+                String heure = item.getString("heure");
+                Log.i(TAG, "parseGeneratedJson: heure : " + heure);
+
+                String page = item.getString("page");
+                Log.i(TAG, "parseGeneratedJson: page : " + page);
+
+                String citation = item.getString("citation");
+                Log.i(TAG, "parseGeneratedJson: citation : " + citation);
+
+                if (item.has("annotation")) {
+                    String annotation = item.getString("annotation");
+                    Log.i(TAG, "parseGeneratedJson: annotation : " + annotation);
+                }
+
+            }
+        } catch (
+                JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
