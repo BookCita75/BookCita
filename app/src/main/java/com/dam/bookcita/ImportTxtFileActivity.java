@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,12 +27,17 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
     private static final String TAG = "ImportTxtFileActivity";
 
-    private EditText etResultJSON;
+    private EditText etTxtFile, etGeneratedJSON, etParsedJSON;
+
+    private Button btnParserJSON;
 
     private JSONObject jsonObjectGeneratedFromTxt;
 
     private void initUI() {
-        etResultJSON = findViewById(R.id.etResultJSON);
+        etTxtFile = findViewById(R.id.etTxtFile);
+        etGeneratedJSON = findViewById(R.id.etGeneratedJSON);
+        btnParserJSON = findViewById(R.id.btnParserJSON);
+        etParsedJSON = findViewById(R.id.etParsedJSON);
     }
 
     @Override
@@ -165,9 +171,11 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        etResultJSON.setText(strTxt + jsonString);
-
+        etTxtFile.setText(strTxt);
+        etGeneratedJSON.setText(jsonString);
         Log.i(TAG, "generateJSONfromTxt: jsonString " + jsonString);
+
+        btnParserJSON.setEnabled(true);
 
     }
 
@@ -177,28 +185,38 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
     private void parseGeneratedJson() {
         try {
+            String parsedJSON = "";
             JSONArray jsonArray = jsonObjectGeneratedFromTxt.getJSONArray("items");
             for (int i = 0; i < jsonArray.length(); i++) {
+                parsedJSON += "item n° : " + i + '\n';
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String date = item.getString("date");
                 Log.i(TAG, "parseGeneratedJson: date : " + date);
+                parsedJSON += "date : " + date + '\n';
 
                 String heure = item.getString("heure");
                 Log.i(TAG, "parseGeneratedJson: heure : " + heure);
+                parsedJSON += "heure : " + heure + '\n';
 
                 String page = item.getString("page");
                 Log.i(TAG, "parseGeneratedJson: page : " + page);
+                parsedJSON += "page : " + page + '\n';
 
                 String citation = item.getString("citation");
                 Log.i(TAG, "parseGeneratedJson: citation : " + citation);
+                parsedJSON += "citation : " + citation + '\n';
 
                 if (item.has("annotation")) {
                     String annotation = item.getString("annotation");
                     Log.i(TAG, "parseGeneratedJson: annotation : " + annotation);
+                    parsedJSON += "annotation : " + annotation + '\n';
                 }
 
+                parsedJSON += '\n';
+
             }
+            etParsedJSON.setText(parsedJSON);
         } catch (
                 JSONException e) {
             e.printStackTrace();
