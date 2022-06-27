@@ -15,6 +15,9 @@ import androidx.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -26,14 +29,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.mlkit.vision.barcode.BarcodeScanner;
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
+import com.google.mlkit.vision.barcode.common.Barcode;
+import com.google.mlkit.vision.common.InputImage;
+
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
 
 public class CameraXActivity extends AppCompatActivity {
-    private Context context;
+
     private static final String TAG = "CameraXActivity";
     private int REQUEST_CODE_PERMISSIONS = 101;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
     TextureView textureView;
+
+    private String scannedImgAbsolutePath;
+    private String isbnScanne;
+
 
 
     @Override
@@ -42,9 +61,9 @@ public class CameraXActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_x);
         textureView = findViewById(R.id.view_finder);
 
-        if(allPermissionsGranted()){
+        if (allPermissionsGranted()) {
             startCamera(); //start camera if permission has been granted by user
-        } else{
+        } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
     }
@@ -53,7 +72,7 @@ public class CameraXActivity extends AppCompatActivity {
 
         CameraX.unbindAll();
 
-        Rational aspectRatio = new Rational (textureView.getWidth(), textureView.getHeight());
+        Rational aspectRatio = new Rational(textureView.getWidth(), textureView.getHeight());
         Size screen = new Size(textureView.getWidth(), textureView.getHeight()); //size of the screen
 
 
@@ -67,7 +86,7 @@ public class CameraXActivity extends AppCompatActivity {
         preview.setOnPreviewOutputUpdateListener(
                 new Preview.OnPreviewOutputUpdateListener() {
                     @Override
-                    public void onUpdated(Preview.PreviewOutput output){
+                    public void onUpdated(Preview.PreviewOutput output) {
                         ViewGroup parent = (ViewGroup) textureView.getParent();
                         parent.removeView(textureView);
                         parent.addView(textureView, 0);
@@ -92,15 +111,18 @@ public class CameraXActivity extends AppCompatActivity {
                     @Override
                     public void onImageSaved(@NonNull File file) {
                         String msg = "Pic captured at " + file.getAbsolutePath();
+                        scannedImgAbsolutePath = file.getAbsolutePath();
+                        Log.i(TAG, "onImageSaved: file.getPath() : " + file.getPath());
                         Log.i(TAG, "onImageSaved: msg: " + msg);
-                        Toast.makeText(getBaseContext(), msg,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
+                        extractISBN();
                     }
 
                     @Override
                     public void onError(@NonNull ImageCapture.UseCaseError useCaseError, @NonNull String message, @Nullable Throwable cause) {
                         String msg = "Pic capture failed : " + message;
-                        Toast.makeText(getBaseContext(), msg,Toast.LENGTH_LONG).show();
-                        if(cause != null){
+                        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
+                        if (cause != null) {
                             cause.printStackTrace();
                             Log.i(TAG, "onError: cause Message" + cause.getMessage());
                         }
@@ -110,10 +132,10 @@ public class CameraXActivity extends AppCompatActivity {
         });
 
         //bind to lifecycle:
-        CameraX.bindToLifecycle((LifecycleOwner)this, preview, imgCap);
+        CameraX.bindToLifecycle((LifecycleOwner) this, preview, imgCap);
     }
 
-    private void updateTransform(){
+    private void updateTransform() {
         Matrix mx = new Matrix();
         float w = textureView.getMeasuredWidth();
         float h = textureView.getMeasuredHeight();
@@ -122,9 +144,9 @@ public class CameraXActivity extends AppCompatActivity {
         float cY = h / 2f;
 
         int rotationDgr;
-        int rotation = (int)textureView.getRotation();
+        int rotation = (int) textureView.getRotation();
 
-        switch(rotation){
+        switch (rotation) {
             case Surface.ROTATION_0:
                 rotationDgr = 0;
                 break;
@@ -141,7 +163,7 @@ public class CameraXActivity extends AppCompatActivity {
                 return;
         }
 
-        mx.postRotate((float)rotationDgr, cX, cY);
+        mx.postRotate((float) rotationDgr, cX, cY);
         textureView.setTransform(mx);
     }
 
@@ -159,13 +181,67 @@ public class CameraXActivity extends AppCompatActivity {
         }
     }
 
-    private boolean allPermissionsGranted(){
+    private boolean allPermissionsGranted() {
 
-        for(String permission : REQUIRED_PERMISSIONS){
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
         return true;
     }
+
+    private void extractISBN() {
+        BarcodeScannerOptions options =
+                new BarcodeScannerOptions.Builder()
+                        .setBarcodeFormats(
+                                Barcode.FORMAT_EAN_13
+                                )
+                        .build();
+
+
+        InputImage imageScannee=null;
+        try {
+            Uri uriImgScannee = Uri.fromFile(new File(scannedImgAbsolutePath));
+            imageScannee = InputImage.fromFilePath(getApplicationContext(), uriImgScannee);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BarcodeScanner scannerBarcode = BarcodeScanning.getClient(options);
+
+        Task<List<Barcode>> result = scannerBarcode.process(imageScannee)
+                .addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
+                    @Override
+                    public void onSuccess(List<Barcode> barcodes) {
+                        // Task completed successfully
+                        Log.i(TAG, "onSuccess: Task completed successfully " + barcodes.toString());
+                        if (barcodes.isEmpty()) {
+                            Toast.makeText(CameraXActivity.this, "ISBN non reconnu", Toast.LENGTH_LONG).show();
+                        } else {
+                            for (Barcode barcode: barcodes) {
+                                Rect bounds = barcode.getBoundingBox();
+                                Point[] corners = barcode.getCornerPoints();
+                                // on suppose qu'on a scanné qu'un seul isbn;
+                                isbnScanne = barcode.getRawValue();
+                                Log.i(TAG, "onSuccess: isbnScanne : " + isbnScanne);
+                                Toast.makeText(CameraXActivity.this, "ISBN scanné : " + isbnScanne, Toast.LENGTH_LONG).show();
+                                int valueType = barcode.getValueType();
+                                Log.i(TAG, "onSuccess: valueType : " + valueType);
+
+                            }
+                        }
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Task failed with an exception
+                        // ...
+                        Log.i(TAG, "onFailure: e:" + e);
+                    }
+                });
+    }
+
 }
