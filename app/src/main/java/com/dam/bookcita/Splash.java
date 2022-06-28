@@ -27,7 +27,7 @@ public class Splash extends AppCompatActivity {
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
-                                        startActivity(new Intent(Splash.this, ScannerISBNActivity.class));
+                                        startActivity(new Intent(Splash.this, SearchBookByKeywordActivity.class));
                                     }
                                 })
                                 .start();
