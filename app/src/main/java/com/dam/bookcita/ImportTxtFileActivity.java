@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -73,42 +74,29 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
     private String readFileTxt(String uri_pathComplet) throws FileNotFoundException {
         String myData = "";
-        Log.i(TAG, "URI path : " + uri_path);
-
-        int indexLastSlash = uri_pathComplet.lastIndexOf('/');
-        Log.i(TAG, "onActivityResult: indexLastSlash : " + indexLastSlash);
-        uri_path = uri_pathComplet.substring(0, indexLastSlash);
-        Log.i(TAG, "onActivityResult: uriPathComplet : " + uri_pathComplet);
-        Log.i(TAG, "onActivityResult: uri_path from onActivityResult : " + uri_path);
-
-        String fileName = uri_pathComplet.substring(indexLastSlash + 1, uri_pathComplet.length());
-        String uri_pathSansSlash = uri_path.substring(1);
-        Log.i(TAG, "readFileTxt: fileName : " + fileName);
 
 
+        String uriPathCompletAndroid = uri_pathComplet;
+
+        // uriPathCompletAndroid : utilisable pour le FileInputStream
+        if (uri_pathComplet.contains("external_files")) {
+            uriPathCompletAndroid = uri_pathComplet.replace("external_files", "storage/emulated/0");
+        } else if (uri_pathComplet.contains("root_files")) {
+            uriPathCompletAndroid = uri_pathComplet.replace("root_files/", "");
+        }
+        Log.i(TAG, "readFileTxt: uriPathCompletAndroid : " + uriPathCompletAndroid);
 
 
-//        String uriPathCompletTest= getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)+ "/" + "bible_ca.txt";
-//        Log.i(TAG, "readFileTxt: uriPathCompletTest : " + uriPathCompletTest);
-//
-//        String uriPathCompletTestSansSlash = uriPathCompletTest.substring(1);
-//        Log.i(TAG, "readFileTxt: uriPathCompletTestSansSlash : " + uriPathCompletTestSansSlash);
-
-        file=new File(uri_path, fileName);
-
-        InputStream ips = new FileInputStream(file);
+//        InputStream ips = new FileInputStream("/storage/9C33-6BBD/Download/bookCitaTest3/ts_ca.txt");
+        InputStream ips = new FileInputStream(uriPathCompletAndroid);
+        // ancienne version
 //        InputStream ips = getResources().openRawResource(R.raw.bible_ca);
         try {
             Log.i(TAG, "try IN : ");
 
             InputStreamReader ipsr = new InputStreamReader(ips);
             BufferedReader br = new BufferedReader(ipsr);
-           // FileInputStream fis = new FileInputStream(file);
 
-            //FileReader fileReader = new FileReader(fileName);
-
-           // BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-//            BufferedReader br = new BufferedReader(new FileReader(file));
             String strLine;
             while ((strLine = br.readLine()) != null) {
                 myData = myData + strLine + "\n";
@@ -143,7 +131,108 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             try {
                 String strTxt = readFileTxt(uri_pathComplet);
                 Log.i(TAG, "onActivityResult: StrTXT : " + strTxt);
-            } catch (FileNotFoundException e) {
+                ObjectMapper mapper = new ObjectMapper();
+                ObjectNode rootNode = mapper.createObjectNode();
+
+
+                ArrayList<ObjectNode> arrayList = new ArrayList<>();
+
+
+                String[] tabStrTxt = strTxt.split("-------------------");
+                // -1 car apres le dernier ------------------- il y a un \n
+                int nbCitations = tabStrTxt.length - 1;
+                Log.i(TAG, "generateJSONfromTxt: nbCitations : " + nbCitations);
+                for (int i = 0; i < nbCitations; i++) {
+
+                    ObjectNode item = mapper.createObjectNode();
+
+                    String[] tabItemCitationAnnotation = tabStrTxt[i].split("  |  ");
+                    Log.i(TAG, "generateJSONfromTxt: tabItemCitationAnnotation[0] : " + tabItemCitationAnnotation[0]);
+                    String dateHeure;
+
+                    //Le premier item de citation contient aussi les infos du livre
+                    if (i == 0) {
+                        int indexPremierRetourChariot = tabItemCitationAnnotation[0].indexOf('\n');
+                        Log.i(TAG, "generateJSONfromTxt: indexPremierRetourChariot : " + indexPremierRetourChariot);
+                        dateHeure = tabItemCitationAnnotation[0].substring(indexPremierRetourChariot);
+                    } else {
+                        dateHeure = tabItemCitationAnnotation[0];
+                    }
+                    //le premier caractère étant un \n
+                    dateHeure = dateHeure.substring(1);
+
+                    // dans le cas ou il y a un titre avant la date et l'heure : il y a aussi un retour chariot
+                    int indexRetourChariotAvDateHeure = dateHeure.indexOf('\n');
+                    if (indexRetourChariotAvDateHeure != -1) {
+                        // cas ou il y a un titre avant la date et l'heure
+                        dateHeure = dateHeure.substring(indexRetourChariotAvDateHeure + 1);
+                    }
+
+                    String[] tabDateHeure = dateHeure.split(" ");
+
+                    String date = tabDateHeure[0];
+                    Log.i(TAG, "generateJSONfromTxt: date : " + date);
+                    String heure = tabDateHeure[1];
+                    Log.i(TAG, "generateJSONfromTxt: heure : " + heure);
+
+
+                    Log.i(TAG, "generateJSONfromTxt: tabItemCitationAnnotation[2] : " + tabItemCitationAnnotation[2]);
+                    int indexPremierRetourChariotApNumPage = tabItemCitationAnnotation[2].indexOf('\n');
+                    Log.i(TAG, "generateJSONfromTxt: indexPremierRetourChariotApNumPage" + indexPremierRetourChariotApNumPage);
+                    //Page No. : => fait 11 caractères
+                    String numeroPage = tabItemCitationAnnotation[2].substring(10, indexPremierRetourChariotApNumPage);
+                    Log.i(TAG, "generateJSONfromTxt: numeroPage : " + numeroPage);
+
+                    int indexDebutNote = tabItemCitationAnnotation[2].indexOf('【');
+                    Log.i(TAG, "generateJSONfromTxt: indexDebutNote : " + indexDebutNote);
+
+                    String citation;
+                    String annotation = "";
+                    //Certains items n'ont pas de note
+                    if (indexDebutNote == -1) {
+                        // item sans note :
+                        citation = tabItemCitationAnnotation[2].substring(indexPremierRetourChariotApNumPage + 1, tabItemCitationAnnotation[2].length() - 1);
+                        Log.i(TAG, "generateJSONfromTxt: citation (item sans note) : " + citation);
+                    } else {
+                        citation = tabItemCitationAnnotation[2].substring(indexPremierRetourChariotApNumPage + 1, indexDebutNote - 1);
+                        Log.i(TAG, "generateJSONfromTxt: citation : " + citation);
+                        // L'annotation commence à 6 caractères après 【 car : 【Note】 fait 6 caractères
+                        annotation = tabItemCitationAnnotation[2].substring(indexDebutNote + 6, tabItemCitationAnnotation[2].length() - 1);
+                        Log.i(TAG, "generateJSONfromTxt: annotation : " + annotation);
+                    }
+
+
+                    item.put("date", date);
+                    item.put("heure", heure);
+                    item.put("page", numeroPage);
+                    item.put("citation", citation);
+                    if (indexDebutNote != -1) {
+                        item.put("annotation", annotation);
+                    }
+                    arrayList.add(item);
+
+                }
+
+
+                ArrayNode arrayNodeItems = mapper.valueToTree(arrayList);
+
+                rootNode.putArray("items").addAll(arrayNodeItems);
+
+                String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+                try {
+                    jsonObjectGeneratedFromTxt = new JSONObject(jsonString);
+                    Log.i(TAG, "generateJSONfromTxt: jsonObjectGeneratedFromTxt : " + jsonObjectGeneratedFromTxt);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                etTxtFile.setText(strTxt);
+                etGeneratedJSON.setText(jsonString);
+                Log.i(TAG, "generateJSONfromTxt: jsonString " + jsonString);
+
+                btnParserJSON.setEnabled(true);
+
+            } catch (FileNotFoundException | JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
@@ -160,106 +249,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         Log.i(TAG, "generateJSONfromTxt: test");
 
 //        String strTxt = readFileTxt();
-//        ObjectMapper mapper = new ObjectMapper();
-//        ObjectNode rootNode = mapper.createObjectNode();
-//
-//
-//        ArrayList<ObjectNode> arrayList = new ArrayList<>();
-//
-//
-//        String[] tabStrTxt = strTxt.split("-------------------");
-//        // -1 car apres le dernier ------------------- il y a un \n
-//        int nbCitations = tabStrTxt.length - 1;
-//        Log.i(TAG, "generateJSONfromTxt: nbCitations : " + nbCitations);
-//        for (int i = 0; i < nbCitations; i++) {
-//
-//            ObjectNode item = mapper.createObjectNode();
-//
-//            String[] tabItemCitationAnnotation = tabStrTxt[i].split("  |  ");
-//            Log.i(TAG, "generateJSONfromTxt: tabItemCitationAnnotation[0] : " + tabItemCitationAnnotation[0]);
-//            String dateHeure;
-//
-//            //Le premier item de citation contient aussi les infos du livre
-//            if (i == 0) {
-//                int indexPremierRetourChariot = tabItemCitationAnnotation[0].indexOf('\n');
-//                Log.i(TAG, "generateJSONfromTxt: indexPremierRetourChariot : " + indexPremierRetourChariot);
-//                dateHeure = tabItemCitationAnnotation[0].substring(indexPremierRetourChariot);
-//            } else {
-//                dateHeure = tabItemCitationAnnotation[0];
-//            }
-//            //le premier caractère étant un \n
-//            dateHeure = dateHeure.substring(1);
-//
-//            // dans le cas ou il y a un titre avant la date et l'heure : il y a aussi un retour chariot
-//            int indexRetourChariotAvDateHeure = dateHeure.indexOf('\n');
-//            if (indexRetourChariotAvDateHeure != -1) {
-//                // cas ou il y a un titre avant la date et l'heure
-//                dateHeure = dateHeure.substring(indexRetourChariotAvDateHeure + 1);
-//            }
-//
-//            String[] tabDateHeure = dateHeure.split(" ");
-//
-//            String date = tabDateHeure[0];
-//            Log.i(TAG, "generateJSONfromTxt: date : " + date);
-//            String heure = tabDateHeure[1];
-//            Log.i(TAG, "generateJSONfromTxt: heure : " + heure);
-//
-//
-//            Log.i(TAG, "generateJSONfromTxt: tabItemCitationAnnotation[2] : " + tabItemCitationAnnotation[2]);
-//            int indexPremierRetourChariotApNumPage = tabItemCitationAnnotation[2].indexOf('\n');
-//            Log.i(TAG, "generateJSONfromTxt: indexPremierRetourChariotApNumPage" + indexPremierRetourChariotApNumPage);
-//            //Page No. : => fait 11 caractères
-//            String numeroPage = tabItemCitationAnnotation[2].substring(10, indexPremierRetourChariotApNumPage);
-//            Log.i(TAG, "generateJSONfromTxt: numeroPage : " + numeroPage);
-//
-//            int indexDebutNote = tabItemCitationAnnotation[2].indexOf('【');
-//            Log.i(TAG, "generateJSONfromTxt: indexDebutNote : " + indexDebutNote);
-//
-//            String citation;
-//            String annotation = "";
-//            //Certains items n'ont pas de note
-//            if (indexDebutNote == -1) {
-//                // item sans note :
-//                citation = tabItemCitationAnnotation[2].substring(indexPremierRetourChariotApNumPage + 1, tabItemCitationAnnotation[2].length() - 1);
-//                Log.i(TAG, "generateJSONfromTxt: citation (item sans note) : " + citation);
-//            } else {
-//                citation = tabItemCitationAnnotation[2].substring(indexPremierRetourChariotApNumPage + 1, indexDebutNote - 1);
-//                Log.i(TAG, "generateJSONfromTxt: citation : " + citation);
-//                // L'annotation commence à 6 caractères après 【 car : 【Note】 fait 6 caractères
-//                annotation = tabItemCitationAnnotation[2].substring(indexDebutNote + 6, tabItemCitationAnnotation[2].length() - 1);
-//                Log.i(TAG, "generateJSONfromTxt: annotation : " + annotation);
-//            }
-//
-//
-//            item.put("date", date);
-//            item.put("heure", heure);
-//            item.put("page", numeroPage);
-//            item.put("citation", citation);
-//            if (indexDebutNote != -1) {
-//                item.put("annotation", annotation);
-//            }
-//            arrayList.add(item);
-//
-//        }
-//
-//
-//        ArrayNode arrayNodeItems = mapper.valueToTree(arrayList);
-//
-//        rootNode.putArray("items").addAll(arrayNodeItems);
-//
-//        String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
-//        try {
-//            jsonObjectGeneratedFromTxt = new JSONObject(jsonString);
-//            Log.i(TAG, "generateJSONfromTxt: jsonObjectGeneratedFromTxt : " + jsonObjectGeneratedFromTxt);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        etTxtFile.setText(strTxt);
-//        etGeneratedJSON.setText(jsonString);
-//        Log.i(TAG, "generateJSONfromTxt: jsonString " + jsonString);
-//
-//        btnParserJSON.setEnabled(true);
+
 
     }
 
