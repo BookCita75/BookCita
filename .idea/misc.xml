@@ -28,6 +28,8 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_parse_txt_to_json.xml" value="0.22" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_recuperer_livre_isbn.xml" value="0.1" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_search_book_by_keyword.xml" value="0.10677083333333333" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_scanner_isbn.xml" value="0.10677083333333333" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_search_book_by_keyword.xml" value="0.10677083333333333" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_splash.xml" value="0.33" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/item_book.xml" value="0.30451612903225805" />
       </map>
