@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -53,6 +54,8 @@ public class CameraXActivity extends AppCompatActivity {
     private String scannedImgAbsolutePath;
     private String isbnScanne;
 
+    private static final String ISBN = "isbn";
+    private static final String ID = "id";
 
 
     @Override
@@ -228,6 +231,13 @@ public class CameraXActivity extends AppCompatActivity {
                                 Toast.makeText(CameraXActivity.this, "ISBN scanné : " + isbnScanne, Toast.LENGTH_LONG).show();
                                 int valueType = barcode.getValueType();
                                 Log.i(TAG, "onSuccess: valueType : " + valueType);
+
+                                Intent detailIntent = new Intent(getApplicationContext(), RecupererLivreISBN.class);
+
+                                detailIntent.putExtra(ISBN, isbnScanne);
+                                detailIntent.putExtra(ID, "");
+
+                                startActivity(detailIntent);
 
                             }
                         }
