@@ -19,7 +19,7 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/button_validation"
             android:onClick="generateJSONfromTxt"
-            android:text="Générer JSON à partir txt" />
+            android:text="CHOISIR UN FICHIER" />
 
         <TextView
             android:id="@+id/textView"
