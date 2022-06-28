@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dam.bookcita">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -17,10 +23,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
+            android:name=".ImportTxtFileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchBookByKeywordActivity"
+            android:exported="false" />
+        <activity
             android:name=".CameraXActivity"
             android:exported="false" />
         <activity
             android:name=".ScannerISBNActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ImportCitationsAnnotationsJSON"
             android:exported="false" />
         <activity
             android:name=".ImportTxtFileActivity"
@@ -28,14 +43,9 @@
         <activity
             android:name=".AjouterUnLivre"
             android:exported="false" />
-        <activity
-            android:name=".SearchBookByKeywordActivity"
-            android:exported="false" />
+
         <activity
             android:name=".RecupererLivreISBN"
-            android:exported="false" />
-        <activity
-            android:name=".ImportCitationsAnnotationsJSON"
             android:exported="false" />
         <activity
             android:name=".Splash"
@@ -48,8 +58,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>
