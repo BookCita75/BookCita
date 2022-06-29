@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -100,11 +101,42 @@ public class RecupererLivreISBN extends AppCompatActivity{
         couvertureImage = iv_couverture_livre.getDrawable().toString();
 
         String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
-       // int nbrPageLivre = Integer.parseInt(nombres_pages_livres);
 
-        //ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nbrPageLivre);
         Log.i(TAG, "Nombre des poages Livre: " +nbPages);
-        //ModelBook livre =new
+
+        //Enlever le caractére p le textView nbr des pages il prend 244p du coup je dois supprimer p pour le convertir en int aprés
+        String nombreDesPages = nbPages.substring(0, nbPages.length()-1);
+        Log.i(TAG, "ajouterLivreBD: nombreDesPages"+nombreDesPages);
+
+        int nbPagesSanP = Integer.parseInt(nombreDesPages);
+        Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
+
+       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nbPagesSanP);
+
+       livresRef.add(livre);
+        Log.i(TAG, "ModelDetailsLivre : ISBN"+ livre.getIsbn_livre() +" Titre : "+ livre.getTitle_livre()+ " Nombre des pages : "+ livre.getNombre_livres());
+
+        Log.i(TAG, "ajouterLivreBD: livresRef.getId : "+livresRef.getId());
+
+        Toast.makeText(RecupererLivreISBN.this, "Livre Ajouter avec succée !", Toast.LENGTH_SHORT).show();
+
+//        livresRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if (error != null){
+//                    return;
+//                }
+//                String data = "";
+//
+//                for (QueryDocumentSnapshot documentSnapshot : value){
+//                    ModelDetailsLivre modelDetailsLivre = documentSnapshot.toObject(ModelDetailsLivre.class);
+//                    modelDetailsLivre.setId(documentSnapshot.getId());
+//
+//                    String idLivre = modelDetailsLivre.getId();
+//
+//                }
+//            }
+//        }); //pour  update Livre
 
 
     }

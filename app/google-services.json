@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "793435650729",
+    "firebase_url": "https://bookcita-default-rtdb.firebaseio.com",
     "project_id": "bookcita",
     "storage_bucket": "bookcita.appspot.com"
   },
