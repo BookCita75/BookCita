@@ -271,10 +271,11 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/butthgon"
+        android:id="@+id/btn_ajout_livre_bd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:onClick="ajouterLivreBD"
         android:text="AJOUTER A MES LIVRES"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"

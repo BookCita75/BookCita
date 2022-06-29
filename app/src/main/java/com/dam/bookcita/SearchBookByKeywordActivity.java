@@ -38,6 +38,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import models.ModelBook;
+
 public class SearchBookByKeywordActivity extends AppCompatActivity implements AdapterBook.OnItemClickListener{
 
     private static final String TAG = "SearchBookByKeywordActi";
