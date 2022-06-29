@@ -69,11 +69,13 @@ public class RecupererLivreISBN extends AppCompatActivity{
     private static final String ID = "id";
 
     private RequestQueue requestQueue;
+    private ModelDetailsLivre detailsLivre;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection("livres");
 
 
-    String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, nombres_pages_livres, couvertureImage;
+    String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage;
+    int nombres_pages_livres;
     public void initUI(){
         tv_title_livre = findViewById(R.id.tv_title_livre);
         tv_auteur_livre = findViewById(R.id.tv_auteur_livre);
@@ -91,27 +93,27 @@ public class RecupererLivreISBN extends AppCompatActivity{
     public void ajouterLivreBD(View view){
 
 
-        title_livre = tv_title_livre.getText().toString();
-        auteur_livre = tv_auteur_livre.getText().toString();
-        editeur_livre = tv_editeur_livre.getText().toString();
-        parution_livre = tv_parution_livre.getText().toString();
-        resume_livre = tv_resume_livre.getText().toString();
-        isbn_livre = tv_isbn_livre.getText().toString();
-        nombres_pages_livres = tv_nombres_pages_livres.getText().toString();
-        couvertureImage = iv_couverture_livre.getDrawable().toString();
+        title_livre = detailsLivre.getTitle_livre();
+        auteur_livre = detailsLivre.getAuteur_livre();
+        editeur_livre = detailsLivre.getEditeur_livre();
+        parution_livre = detailsLivre.getDate_parution_livre();
+        resume_livre = detailsLivre.getResume_livre();
+        isbn_livre = detailsLivre.getIsbn_livre();
+        nombres_pages_livres = detailsLivre.getNombre_livres();
+        couvertureImage = detailsLivre.getUrl_cover_livre();
 
-        String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
+       // String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
 
-        Log.i(TAG, "Nombre des poages Livre: " +nbPages);
+        Log.i(TAG, "Auteeuuuuuur: " +detailsLivre.getAuteur_livre());
 
         //Enlever le caractére p le textView nbr des pages il prend 244p du coup je dois supprimer p pour le convertir en int aprés
-        String nombreDesPages = nbPages.substring(0, nbPages.length()-1);
-        Log.i(TAG, "ajouterLivreBD: nombreDesPages"+nombreDesPages);
+        //String nombreDesPages = nbPages.substring(0, nbPages.length()-1);
+        //Log.i(TAG, "ajouterLivreBD: nombreDesPages"+nombreDesPages);
 
-        int nbPagesSanP = Integer.parseInt(nombreDesPages);
-        Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
+        //int nbPagesSanP = Integer.parseInt(nombreDesPages);
+        //Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
 
-       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nbPagesSanP);
+       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres);
 
        livresRef.add(livre);
         Log.i(TAG, "ModelDetailsLivre : ISBN"+ livre.getIsbn_livre() +" Titre : "+ livre.getTitle_livre()+ " Nombre des pages : "+ livre.getNombre_livres());
@@ -120,23 +122,8 @@ public class RecupererLivreISBN extends AppCompatActivity{
 
         Toast.makeText(RecupererLivreISBN.this, "Livre Ajouter avec succée !", Toast.LENGTH_SHORT).show();
 
-//        livresRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                if (error != null){
-//                    return;
-//                }
-//                String data = "";
-//
-//                for (QueryDocumentSnapshot documentSnapshot : value){
-//                    ModelDetailsLivre modelDetailsLivre = documentSnapshot.toObject(ModelDetailsLivre.class);
-//                    modelDetailsLivre.setId(documentSnapshot.getId());
-//
-//                    String idLivre = modelDetailsLivre.getId();
-//
-//                }
-//            }
-//        }); //pour  update Livre
+        Intent intent = new Intent().setClass(this, ListeDesLivresBD.class);
+        startActivity(intent);
 
 
     }
@@ -258,7 +245,7 @@ public class RecupererLivreISBN extends AppCompatActivity{
                     }
 
 
-                   ModelDetailsLivre detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount);
+                   detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount);
 
                     Log.i(TAG, "Details Livre  : " + detailsLivre.getTitle_livre() + " || " + detailsLivre.getAuteur_livre() +" || " + detailsLivre.getEditeur_livre()+" || "+detailsLivre.getDate_parution_livre());
 
@@ -269,24 +256,6 @@ public class RecupererLivreISBN extends AppCompatActivity{
                     tv_editeur_livre.setText(editeur);
                     tv_isbn_livre.setText(isbn);
                     tv_nombres_pages_livres.setText(String.valueOf(pageCount)+"p.");
-
-//                    Uri myUri = Uri.parse(coverUrl);
-//                    iv_couverture_livre.setImageURI(myUri);
-//                    Log.i(TAG, "myUri : " + myUri);
-//
-//                    URL url = new URL(coverUrl);
-//                    try {
-//                        HttpURLConnection http = (HttpURLConnection) url.openConnection();
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-
-//                    URL url = new URL(coverUrl);
-//                    Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                    iv_couverture_livre.setImageBitmap(bmp);
-
-
 
                     // Utilisation de Glide pour la gestion des images
                     Context context = RecupererLivreISBN.this ;
