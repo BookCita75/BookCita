@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         tabMesLivres.setIcon(R.drawable.ic_books_bottom_bar_24);
 
         TabLayout.Tab tabMesCitations = tabLayout.newTab().setText("Citations");
-        tabMesCitations.setIcon(R.drawable.ic_citations_bottom_barre_24);
+        tabMesCitations.setIcon(R.drawable.ic_baseline_format_quote_24);
 
         TabLayout.Tab tabChercher = tabLayout.newTab().setText("Chercher");
         tabChercher.setIcon(R.drawable.ic_search_barre_bottom_24);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabMesLivres);
         tabLayout.addTab(tabMesCitations);
         tabLayout.addTab(tabChercher);
-        
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
