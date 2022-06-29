@@ -100,10 +100,10 @@ public class RecupererLivreISBN extends AppCompatActivity{
         couvertureImage = iv_couverture_livre.getDrawable().toString();
 
         String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
-        int nbrPageLivre = Integer.parseInt(nombres_pages_livres);
+       // int nbrPageLivre = Integer.parseInt(nombres_pages_livres);
 
         //ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nbrPageLivre);
-        //Log.i(TAG, "Nombre des poages Livre: " +nbrPageLivre+ "nbr sans p "+nbPages);
+        Log.i(TAG, "Nombre des poages Livre: " +nbPages);
         //ModelBook livre =new
 
 
