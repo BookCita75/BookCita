@@ -140,10 +140,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
     }
 
 
-    public void clearText (View view) {
-        etKeyword.setText("");
-        btnClearText.setVisibility(View.GONE);
-    }
+
 
 
 
@@ -321,6 +318,14 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        btnClearText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etKeyword.setText("");
+                btnClearText.setVisibility(View.GONE);
             }
         });
 

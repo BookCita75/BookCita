@@ -45,8 +45,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="8dp"
                 android:layout_weight="0"
-                android:background="@android:drawable/ic_delete"
-                android:onClick="clearText" />
+                android:background="@android:drawable/ic_delete" />
 
             <Button
                 android:id="@+id/btnChercher"
