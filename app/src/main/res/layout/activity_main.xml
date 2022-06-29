@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/view_pager2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager2"

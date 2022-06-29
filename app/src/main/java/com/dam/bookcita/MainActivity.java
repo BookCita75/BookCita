@@ -27,10 +27,23 @@ public class MainActivity extends AppCompatActivity {
         adapter = new FragmentAdapter(fragmentManager, getLifecycle());
         viewPager2.setAdapter(adapter);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Accueil"));
-        tabLayout.addTab(tabLayout.newTab().setText("Mes Livres"));
-        tabLayout.addTab(tabLayout.newTab().setText("Mes Citations"));
-        tabLayout.addTab(tabLayout.newTab().setText("Chercher"));
+        TabLayout.Tab tabAccueil = tabLayout.newTab().setText("Accueil");
+        tabAccueil.setIcon(R.drawable.ic_accueil_24);
+
+        TabLayout.Tab tabMesLivres = tabLayout.newTab().setText("Mes livres");
+        tabMesLivres.setIcon(R.drawable.ic_books_bottom_bar_24);
+
+        TabLayout.Tab tabMesCitations = tabLayout.newTab().setText("Citations");
+        tabMesCitations.setIcon(R.drawable.ic_citations_bottom_barre_24);
+
+        TabLayout.Tab tabChercher = tabLayout.newTab().setText("Chercher");
+        tabChercher.setIcon(R.drawable.ic_search_barre_bottom_24);
+
+
+        tabLayout.addTab(tabAccueil);
+        tabLayout.addTab(tabMesLivres);
+        tabLayout.addTab(tabMesCitations);
+        tabLayout.addTab(tabChercher);
         
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
