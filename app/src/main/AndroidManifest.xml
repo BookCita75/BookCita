@@ -24,9 +24,6 @@
             android:name=".ImportTxtFileActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchBookByKeywordActivity"
-            android:exported="false" />
-        <activity
             android:name=".CameraXActivity"
             android:exported="false" />
         <activity
