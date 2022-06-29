@@ -33,14 +33,15 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_camera_x.xml" value="0.1" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_chercher_livre_par_mot_cle.xml" value="0.2" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_scanner_isbn.xml" value="0.10677083333333333" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_search_book_by_keyword.xml" value="0.10677083333333333" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_parse_txt_to_json.xml" value="0.22" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_recuperer_livre_isbn.xml" value="0.1" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_search_book_by_keyword.xml" value="0.10677083333333333" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_recuperer_livre_isbn.xml" value="0.33" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_scanner_isbn.xml" value="0.10677083333333333" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_search_book_by_keyword.xml" value="0.10677083333333333" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_splash.xml" value="0.33" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_accueil.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_mes_citations.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_mes_livres.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_rechercher.xml" value="0.15598290598290598" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/item_book.xml" value="0.30451612903225805" />
       </map>
     </option>
