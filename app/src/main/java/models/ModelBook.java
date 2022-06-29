@@ -1,4 +1,6 @@
-package com.dam.bookcita;
+package models;
+
+import com.google.firebase.firestore.Exclude;
 
 public class ModelBook {
 
@@ -6,17 +8,17 @@ public class ModelBook {
     private String titre;
     private String auteur;
     private String isbn;
-    private String id;
+    private String idLivre;
 
     public ModelBook() {
     }
 
-    public ModelBook(String coverUrl, String titre, String auteur, String isbn, String id) {
+    public ModelBook(String coverUrl, String titre, String auteur, String isbn, String idLivre) {
         this.coverUrl = coverUrl;
         this.titre = titre;
         this.auteur = auteur;
         this.isbn = isbn;
-        this.id = id;
+        this.idLivre = idLivre;
     }
 
     public String getCoverUrl() {
@@ -51,11 +53,12 @@ public class ModelBook {
         this.isbn = isbn;
     }
 
+    @Exclude
     public String getId() {
-        return id;
+        return idLivre;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String idLivre) {
+        this.idLivre = idLivre;
     }
 }

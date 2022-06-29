@@ -1,24 +1,19 @@
 package com.dam.bookcita;
+import models.ModelDetailsLivre;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,6 +25,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableResource;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +48,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecupererLivreISBN extends AppCompatActivity{
 
@@ -53,14 +61,18 @@ public class RecupererLivreISBN extends AppCompatActivity{
     private TextView tv_isbn_livre;
     private TextView tv_nombres_pages_livres;
     private ImageView iv_couverture_livre;
-    private static final String TAG = "tag";
+    private static final String TAG = "AjouterLivreBD";
+
 
     private static final String ISBN = "isbn";
     private static final String ID = "id";
 
     private RequestQueue requestQueue;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference livresRef = db.collection("livres");
 
 
+    String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, nombres_pages_livres, couvertureImage;
     public void initUI(){
         tv_title_livre = findViewById(R.id.tv_title_livre);
         tv_auteur_livre = findViewById(R.id.tv_auteur_livre);
@@ -73,9 +85,32 @@ public class RecupererLivreISBN extends AppCompatActivity{
         tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
 
         requestQueue = Volley.newRequestQueue(this);
+    }
+
+    public void ajouterLivreBD(View view){
+
+
+        title_livre = tv_title_livre.getText().toString();
+        auteur_livre = tv_auteur_livre.getText().toString();
+        editeur_livre = tv_editeur_livre.getText().toString();
+        parution_livre = tv_parution_livre.getText().toString();
+        resume_livre = tv_resume_livre.getText().toString();
+        isbn_livre = tv_isbn_livre.getText().toString();
+        nombres_pages_livres = tv_nombres_pages_livres.getText().toString();
+        couvertureImage = iv_couverture_livre.getDrawable().toString();
+
+        String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
+        int nbrPageLivre = Integer.parseInt(nombres_pages_livres);
+
+        //ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nbrPageLivre);
+        //Log.i(TAG, "Nombre des poages Livre: " +nbrPageLivre+ "nbr sans p "+nbPages);
+        //ModelBook livre =new
 
 
     }
+
+
+
     public String convertirLienEnHttps(String lien){
         try {
             URL url_lien = new URL(lien);
@@ -259,6 +294,8 @@ public class RecupererLivreISBN extends AppCompatActivity{
         toolbar.showOverflowMenu();
 
     }
+    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
