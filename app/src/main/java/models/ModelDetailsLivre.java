@@ -12,7 +12,14 @@ public class ModelDetailsLivre {
     private String url_cover_livre;
     private String isbn_livre;
     private int nombre_livres;
-    
+
+    public ModelDetailsLivre(String id, String title_livre, String auteur_livre, String url_cover_livre, String isbn_livre) {
+        this.id = id;
+        this.title_livre = title_livre;
+        this.auteur_livre = auteur_livre;
+        this.url_cover_livre = url_cover_livre;
+        this.isbn_livre = isbn_livre;
+    }
 
     public ModelDetailsLivre() {
     }
