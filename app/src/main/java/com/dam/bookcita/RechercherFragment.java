@@ -57,6 +57,8 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
     private static final String MAX_RESULTS = "40";
     private static final String ISBN = "isbn";
     private static final String ID = "id";
+    private static final String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
+
     // test pour rebase
     private EditText etKeyword;
     private String keyword = "";
@@ -339,6 +341,8 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
             @Override
             public void onClick(View v) {
                 Intent cameraXIntent = new Intent(getContext(), CameraXActivity.class);
+                cameraXIntent.putExtra(TYPE_ISBN_OR_OCR, "ISBN");
+
                 startActivity(cameraXIntent);
             }
         });

@@ -38,6 +38,10 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.Text;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,14 +58,22 @@ public class CameraXActivity extends AppCompatActivity {
     private String scannedImgAbsolutePath;
     private String isbnScanne;
 
+    private String resultTextOCR;
+
+    private String type_ISBN_or_OCR;
+
     private static final String ISBN = "isbn";
     private static final String ID = "id";
-
+    private static final String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_x);
+
+        Intent intent = getIntent();
+        type_ISBN_or_OCR = intent.getStringExtra(TYPE_ISBN_OR_OCR);
+
         textureView = findViewById(R.id.view_finder);
 
         if (allPermissionsGranted()) {
@@ -118,7 +130,12 @@ public class CameraXActivity extends AppCompatActivity {
                         Log.i(TAG, "onImageSaved: file.getPath() : " + file.getPath());
                         Log.i(TAG, "onImageSaved: msg: " + msg);
                         //Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
-                        extractISBN();
+                        if (type_ISBN_or_OCR.equals("ISBN")) {
+                            extractISBN();
+                        } else if (type_ISBN_or_OCR.equals("OCR")) {
+                            Toast.makeText(CameraXActivity.this, "Scan OCR", Toast.LENGTH_LONG).show();
+                            scanOCR();
+                        }
                     }
 
                     @Override
@@ -252,6 +269,37 @@ public class CameraXActivity extends AppCompatActivity {
                         Log.i(TAG, "onFailure: e:" + e);
                     }
                 });
+    }
+
+    private void scanOCR(){
+        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+
+        InputImage imageScannee=null;
+        try {
+            Uri uriImgScannee = Uri.fromFile(new File(scannedImgAbsolutePath));
+            imageScannee = InputImage.fromFilePath(getApplicationContext(), uriImgScannee);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Task<Text> result =
+                recognizer.process(imageScannee)
+                        .addOnSuccessListener(new OnSuccessListener<Text>() {
+                            @Override
+                            public void onSuccess(Text text) {
+                                Toast.makeText(CameraXActivity.this, "OCR réussie!", Toast.LENGTH_LONG).show();
+                                resultTextOCR = text.getText();
+                                Log.i(TAG, "onSuccess: resultTextOCR : " + resultTextOCR);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(CameraXActivity.this, "OCR échouée!", Toast.LENGTH_LONG).show();
+                                Log.i(TAG, "onFailure: e.getMessage() : " + e.getMessage());
+                            }
+                        });
+
     }
 
 }

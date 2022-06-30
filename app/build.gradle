@@ -63,6 +63,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
 
 
-    // Pour ML Kit
+    // Pour ML Kit (Barcode)
     implementation 'com.google.mlkit:barcode-scanning:17.0.2'
+
+    // Pour ML Kit (OCR)
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.0'
 }
