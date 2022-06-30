@@ -129,7 +129,6 @@ public class RecupererLivreISBN extends AppCompatActivity{
     }
 
 
-
     public String convertirLienEnHttps(String lien){
         try {
             URL url_lien = new URL(lien);
