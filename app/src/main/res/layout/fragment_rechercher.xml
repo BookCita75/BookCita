@@ -49,11 +49,19 @@
 
             <Button
                 android:id="@+id/btnChercher"
-                android:layout_width="wrap_content"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/button_validation"
-                android:text="Chercher" />
+                android:background="@drawable/ic_search_barre_bottom_24" />
+
+            <Button
+                android:id="@+id/btnSearchByScanISBN"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/barcode"
+                android:text="Button" />
 
         </LinearLayout>
 
