@@ -36,7 +36,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Rechercher un livre"
-                android:inputType="text" />
+                android:inputType="text"
+                android:imeOptions="actionDone"/>
 
             <Button
                 android:id="@+id/btnClearText"
@@ -55,13 +56,12 @@
                 android:background="@drawable/ic_search_barre_bottom_24" />
 
             <Button
-                android:id="@+id/btnSearchByScanISBN"
+                android:id="@+id/btnRechScanISBN"
                 android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/barcode"
-                android:text="Button" />
+                android:background="@drawable/barcode" />
 
         </LinearLayout>
 

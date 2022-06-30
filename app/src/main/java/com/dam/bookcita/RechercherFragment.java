@@ -65,6 +65,8 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
     private Button btnChercher;
     private Button btnClearText;
+    private Button btnRechScanISBN;
+
 
     private ArrayList<ModelBook> bookArrayList;
 
@@ -134,6 +136,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
         rvBookByKeyword = view.findViewById(R.id.rvBookByKeyword);
         btnClearText = view.findViewById(R.id.btnClearText);
         btnChercher = view.findViewById(R.id.btnChercher);
+        btnRechScanISBN = view.findViewById(R.id.btnRechScanISBN);
         bookArrayList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(getContext());
 
@@ -332,6 +335,13 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
             }
         });
 
+        btnRechScanISBN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraXIntent = new Intent(getContext(), CameraXActivity.class);
+                startActivity(cameraXIntent);
+            }
+        });
 
         if (checkPermission()) {
             //remplissageArrayListeEnDur();
