@@ -41,6 +41,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import models.ModelBook;
+
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RechercherFragment#newInstance} factory method to
