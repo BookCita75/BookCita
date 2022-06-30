@@ -14,14 +14,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
-            android:name=".RecupererLivreISBN"
+            android:name=".DetailsLivreBD"
             android:exported="false" />
         <activity
-            android:name=".AjoutCitationActivity"
+            android:name=".RecupererLivreISBN"
             android:exported="false" />
         <activity
             android:name=".ImportTxtFileActivity"
@@ -36,10 +37,10 @@
             android:name=".ImportCitationsAnnotationsJSON"
             android:exported="false" />
         <activity
-            android:name=".ListeDesLivresBD"
+            android:name=".AjouterUnLivre"
             android:exported="false" />
         <activity
-            android:name=".AjouterUnLivre"
+            android:name=".ListeDesLivresBD"
             android:exported="false" />
         <activity
             android:name=".Splash"
