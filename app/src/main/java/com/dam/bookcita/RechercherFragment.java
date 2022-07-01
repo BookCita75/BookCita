@@ -264,7 +264,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
     @Override
     public void onItemClick(int position, View view) {
-        Intent detailIntent = new Intent(getContext(), RecupererLivreISBN.class);
+        Intent detailIntent = new Intent(getContext(), DetailsLivreISBN.class);
         ModelBook clickItemBook = bookArrayList.get(position);
         detailIntent.putExtra(ISBN, clickItemBook.getIsbn());
         detailIntent.putExtra(ID, clickItemBook.getId());

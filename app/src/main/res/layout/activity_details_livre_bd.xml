@@ -33,17 +33,7 @@ tools:context=".DetailsLivreBD">
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent" />
 
-<ImageView
-    android:id="@+id/imageView3"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingLeft="6dp"
-    android:paddingBottom="22dp"
-    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-    app:layout_constraintStart_toStartOf="@+id/imageView2"
-    app:srcCompat="@drawable/ic_baseline_menu_40" />
-
-<LinearLayout
+    <LinearLayout
     android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -168,24 +158,22 @@ tools:context=".DetailsLivreBD">
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 </LinearLayout>
 
-<Button
-    android:id="@+id/btn_ajout_livre_bd"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:onClick="ajouterLivreBD"
-    android:text="AJOUTER A MES LIVRES"
-    android:textColor="@color/black"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+    <Button
+        android:id="@+id/btn_modifier_livre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SUPPRIMER LIVRE"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-<Button
-    android:id="@+id/btn_modifier_livre"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:onClick="ajouterLivreBD"
-    android:text="MODIFIER UN LIVRE"
-    android:textColor="@color/black"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+    <Button
+        android:id="@+id/btn_ajout_livre_bd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MODIFIER LIVRE"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
@@ -45,7 +44,6 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.util.List;
 
 public class CameraXActivity extends AppCompatActivity {
@@ -249,7 +247,7 @@ public class CameraXActivity extends AppCompatActivity {
                                 int valueType = barcode.getValueType();
                                 Log.i(TAG, "onSuccess: valueType : " + valueType);
 
-                                Intent detailIntent = new Intent(getApplicationContext(), RecupererLivreISBN.class);
+                                Intent detailIntent = new Intent(getApplicationContext(), DetailsLivreISBN.class);
 
                                 detailIntent.putExtra(ISBN, isbnScanne);
                                 detailIntent.putExtra(ID, "");

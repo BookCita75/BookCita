@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -24,35 +23,19 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableResource;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class RecupererLivreISBN extends AppCompatActivity{
+public class DetailsLivreISBN extends AppCompatActivity{
 
     private TextView tv_title_livre;
     private TextView tv_auteur_livre;
@@ -89,7 +72,7 @@ public class RecupererLivreISBN extends AppCompatActivity{
 
         requestQueue = Volley.newRequestQueue(this);
     }
-
+    
     public void ajouterLivreBD(View view){
 
 
@@ -120,7 +103,7 @@ public class RecupererLivreISBN extends AppCompatActivity{
 
         Log.i(TAG, "ajouterLivreBD: livresRef.getId : "+livresRef.getId());
 
-        Toast.makeText(RecupererLivreISBN.this, "Livre Ajouter avec succée !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(DetailsLivreISBN.this, "Livre Ajouter avec succée !", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent().setClass(this, ListeDesLivresBD.class);
         startActivity(intent);
@@ -128,6 +111,12 @@ public class RecupererLivreISBN extends AppCompatActivity{
 
     }
 
+    public void modifierLivreBD(View view){
+        Log.i(TAG, "modifierLivreBD: ");
+        Intent intent = new Intent().setClass(this, ModifierLivreBD.class);
+        startActivity(intent);
+
+    }
 
     public String convertirLienEnHttps(String lien){
         try {
@@ -257,7 +246,7 @@ public class RecupererLivreISBN extends AppCompatActivity{
                     tv_nombres_pages_livres.setText(String.valueOf(pageCount)+"p.");
 
                     // Utilisation de Glide pour la gestion des images
-                    Context context = RecupererLivreISBN.this ;
+                    Context context = DetailsLivreISBN.this ;
 
                     RequestOptions options = new RequestOptions()
                             .centerCrop()
@@ -300,8 +289,8 @@ public class RecupererLivreISBN extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-        setContentView(R.layout.activity_recuperer_livre_isbn);
+       // getSupportActionBar().hide();
+        setContentView(R.layout.activity_details_livre_isbn);
         initUI();
 
         /** #1 Récupération de l'intent **/
@@ -309,8 +298,8 @@ public class RecupererLivreISBN extends AppCompatActivity{
         String isbn = intent.getStringExtra(ISBN);
         String id = intent.getStringExtra(ID);
 
-
-
+        //Log.i(TAG, "ISBN BDD: "+detailsLivre.getId());
+//        intent.putExtra("IDBD",isbn);
         try {
             getBooksFromApi(isbn, id);
         }
