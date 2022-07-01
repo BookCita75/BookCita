@@ -1,5 +1,7 @@
 package com.dam.bookcita;
 
+import static com.dam.bookcita.common.Constants.*;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +46,8 @@ import java.util.ArrayList;
 import models.ModelDetailsLivre;
 
 public class ListeDesLivresBD extends  AppCompatActivity{
-    private static final String TAG = "afficherListedesLivres";
+    private static final String TAG = "ListeDesLivresBD";
+//    private static final String TAG = "afficherListedesLivres";
     private RecyclerView rvLivres;
     private ArrayList<ModelDetailsLivre> bookArrayList;
     private AdapterDetailsBook adapterBook;
@@ -110,7 +113,8 @@ public class ListeDesLivresBD extends  AppCompatActivity{
         adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                startActivity(new Intent(ListeDesLivresBD.this, DetailsLivreBD.class));
+
+//                startActivity(new Intent(ListeDesLivresBD.this, DetailsLivreBD.class));
             }
         });
 

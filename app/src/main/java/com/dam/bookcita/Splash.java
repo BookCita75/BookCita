@@ -20,6 +20,7 @@ public class Splash extends AppCompatActivity {
                 .rotation(1080)
                 .setDuration(2000)
                 .withEndAction(new Runnable() {
+                    // pour que le logo s'arrete de tourner une seconde
                     @Override
                     public void run() {
                         ivSplash.animate()
@@ -27,7 +28,7 @@ public class Splash extends AppCompatActivity {
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
-                                        startActivity(new Intent(Splash.this, AjoutCitationActivity.class));
+                                        startActivity(new Intent(Splash.this, MainActivity.class));
                                     }
                                 })
                                 .start();

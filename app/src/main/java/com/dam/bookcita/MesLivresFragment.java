@@ -2,6 +2,8 @@ package com.dam.bookcita;
 
 
 
+import static com.dam.bookcita.common.Constants.ID_BD;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -138,7 +140,13 @@ public class MesLivresFragment extends Fragment {
         adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                startActivity(new Intent(getContext(), DetailsLivreBD.class));
+                Intent detailsLivresBDIntent = new Intent(getContext(), DetailsLivreBD.class);
+                String id_BD = documentSnapshot.getId();
+                Log.i(TAG, "onItemClick: id_BD : " + id_BD);
+                detailsLivresBDIntent.putExtra(ID_BD, id_BD);
+                startActivity(detailsLivresBDIntent);
+
+//                startActivity(new Intent(getContext(), DetailsLivreBD.class));
             }
         });
 
