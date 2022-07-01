@@ -24,6 +24,9 @@ public class MesCitationsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public void initUI(){
+
+    }
     public MesCitationsFragment() {
         // Required empty public constructor
     }
