@@ -25,9 +25,12 @@
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_import_citations_annotations_json.xml" value="0.33" />
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_import_txt_file.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_liste_des_livres_bd.xml" value="0.26969416126042633" />
-        <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_main.xml" value="0.21851851851851853" />
+        <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_recuperer_livre_isbn.xml" value="0.33" />
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_search_book_by_keyword.xml" value="0.33" />
+        <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_mes_livres.xml" value="0.33" />
+        <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_rechercher.xml" value="0.20277777777777778" />
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/item_book.xml" value="0.67" />
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/item_livre.xml" value="0.365625" />
         <entry key="..\:/Users/DAM004/AndroidStudioProjects/BookCita/app/src/main/res/layout/item_recycler.xml" value="0.25" />

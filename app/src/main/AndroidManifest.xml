@@ -22,9 +22,6 @@
             android:name=".DetailsLivreBD"
             android:exported="false" />
         <activity
-            android:name=".RecupererLivreISBN"
-            android:exported="false" />
-        <activity
             android:name=".ImportTxtFileActivity"
             android:exported="false" />
         <activity
@@ -38,6 +35,9 @@
             android:exported="false" />
         <activity
             android:name=".AjouterUnLivre"
+            android:exported="false" />
+        <activity
+            android:name=".RecupererLivreISBN"
             android:exported="false" />
         <activity
             android:name=".ListeDesLivresBD"

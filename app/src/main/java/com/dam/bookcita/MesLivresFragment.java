@@ -1,12 +1,32 @@
 package com.dam.bookcita;
 
+
+
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+
+import models.ModelDetailsLivre;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +34,19 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class MesLivresFragment extends Fragment {
+
+    private static final String TAG = "AfficherListeLivres";
+    private RecyclerView rvLivres;
+    private ArrayList<ModelDetailsLivre> bookArrayList;
+    private AdapterDetailsBook adapterBook;
+    //private ImageView coverLivreImage;
+    private RequestQueue requestQueue;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference livresRef = db.collection("livres");
+    private FirebaseAuth auth;
+    ProgressDialog progressDialog;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,19 +79,72 @@ public class MesLivresFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
+       
+    }
+    private void init(View view) {
+        Log.i(TAG, "init: View");
+        requestQueue = Volley.newRequestQueue(getContext());
+        rvLivres = view.findViewById(R.id.rv_listesDesLivres);
+        rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
+
+
+        auth = FirebaseAuth.getInstance();
+        bookArrayList = new ArrayList<ModelDetailsLivre>();
+    }
+    public void getBooksFromDB(){
+        Query query = livresRef.orderBy("title_livre");
+        Log.i(TAG, "Query : "+query);
+        FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
+                .setQuery(query, ModelDetailsLivre.class)
+                .build();
+        adapterBook = new AdapterDetailsBook(livres);
+        rvLivres.setAdapter(adapterBook);
+        if (progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapterBook.startListening();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mes_livres, container, false);
+        View view = inflater.inflate(R.layout.fragment_mes_livres, container, false);
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
+
+        init(view);
+
+        getBooksFromDB();
+
+        adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                startActivity(new Intent(getContext(), DetailsLivreBD.class));
+            }
+        });
+
+        return view;
     }
+
+
+
 }
