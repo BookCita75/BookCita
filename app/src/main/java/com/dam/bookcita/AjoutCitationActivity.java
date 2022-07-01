@@ -11,9 +11,11 @@ public class AjoutCitationActivity extends AppCompatActivity {
 
     private static final String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
     private Button btnScanOCR;
+    private Button btnImportFichierTxt;
 
     private void initUI() {
         btnScanOCR = findViewById(R.id.btnScanOCR);
+        btnImportFichierTxt = findViewById(R.id.btnImportFichierTxt);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,14 @@ public class AjoutCitationActivity extends AppCompatActivity {
                 Intent cameraXIntent = new Intent(AjoutCitationActivity.this, CameraXActivity.class);
                 cameraXIntent.putExtra(TYPE_ISBN_OR_OCR, "OCR");
                 startActivity(cameraXIntent);
+            }
+        });
+
+        btnImportFichierTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent importTxtFileIntent = new Intent(AjoutCitationActivity.this, ImportTxtFileActivity.class);
+                startActivity(importTxtFileIntent);
             }
         });
     }
