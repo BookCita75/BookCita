@@ -21,7 +21,9 @@
         <activity
             android:name=".DetailsLivreBD"
             android:exported="false" />
-
+        <activity
+            android:name=".AjoutCitationActivity"
+            android:exported="false" />
         <activity
             android:name=".ImportTxtFileActivity"
             android:exported="false" />
