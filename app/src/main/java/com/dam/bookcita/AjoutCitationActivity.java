@@ -6,13 +6,18 @@ import static com.google.firebase.firestore.FieldPath.documentId;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreArray;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +40,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
 
     private TextView tvTitreAC;
     private TextView tvAuteurAC;
+    private ImageView ivCoverAC;
 
 
     private String id_BD;
@@ -51,6 +57,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
 
         tvTitreAC = findViewById(R.id.tvTitreAC);
         tvAuteurAC = findViewById(R.id.tvAuteurAC);
+        ivCoverAC = findViewById(R.id.ivCoverAC);
 
 
     }
@@ -80,6 +87,21 @@ public class AjoutCitationActivity extends AppCompatActivity {
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
                                 tvTitreAC.setText(titre);
                                 tvAuteurAC.setText(auteur);
+                                //Gestion de l'image avec Glide
+                                Context context = AjoutCitationActivity.this ;
+
+                                RequestOptions options = new RequestOptions()
+                                        .centerCrop()
+                                        .error(R.drawable.ic_couverture_livre_150)
+                                        .placeholder(R.drawable.ic_couverture_livre_150);
+
+                                // methode normale
+                                Glide.with(context)
+                                        .load(coverUrl)
+                                        .apply(options)
+                                        .fitCenter()
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .into(ivCoverAC);
                             }
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
