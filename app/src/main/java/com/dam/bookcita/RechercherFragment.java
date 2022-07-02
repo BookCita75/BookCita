@@ -250,12 +250,15 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
                 } catch (
                         JSONException e) {
                     e.printStackTrace();
+                    Log.i(TAG, "onResponse: JSONException : " + e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Log.i(TAG, "onErrorResponse: " + error.getMessage());
+                Toast.makeText(getContext(), "Veuillez vérifier votre connexion à Internet\n" + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(request);
