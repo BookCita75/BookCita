@@ -41,6 +41,7 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_chercher_livre_par_mot_cle.xml" value="0.2" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_details_livre_bd.xml" value="0.25" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_details_livre_isbn.xml" value="0.33" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_import_txt_file.xml" value="0.1" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_liste_des_livres_bd.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/activity_parse_txt_to_json.xml" value="0.22" />
