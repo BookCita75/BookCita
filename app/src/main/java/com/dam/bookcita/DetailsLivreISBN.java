@@ -105,8 +105,11 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
         Toast.makeText(DetailsLivreISBN.this, "Livre ajouté avec succès !", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent().setClass(this, ListeDesLivresBD.class);
-        startActivity(intent);
+        Intent mainIntent = new Intent(this, MainActivity.class);
+
+        startActivity(mainIntent);
+//        Intent intent = new Intent().setClass(this, ListeDesLivresBD.class);
+//        startActivity(intent);
 
 
     }
