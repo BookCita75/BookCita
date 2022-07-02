@@ -1,4 +1,7 @@
 package com.dam.bookcita;
+import static com.dam.bookcita.common.Constants.FRAG_TO_LOAD;
+import static com.dam.bookcita.common.Constants.MES_LIVRES_FRAGMENT;
+
 import models.ModelDetailsLivre;
 
 import androidx.annotation.Nullable;
@@ -106,6 +109,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
         Toast.makeText(DetailsLivreISBN.this, "Livre ajouté avec succès !", Toast.LENGTH_SHORT).show();
 
         Intent mainIntent = new Intent(this, MainActivity.class);
+        mainIntent.putExtra(FRAG_TO_LOAD, MES_LIVRES_FRAGMENT);
 
         startActivity(mainIntent);
 //        Intent intent = new Intent().setClass(this, ListeDesLivresBD.class);

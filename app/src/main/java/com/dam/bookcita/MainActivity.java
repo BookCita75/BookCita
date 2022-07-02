@@ -1,9 +1,14 @@
 package com.dam.bookcita;
 
+import static com.dam.bookcita.common.Constants.ACCUEIL_FRAGMENT;
+import static com.dam.bookcita.common.Constants.FRAG_TO_LOAD;
+import static com.dam.bookcita.common.Constants.MES_LIVRES_FRAGMENT;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -69,6 +74,21 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
+
+        Intent intent = getIntent();
+        int intentFragment = intent.getIntExtra(FRAG_TO_LOAD, ACCUEIL_FRAGMENT);
+
+
+        switch (intentFragment){
+            case ACCUEIL_FRAGMENT:
+                viewPager2.setCurrentItem(intentFragment);
+                break;
+
+            case MES_LIVRES_FRAGMENT:
+                viewPager2.setCurrentItem(intentFragment);
+                break;
+        }
+
     }
 
 
