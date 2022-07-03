@@ -10,39 +10,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.firebase.ui.firestore.FirestoreArray;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import models.ModelDetailsLivre;
+public class SaisieManuelleCitationActivity extends AppCompatActivity {
+    private static final String TAG = "SaisieManuelleCitationA";
 
-public class AjoutCitationActivity extends AppCompatActivity {
-
-    private static final String TAG = "AjoutCitationActivity";
-    private static final String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
-    private Button btnSaisieManuelleCitation;
-    private Button btnScanOCR;
-    private Button btnImportFichierTxt;
-
-    private TextView tvTitreAC;
-    private TextView tvAuteurAC;
-    private ImageView ivCoverAC;
-
+    private TextView tvTitreSMC;
+    private TextView tvAuteurSMC;
+    private ImageView ivCoverSMC;
 
     private String id_BD;
 
@@ -53,14 +40,27 @@ public class AjoutCitationActivity extends AppCompatActivity {
 
     private void init() {
         //init UI
-        btnSaisieManuelleCitation = findViewById(R.id.btnSaisieManuelleCitation);
-        btnScanOCR = findViewById(R.id.btnScanOCR);
-        btnImportFichierTxt = findViewById(R.id.btnImportFichierTxt);
 
-        tvTitreAC = findViewById(R.id.tvTitreAC);
-        tvAuteurAC = findViewById(R.id.tvAuteurAC);
-        ivCoverAC = findViewById(R.id.ivCoverAC);
+        tvTitreSMC = findViewById(R.id.tvTitreSMC);
+        tvAuteurSMC = findViewById(R.id.tvAuteurSMC);
+        ivCoverSMC = findViewById(R.id.ivCoverSMC);
 
+
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_saisie_manuelle_citation);
+
+        Intent intent = getIntent();
+        id_BD = intent.getStringExtra(ID_BD);
+        Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
+
+        init();
+
+        getFicheBookFromDB();
 
     }
 
@@ -87,10 +87,10 @@ public class AjoutCitationActivity extends AppCompatActivity {
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
-                                tvTitreAC.setText(titre);
-                                tvAuteurAC.setText(auteur);
+                                tvTitreSMC.setText(titre);
+                                tvAuteurSMC.setText(auteur);
                                 //Gestion de l'image avec Glide
-                                Context context = AjoutCitationActivity.this ;
+                                Context context = SaisieManuelleCitationActivity.this ;
 
                                 RequestOptions options = new RequestOptions()
                                         .centerCrop()
@@ -103,7 +103,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
                                         .apply(options)
                                         .fitCenter()
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                        .into(ivCoverAC);
+                                        .into(ivCoverSMC);
                             }
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
@@ -116,43 +116,5 @@ public class AjoutCitationActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ajout_citation);
 
-        init();
-
-        Intent intent = getIntent();
-        id_BD = intent.getStringExtra(ID_BD);
-        Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
-
-        getFicheBookFromDB();
-
-        btnSaisieManuelleCitation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent saisieManuelleCitationIntent = new Intent(AjoutCitationActivity.this, SaisieManuelleCitationActivity.class);
-                saisieManuelleCitationIntent.putExtra(ID_BD, id_BD);
-                startActivity(saisieManuelleCitationIntent);
-            }
-        });
-
-        btnScanOCR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cameraXIntent = new Intent(AjoutCitationActivity.this, CameraXActivity.class);
-                cameraXIntent.putExtra(TYPE_ISBN_OR_OCR, "OCR");
-                startActivity(cameraXIntent);
-            }
-        });
-
-        btnImportFichierTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent importTxtFileIntent = new Intent(AjoutCitationActivity.this, ImportTxtFileActivity.class);
-                startActivity(importTxtFileIntent);
-            }
-        });
-    }
 }

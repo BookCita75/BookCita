@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
+            android:name=".SaisieManuelleCitationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ModifierLivreBD"
             android:exported="false" />
         <activity
