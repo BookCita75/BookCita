@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -26,6 +27,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import models.ModelCitation;
+import models.ModelDetailsLivre;
 
 public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private static final String TAG = "SaisieManuelleCitationA";
@@ -44,7 +51,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private String id_BD;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference citationsRef = db.collection("citations");
     private FirebaseAuth auth;
 
 
@@ -81,18 +88,48 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String pageCitationStr = etPageCitation.getText().toString();
                 Log.i(TAG, "onClick: pageCitationStr : " + pageCitationStr);
+                if (pageCitationStr.equals("")) {
+                    Toast.makeText(SaisieManuelleCitationActivity.this, "Veuillez saisir un numéro de page.", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 int pageCitation = 0;
                 try {
                     pageCitation = Integer.valueOf(pageCitationStr);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.i(TAG, "onClick: " + e.getMessage());
+                    return;
                 }
                 Log.i(TAG, "onClick: pageCitation : " + String.valueOf(pageCitation));
                 String citation = etmlCitation.getText().toString();
+                if (citation.equals("")) {
+                    Toast.makeText(SaisieManuelleCitationActivity.this, "Veuillez saisir une citation.", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Log.i(TAG, "onClick: citation : " + citation);
                 String annotation = etmlAnnotation.getText().toString();
                 Log.i(TAG, "onClick: annotation : " + annotation);
+                Date dateToday = new Date();
+                Log.i(TAG, "onClick: " + dateToday.toString());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat heureFormat = new SimpleDateFormat("HH:mm");
+                //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                String strDateToday = dateFormat.format(dateToday);
+                String strHeureNow = heureFormat.format(dateToday);
+                Log.i(TAG, "onClick: strDateToday : " + strDateToday);
+                Log.i(TAG, "onClick: strHeureNow : " + strHeureNow);
+
+                ModelCitation citationSaisie = new ModelCitation(id_BD,citation, annotation, pageCitation, strDateToday, strHeureNow);
+                try {
+                    citationsRef.add(citationSaisie);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(SaisieManuelleCitationActivity.this, "Problème dans l'enregistrement de la citation.\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "onClick: " + e.getMessage());
+                    return;
+                }
+                Toast.makeText(SaisieManuelleCitationActivity.this, "Citation enregistrée avec succès.", Toast.LENGTH_SHORT).show();
+
             }
 
         });
