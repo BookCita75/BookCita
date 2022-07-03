@@ -10,6 +10,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +34,13 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private TextView tvAuteurSMC;
     private ImageView ivCoverSMC;
 
+    private EditText etPageCitation;
+    private EditText etmlCitation;
+    private EditText etmlAnnotation;
+
+
+    private Button btnValiderAjoutCitation;
+
     private String id_BD;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -44,7 +54,11 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
         tvTitreSMC = findViewById(R.id.tvTitreSMC);
         tvAuteurSMC = findViewById(R.id.tvAuteurSMC);
         ivCoverSMC = findViewById(R.id.ivCoverSMC);
+        btnValiderAjoutCitation = findViewById(R.id.btnValiderAjoutCitation);
 
+        etPageCitation = findViewById(R.id.etPageCitation);
+        etmlCitation = findViewById(R.id.etmlCitation);
+        etmlAnnotation = findViewById(R.id.etmlAnnotation);
 
     }
 
@@ -61,6 +75,27 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
         init();
 
         getFicheBookFromDB();
+
+        btnValiderAjoutCitation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pageCitationStr = etPageCitation.getText().toString();
+                Log.i(TAG, "onClick: pageCitationStr : " + pageCitationStr);
+                int pageCitation = 0;
+                try {
+                    pageCitation = Integer.valueOf(pageCitationStr);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i(TAG, "onClick: " + e.getMessage());
+                }
+                Log.i(TAG, "onClick: pageCitation : " + String.valueOf(pageCitation));
+                String citation = etmlCitation.getText().toString();
+                Log.i(TAG, "onClick: citation : " + citation);
+                String annotation = etmlAnnotation.getText().toString();
+                Log.i(TAG, "onClick: annotation : " + annotation);
+            }
+
+        });
 
     }
 
@@ -90,7 +125,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                                 tvTitreSMC.setText(titre);
                                 tvAuteurSMC.setText(auteur);
                                 //Gestion de l'image avec Glide
-                                Context context = SaisieManuelleCitationActivity.this ;
+                                Context context = SaisieManuelleCitationActivity.this;
 
                                 RequestOptions options = new RequestOptions()
                                         .centerCrop()
@@ -111,7 +146,6 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                     }
 
                 });
-
 
 
     }
