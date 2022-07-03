@@ -168,13 +168,26 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
 
     private void parseJSON() throws UnsupportedEncodingException {
-        //https://www.googleapis.com/books/v1/volumes?q=souris
-        String urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
-                + URLEncoder.encode(keyword, String.valueOf(StandardCharsets.UTF_8))
-                + "&maxResults="
-                + MAX_RESULTS
-                + "&key="
-                + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+        String urlJSONFile;
+        // il faut q soit egal a quelque chose sinon erreur => ici il faut que q soit "" et non pas rien
+        if (keyword.equals("")) {
+            //https://www.googleapis.com/books/v1/volumes?q=souris
+            urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                    + "%22%22"
+                    + "&maxResults="
+                    + MAX_RESULTS
+                    + "&key="
+                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+        } else {
+            //https://www.googleapis.com/books/v1/volumes?q=souris
+            urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                    + URLEncoder.encode(keyword, String.valueOf(StandardCharsets.UTF_8))
+                    + "&maxResults="
+                    + MAX_RESULTS
+                    + "&key="
+                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+        }
+
 
         Log.i(TAG, "parseJSON: urlJSONFile : " + urlJSONFile);
 
