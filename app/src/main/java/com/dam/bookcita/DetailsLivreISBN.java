@@ -1,4 +1,5 @@
 package com.dam.bookcita;
+import models.ModelBook;
 import static com.dam.bookcita.common.Constants.*;
 
 
@@ -49,7 +50,6 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private TextView tv_nombres_pages_livres;
     private ImageView iv_couverture_livre;
     private static final String TAG = "AjouterLivreBD";
-
 
 
     private RequestQueue requestQueue;
@@ -118,8 +118,12 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
     public void modifierLivreBD(View view){
         Log.i(TAG, "modifierLivreBD: ");
-        Intent intent = new Intent().setClass(this, ModifierLivreBD.class);
-        startActivity(intent);
+        Intent modifierLivreIntent = new Intent(DetailsLivreISBN.this, ModifierLivreBD.class);
+
+        Log.i(TAG, "DeatilsLivreID : "+livresRef.getId());
+        modifierLivreIntent.putExtra("IDdb", detailsLivre.getId());
+
+        startActivity(modifierLivreIntent);
 
     }
 
@@ -303,8 +307,6 @@ public class DetailsLivreISBN extends AppCompatActivity{
         String isbn = intent.getStringExtra(ISBN);
         String id = intent.getStringExtra(ID);
 
-        //Log.i(TAG, "ISBN BDD: "+detailsLivre.getId());
-//        intent.putExtra("IDBD",isbn);
         try {
             getBooksFromApi(isbn, id);
         }
