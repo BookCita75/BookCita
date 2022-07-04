@@ -1,5 +1,7 @@
 package com.dam.bookcita;
 
+import static com.dam.bookcita.common.Constants.*;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 import models.ModelBook;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RechercherFragment#newInstance} factory method to
@@ -55,9 +58,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
     private static final int MAX = 20;
     private static final String MAX_RESULTS = "40";
-    private static final String ISBN = "isbn";
-    private static final String ID = "id";
-    private static final String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
+
 
     // test pour rebase
     private EditText etKeyword;

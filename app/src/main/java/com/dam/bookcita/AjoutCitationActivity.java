@@ -1,6 +1,7 @@
 package com.dam.bookcita;
 
-import static com.dam.bookcita.common.Constants.ID_BD;
+import static com.dam.bookcita.common.Constants.*;
+
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ import models.ModelDetailsLivre;
 public class AjoutCitationActivity extends AppCompatActivity {
 
     private static final String TAG = "AjoutCitationActivity";
-    private static final String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
+
     private Button btnSaisieManuelleCitation;
     private Button btnScanOCR;
     private Button btnImportFichierTxt;

@@ -1,8 +1,6 @@
 package com.dam.bookcita;
 
-import static com.dam.bookcita.common.Constants.ACCUEIL_FRAGMENT;
-import static com.dam.bookcita.common.Constants.FRAG_TO_LOAD;
-import static com.dam.bookcita.common.Constants.MES_LIVRES_FRAGMENT;
+import static com.dam.bookcita.common.Constants.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;

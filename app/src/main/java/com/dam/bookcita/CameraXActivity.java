@@ -1,5 +1,7 @@
 package com.dam.bookcita;
 
+import static com.dam.bookcita.common.Constants.*;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,9 +62,7 @@ public class CameraXActivity extends AppCompatActivity {
 
     private String type_ISBN_or_OCR;
 
-    private static final String ISBN = "isbn";
-    private static final String ID = "id";
-    private static final String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

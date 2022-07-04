@@ -2,7 +2,7 @@ package com.dam.bookcita;
 
 
 
-import static com.dam.bookcita.common.Constants.ID_BD;
+import static com.dam.bookcita.common.Constants.*;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

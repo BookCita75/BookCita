@@ -1,6 +1,6 @@
 package com.dam.bookcita;
-import static com.dam.bookcita.common.Constants.FRAG_TO_LOAD;
-import static com.dam.bookcita.common.Constants.MES_LIVRES_FRAGMENT;
+import static com.dam.bookcita.common.Constants.*;
+
 
 import models.ModelDetailsLivre;
 
@@ -51,8 +51,6 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private static final String TAG = "AjouterLivreBD";
 
 
-    private static final String ISBN = "isbn";
-    private static final String ID = "id";
 
     private RequestQueue requestQueue;
     private ModelDetailsLivre detailsLivre;
