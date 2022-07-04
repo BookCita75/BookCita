@@ -19,57 +19,7 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/button_validation"
             android:onClick="generateJSONfromTxt"
-            android:text="CHOISIR UN FICHIER" />
+            android:text="CHOISIR UN FICHIER TXT" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fichier txt" />
-
-        <EditText
-            android:id="@+id/etTxtFile"
-            android:layout_width="293dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="JSON" />
-
-        <EditText
-            android:id="@+id/etGeneratedJSON"
-            android:layout_width="293dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
-
-        <Button
-            android:id="@+id/btnParserJSON"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="49dp"
-            android:background="@drawable/button_validation"
-            android:enabled="false"
-            android:onClick="parseJson"
-            android:text="Parser JSON" />
-
-        <EditText
-            android:id="@+id/etParsedJSON"
-            android:layout_width="293dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
     </LinearLayout>
 </ScrollView>

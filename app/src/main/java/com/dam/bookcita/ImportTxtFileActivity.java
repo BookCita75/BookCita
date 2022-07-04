@@ -55,10 +55,6 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
     private static final String TAG = "ImportTxtFileActivity";
 
-    private EditText etTxtFile, etGeneratedJSON, etParsedJSON;
-
-    private Button btnParserJSON;
-
     private JSONObject jsonObjectGeneratedFromTxt;
 
     public static final int PERMISSION_READ = 0;
@@ -152,19 +148,13 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         }
     }
 
-    private void initUI() {
-        etTxtFile = findViewById(R.id.etTxtFile);
-        etGeneratedJSON = findViewById(R.id.etGeneratedJSON);
-        btnParserJSON = findViewById(R.id.btnParserJSON);
-        etParsedJSON = findViewById(R.id.etParsedJSON);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_txt_file);
 
-        initUI();
         checkPermissionReadExternalStorage();
         checkPermissionWriteExternalStorage();
         checkPermissionManageExternalStorage();
@@ -338,11 +328,9 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    etTxtFile.setText(strTxt);
-                    etGeneratedJSON.setText(jsonString);
                     Log.i(TAG, "generateJSONfromTxt: jsonString " + jsonString);
 
-                    btnParserJSON.setEnabled(true);
+                    parseGeneratedJson();
                 }
 
             } catch (FileNotFoundException | JsonProcessingException e) {
@@ -412,7 +400,6 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
 
             }
-            etParsedJSON.setText(parsedJSON);
             Toast.makeText(this, "Citations et annotations importées avec succès.", Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
