@@ -85,6 +85,9 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
     private boolean existeDeja = false;
+    private int cptCitationsImportees = 0;
+    private int cptCitationsDejaExistantesEnBD = 0;
+    private int nbTotalCitationAImporter = 0;
 
 
     // Methode pour verifier les permissions de l'application
@@ -370,8 +373,12 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
     private void parseGeneratedJson() {
         try {
+            cptCitationsImportees = 0;
+            cptCitationsDejaExistantesEnBD = 0;
+
             String parsedJSON = "";
             JSONArray jsonArray = jsonObjectGeneratedFromTxt.getJSONArray("items");
+            nbTotalCitationAImporter = jsonArray.length();
             for (int i = 0; i < jsonArray.length(); i++) {
 
 
@@ -408,9 +415,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                 //enregistrement dans la BD de la citation importee (si la date de la citation et l'heure de la citation n'existe pas deja dans la base pour ce livre)
 
 
-
             }
-            Toast.makeText(this, "Citations et annotations importées avec succès.", Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -420,9 +425,16 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     }
 
     public void afterOnCompleteVerifieSiCitationExisteDsBD(boolean existeDeja, String citation, String annotation, int numPage, String date, String heure) {
-        if(!existeDeja) {
+        if (!existeDeja) {
             ModelCitation citationImportee = new ModelCitation(id_BD, citation, annotation, numPage, date, heure);
             citationsRef.add(citationImportee);
+            cptCitationsImportees++;
+        } else {
+            cptCitationsDejaExistantesEnBD++;
+        }
+        if ((cptCitationsImportees + cptCitationsDejaExistantesEnBD) == nbTotalCitationAImporter) {
+            //dernière citation à importer a été traitée
+            Toast.makeText(this, String.valueOf(cptCitationsImportees) + " citation(s) et annotation(s) importée(s) avec succès.\n" + String.valueOf(cptCitationsDejaExistantesEnBD) + " citation(s) et annotation(s) non importée(s) car déjà existante(s) dans la base de données.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -439,8 +451,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
-                            if (querySnapshot.size()!=0) {
+                            if (querySnapshot.size() != 0) {
                                 existeDeja = true;
+
+                                // normalement, il n'y a qu'un seul enregistrement en base avec la même date et la même heure
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                                     String annotationFromDB = document.getString("annotation");
@@ -453,12 +467,11 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                                     Log.i(TAG, "onComplete: dateFromDB : " + dateFromDB);
                                     Log.i(TAG, "onComplete: heureFromDB : " + heureFromDB);
 
-                                    afterOnCompleteVerifieSiCitationExisteDsBD(existeDeja, citation, annotation, numPage, date,heure);
-
                                 }
+                                afterOnCompleteVerifieSiCitationExisteDsBD(existeDeja, citation, annotation, numPage, date, heure);
                             } else {
                                 existeDeja = false;
-                                afterOnCompleteVerifieSiCitationExisteDsBD(existeDeja, citation, annotation, numPage, date,heure);
+                                afterOnCompleteVerifieSiCitationExisteDsBD(existeDeja, citation, annotation, numPage, date, heure);
                             }
 
                         } else {
