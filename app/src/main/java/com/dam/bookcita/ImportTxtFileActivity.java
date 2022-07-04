@@ -1,5 +1,7 @@
 package com.dam.bookcita;
 
+import static com.dam.bookcita.common.Constants.ID_BD;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -29,6 +31,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +48,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import models.ModelCitation;
 
 public class ImportTxtFileActivity extends AppCompatActivity {
 
@@ -63,6 +70,13 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private Uri uri;
     String uri_path;
     File file;
+
+    private String id_BD;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference citationsRef = db.collection("citations");
+    private FirebaseAuth auth;
+
 
     // Methode pour verifier les permissions de l'application
     public boolean checkPermissionReadExternalStorage() {
@@ -154,6 +168,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         checkPermissionReadExternalStorage();
         checkPermissionWriteExternalStorage();
         checkPermissionManageExternalStorage();
+
+        Intent intent = getIntent();
+        id_BD = intent.getStringExtra(ID_BD);
+        Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
 
     }
 
@@ -357,6 +375,8 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             String parsedJSON = "";
             JSONArray jsonArray = jsonObjectGeneratedFromTxt.getJSONArray("items");
             for (int i = 0; i < jsonArray.length(); i++) {
+
+
                 parsedJSON += "item n° : " + i + '\n';
                 JSONObject item = jsonArray.getJSONObject(i);
 
@@ -370,24 +390,29 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
                 String page = item.getString("page");
                 Log.i(TAG, "parseGeneratedJson: page : " + page);
+                int numPage = Integer.valueOf(page);
+
                 parsedJSON += "page : " + page + '\n';
 
                 String citation = item.getString("citation");
                 Log.i(TAG, "parseGeneratedJson: citation : " + citation);
                 parsedJSON += "citation : " + citation + '\n';
 
+                String annotation = "";
                 if (item.has("annotation")) {
-                    String annotation = item.getString("annotation");
+                    annotation = item.getString("annotation");
                     Log.i(TAG, "parseGeneratedJson: annotation : " + annotation);
                     parsedJSON += "annotation : " + annotation + '\n';
                 }
 
                 parsedJSON += '\n';
 
+                ModelCitation citationImportee = new ModelCitation(id_BD, citation, annotation, numPage, date, heure);
+                citationsRef.add(citationImportee);
+
             }
             etParsedJSON.setText(parsedJSON);
-        } catch (
-                JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

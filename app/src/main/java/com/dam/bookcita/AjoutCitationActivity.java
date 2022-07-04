@@ -152,6 +152,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent importTxtFileIntent = new Intent(AjoutCitationActivity.this, ImportTxtFileActivity.class);
+                importTxtFileIntent.putExtra(ID_BD, id_BD);
                 startActivity(importTxtFileIntent);
             }
         });
