@@ -119,8 +119,12 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
     public void modifierLivreBD(View view){
         Log.i(TAG, "modifierLivreBD: ");
-        Intent intent = new Intent().setClass(this, ModifierLivreBD.class);
-        startActivity(intent);
+        Intent modifierLivreIntent = new Intent(DetailsLivreISBN.this, ModifierLivreBD.class);
+
+        Log.i(TAG, "DeatilsLivreID : "+livresRef.getId());
+        modifierLivreIntent.putExtra("IDdb", detailsLivre.getId());
+
+        startActivity(modifierLivreIntent);
 
     }
 

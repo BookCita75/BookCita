@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -113,6 +115,11 @@ public class ModifierLivreBD extends AppCompatActivity {
 
 
 
+
+        Intent intent = getIntent();
+        String detailsLivreID = intent.getStringExtra("IDdb");
+
+        Log.i(TAG, "ID livre : "+detailsLivreID);
     }
     public void getListBooksDB(String id_BD){
         livresRef.whereEqualTo(documentId(), id_BD).get()
