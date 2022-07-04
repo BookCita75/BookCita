@@ -426,7 +426,6 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         }
     }
 
-    //retourne true si la citation existe deja dans la BD
     private void verifieSiCitationExisteDsBD(String date, String heure, String citation, String annotation, int numPage) {
         existeDeja = false;
 
@@ -458,6 +457,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
                                 }
                             } else {
+                                existeDeja = false;
                                 afterOnCompleteVerifieSiCitationExisteDsBD(existeDeja, citation, annotation, numPage, date,heure);
                             }
 
