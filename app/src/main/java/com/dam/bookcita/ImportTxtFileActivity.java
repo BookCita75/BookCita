@@ -1,6 +1,7 @@
 package com.dam.bookcita;
 
 import static com.dam.bookcita.common.Constants.ID_BD;
+import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.Manifest;
 import android.app.Activity;
@@ -27,13 +28,22 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +58,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import models.ModelCitation;
 
@@ -72,6 +83,8 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference citationsRef = db.collection("citations");
     private FirebaseAuth auth;
+
+    private boolean existeDeja = false;
 
 
     // Methode pour verifier les permissions de l'application
@@ -149,7 +162,6 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,7 +193,6 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         Log.i(TAG, "readFileTxt: uriPathCompletAndroid : " + uriPathCompletAndroid);
 
 
-
         try {
 
             // ancienne version
@@ -204,8 +215,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Toast.makeText(this, "Veuillez vérifier les autorisations de l'application.\n" + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -394,9 +404,9 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                 }
 
                 parsedJSON += '\n';
+                verifieSiCitationExisteDsBD(date, heure, citation, annotation, numPage);
+                //enregistrement dans la BD de la citation importee (si la date de la citation et l'heure de la citation n'existe pas deja dans la base pour ce livre)
 
-                ModelCitation citationImportee = new ModelCitation(id_BD, citation, annotation, numPage, date, heure);
-                citationsRef.add(citationImportee);
 
 
             }
@@ -407,5 +417,56 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Erreur dans l'importation des citations et annotations à partir du fichier texte.\n" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void afterOnCompleteVerifieSiCitationExisteDsBD(boolean existeDeja, String citation, String annotation, int numPage, String date, String heure) {
+        if(!existeDeja) {
+            ModelCitation citationImportee = new ModelCitation(id_BD, citation, annotation, numPage, date, heure);
+            citationsRef.add(citationImportee);
+        }
+    }
+
+    //retourne true si la citation existe deja dans la BD
+    private void verifieSiCitationExisteDsBD(String date, String heure, String citation, String annotation, int numPage) {
+        existeDeja = false;
+
+        db.collection("citations")
+                .whereEqualTo("id_BD_livre", id_BD)
+                .whereEqualTo("date", date)
+                .whereEqualTo("heure", heure)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (querySnapshot.size()!=0) {
+                                existeDeja = true;
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                    String annotationFromDB = document.getString("annotation");
+                                    String citationFromDB = document.getString("citation");
+                                    String dateFromDB = document.getString("date");
+                                    String heureFromDB = document.getString("heure");
+
+                                    Log.i(TAG, "onComplete: annotationFromDB : " + annotationFromDB);
+                                    Log.i(TAG, "onComplete: citationFromDB : " + citationFromDB);
+                                    Log.i(TAG, "onComplete: dateFromDB : " + dateFromDB);
+                                    Log.i(TAG, "onComplete: heureFromDB : " + heureFromDB);
+
+                                    afterOnCompleteVerifieSiCitationExisteDsBD(existeDeja, citation, annotation, numPage, date,heure);
+
+                                }
+                            } else {
+                                afterOnCompleteVerifieSiCitationExisteDsBD(existeDeja, citation, annotation, numPage, date,heure);
+                            }
+
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
     }
 }
