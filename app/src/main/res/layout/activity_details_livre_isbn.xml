@@ -76,7 +76,7 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/tv_title_livre_bd"
+                        android:id="@+id/tv_title_updat_livre_bd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Titre de livre"
@@ -87,7 +87,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
                     <TextView
-                        android:id="@+id/tv_auteur_livre_bd"
+                        android:id="@+id/tv_auteur_updat_livre_bd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -95,7 +95,7 @@
                         android:textColor="@color/black" />
 
                     <TextView
-                        android:id="@+id/tv_editeur_livre_bd"
+                        android:id="@+id/tv_updat_editeur_livre_bd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -108,7 +108,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_isbn_livre_bd"
+                            android:id="@+id/tv_updat_isbn_livre_bd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -116,7 +116,7 @@
                             android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/tv_nombres_pages_livres_bd"
+                            android:id="@+id/tv_nombres_updat_pages_livres_bd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -125,7 +125,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_parution_livre_bd"
+                        android:id="@+id/tv_updat_parution_livre_bd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -134,7 +134,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_editeur_livre_bd" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_updat_editeur_livre_bd" />
 
 
                 </LinearLayout>
@@ -158,7 +158,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/tv_resume_livre_bd"
+                    android:id="@+id/tv_updat_resume_livre_bd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
@@ -186,7 +186,7 @@
                     android:textColor="@color/black" />
 
                 <Button
-                    android:id="@+id/btn_supprimer_livre"
+                    android:id="@+id/btn_save_livre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
