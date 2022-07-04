@@ -55,7 +55,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/iv_couverture_livre"
+                android:id="@+id/iv_couverture_livre_bd"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_couverture_livre_150" />
@@ -113,7 +113,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/tv_resume_livre"
+            android:id="@+id/tv_resume_livre_bd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="true"
@@ -127,7 +127,7 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/btn_modifier_livre"
+            android:id="@+id/btn_supprimer_livre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
