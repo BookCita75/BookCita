@@ -19,7 +19,7 @@
     <!-- Ajout d'un logo avec imageView,   -->
     <ImageView
         android:id="@+id/ivAvatar"
-        android:layout_width="120dp"
+        android:layout_width="200dp"
         android:layout_height="120dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/app_s_logo"
@@ -27,7 +27,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_chat" />
+        app:srcCompat="@drawable/logo_bookcita" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
