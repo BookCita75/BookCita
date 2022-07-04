@@ -108,10 +108,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         if (READ_EXTERNAL_STORAGE != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_READ);
-            Log.i(TAG, "checkPermission: " + "Pas de permission READ_EXTERNAL_STORAGE");
+            Log.i(TAG, "checkPermissionReadExternalStorage: " + "Pas de permission READ_EXTERNAL_STORAGE");
             return false;
         }
-        Log.i(TAG, "checkPermission: " + "Permission READ_EXTERNAL_STORAGE");
+        Log.i(TAG, "checkPermissionReadExternalStorage: " + "Permission READ_EXTERNAL_STORAGE");
         return true;
     }
 
@@ -120,10 +120,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         if (WRITE_EXTERNAL_STORAGE != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_WRITE);
-            Log.i(TAG, "checkPermission: " + "Pas de permission WRITE_EXTERNAL_STORAGE");
+            Log.i(TAG, "checkPermissionWriteExternalStorage: " + "Pas de permission WRITE_EXTERNAL_STORAGE");
             return false;
         }
-        Log.i(TAG, "checkPermission: " + "Permission WRITE_EXTERNAL_STORAGE");
+        Log.i(TAG, "checkPermissionWriteExternalStorage: " + "Permission WRITE_EXTERNAL_STORAGE");
         return true;
     }
 
@@ -132,10 +132,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         if (MANAGE_EXTERNAL_STORAGE != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.MANAGE_EXTERNAL_STORAGE}, PERMISSION_MANAGE);
-            Log.i(TAG, "checkPermission: " + "Pas de permission MANAGE_EXTERNAL_STORAGE");
+            Log.i(TAG, "checkPermissionManageExternalStorage: " + "Pas de permission MANAGE_EXTERNAL_STORAGE");
             return false;
         }
-        Log.i(TAG, "checkPermission: " + "Permission MANAGE_EXTERNAL_STORAGE");
+        Log.i(TAG, "checkPermissionManageExternalStorage: " + "Permission MANAGE_EXTERNAL_STORAGE");
         return true;
     }
 
@@ -152,6 +152,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
                     }
                 }
+                break;
             }
             case PERMISSION_WRITE: {
                 if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -162,17 +163,19 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
                     }
                 }
+                break;
             }
-            case PERMISSION_MANAGE: {
-                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
-                    if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                        Toast.makeText(this, "Veuillez autoriser la gestion de tous les fichiers.", Toast.LENGTH_LONG).show();
-                    } else {
-                        // Lancement de l'app
-
-                    }
-                }
-            }
+//            case PERMISSION_MANAGE: {
+//                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
+//                    if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+//                        Toast.makeText(this, "Veuillez autoriser la gestion de tous les fichiers.", Toast.LENGTH_LONG).show();
+//                    } else {
+//                        // Lancement de l'app
+//
+//                    }
+//                }
+//                break;
+//            }
         }
     }
 
