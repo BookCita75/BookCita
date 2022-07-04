@@ -410,10 +410,15 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                 ModelCitation citationImportee = new ModelCitation(id_BD, citation, annotation, numPage, date, heure);
                 citationsRef.add(citationImportee);
 
+
             }
             etParsedJSON.setText(parsedJSON);
+            Toast.makeText(this, "Citations et annotations importées avec succès.", Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Erreur dans l'importation des citations et annotations à partir du fichier texte.\n" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }
