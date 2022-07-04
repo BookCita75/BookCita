@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.dam.bookcita.login.LoginActivity;
+
 public class Splash extends AppCompatActivity {
 
     @Override
@@ -28,7 +30,7 @@ public class Splash extends AppCompatActivity {
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
-                                        startActivity(new Intent(Splash.this, MainActivity.class));
+                                        startActivity(new Intent(Splash.this, LoginActivity.class));
                                     }
                                 })
                                 .start();

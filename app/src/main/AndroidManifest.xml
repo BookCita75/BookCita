@@ -63,6 +63,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <activity android:name=".NoInternetActivity" />
+        <activity android:name=".login.ResetPaswordActivity" />
+        <activity android:name=".login.ChangePasswordActivity" />
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".login.SignupActivity" />
+        <activity android:name=".login.LoginActivity"/>
     </application>
 
 </manifest>

@@ -71,4 +71,7 @@ dependencies {
 
     // Pour ML Kit (OCR)
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.0'
+
+    // Round image pour afficher l'image dans un rond (il est possible d'utiliser Glide pour le faire aussi)
+    implementation 'com.mikhaellopez:circularimageview:3.0.2'
 }
