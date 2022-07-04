@@ -104,7 +104,7 @@ public class DetailsLivreBD extends AppCompatActivity {
                                 tv_parution_livre.setText(parution_livre);
                                 tv_resume_livre.setText(resume_livre);
                                 tv_isbn_livre.setText(isbn_livre);
-                                tv_nombres_pages_livres.setText(nbr_pages);
+                                tv_nombres_pages_livres.setText(nbr_pages+"p.");
 
 
                                 //Gestion de l'image avec Glide
