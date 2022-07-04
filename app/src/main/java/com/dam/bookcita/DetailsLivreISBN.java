@@ -61,13 +61,13 @@ public class DetailsLivreISBN extends AppCompatActivity{
     String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage;
     int nombres_pages_livres;
     public void initUI(){
-        tv_title_livre = findViewById(R.id.tv_title_livre_bd);
-        tv_auteur_livre = findViewById(R.id.tv_auteur_livre_bd);
-        tv_editeur_livre = findViewById(R.id.tv_editeur_livre_bd);
-        tv_parution_livre = findViewById(R.id.tv_parution_livre_bd);
-        tv_resume_livre = findViewById(R.id.tv_resume_livre_bd);
-        tv_isbn_livre = findViewById(R.id.tv_isbn_livre_bd);
-        tv_nombres_pages_livres = findViewById(R.id.tv_nombres_pages_livres_bd);
+        tv_title_livre = findViewById(R.id.tv_title_updat_livre_bd);
+        tv_auteur_livre = findViewById(R.id.tv_auteur_updat_livre_bd);
+        tv_editeur_livre = findViewById(R.id.tv_updat_editeur_livre_bd);
+        tv_parution_livre = findViewById(R.id.tv_updat_parution_livre_bd);
+        tv_resume_livre = findViewById(R.id.tv_updat_resume_livre_bd);
+        tv_isbn_livre = findViewById(R.id.tv_updat_isbn_livre_bd);
+        tv_nombres_pages_livres = findViewById(R.id.tv_nombres_updat_pages_livres_bd);
         iv_couverture_livre = (ImageView) findViewById(R.id.iv_couverture_livre_bd);
         tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
 

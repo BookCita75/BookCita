@@ -74,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Titre"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <EditText
                     android:id="@+id/et_auteur_Livres"
@@ -82,7 +83,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Auteur"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <EditText
                     android:id="@+id/et_editeur_Livre"
@@ -90,7 +92,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Editeur"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp" />
 
                 <EditText
                     android:id="@+id/et_date_parution_livre"
@@ -98,22 +101,39 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Date de parution"
-                    android:inputType="date" />
-
-                <EditText
-                    android:id="@+id/et_nombre_pages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Nombre des pages"
-                    android:inputType="numberDecimal" />
+                    android:inputType="date"
+                    tools:ignore="TouchTargetSizeCheck" />
 
 
             </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_isbnLivre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="ISBN"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_nombre_pages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Nombre des pages"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
         <EditText
-            android:id="@+id/tv_resume_livre_bd"
+            android:id="@+id/tv_updat_resume_livre_bd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="true"
@@ -127,12 +147,11 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/btn_supprimer_livre"
+            android:id="@+id/btn_save_livre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
-            android:onClick="modifierLivreBD"
             android:text="ENREGISTRER"
             android:textColor="@color/black" />
 
