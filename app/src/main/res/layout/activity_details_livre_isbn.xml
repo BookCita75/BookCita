@@ -7,7 +7,7 @@
     android:background="@color/greige"
     android:verticalScrollbarPosition="left"
     app:layout_scrollFlags="scroll"
-    tools:context=".DetailsLivreISBN">
+    tools:context=".activity.DetailsLivreISBN">
 
     <ScrollView
         android:id="@+id/scrollView2"

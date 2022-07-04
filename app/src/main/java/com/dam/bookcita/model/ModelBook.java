@@ -1,4 +1,4 @@
-package models;
+package com.dam.bookcita.model;
 
 import com.google.firebase.firestore.Exclude;
 

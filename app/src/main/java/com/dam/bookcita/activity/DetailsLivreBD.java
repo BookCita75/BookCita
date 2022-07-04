@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.activity;
 
 import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.dam.bookcita.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

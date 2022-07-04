@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.activity;
 
 import static com.dam.bookcita.common.Constantes.*;
 
@@ -9,6 +9,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.dam.bookcita.adapter.FragmentAdapter;
+import com.dam.bookcita.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {

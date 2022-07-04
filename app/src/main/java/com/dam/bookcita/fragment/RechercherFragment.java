@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.fragment;
 
 import static com.dam.bookcita.common.Constantes.*;
 
@@ -43,7 +43,11 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import models.ModelBook;
+import com.dam.bookcita.adapter.AdapterBook;
+import com.dam.bookcita.R;
+import com.dam.bookcita.activity.CameraXActivity;
+import com.dam.bookcita.activity.DetailsLivreISBN;
+import com.dam.bookcita.model.ModelBook;
 
 
 
@@ -52,7 +56,7 @@ import models.ModelBook;
  * Use the {@link RechercherFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RechercherFragment extends Fragment implements AdapterBook.OnItemClickListener{
+public class RechercherFragment extends Fragment implements AdapterBook.OnItemClickListener {
 
     private static final String TAG = "RechercherFragment";
 

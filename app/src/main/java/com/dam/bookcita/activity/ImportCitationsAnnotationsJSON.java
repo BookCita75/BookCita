@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,9 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.dam.bookcita.R;
 
 public class ImportCitationsAnnotationsJSON extends AppCompatActivity {
 

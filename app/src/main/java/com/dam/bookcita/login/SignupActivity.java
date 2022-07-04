@@ -35,7 +35,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.dam.bookcita.NoInternetActivity;
+import com.dam.bookcita.activity.NoInternetActivity;
 import com.dam.bookcita.R;
 import com.dam.bookcita.common.Util;
 

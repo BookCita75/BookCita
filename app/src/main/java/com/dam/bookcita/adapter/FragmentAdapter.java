@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -6,6 +6,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.dam.bookcita.fragment.AccueilFragment;
+import com.dam.bookcita.fragment.MesCitationsFragment;
+import com.dam.bookcita.fragment.MesLivresFragment;
+import com.dam.bookcita.fragment.RechercherFragment;
 
 public class FragmentAdapter extends FragmentStateAdapter {
     public FragmentAdapter(@NonNull FragmentActivity fragmentActivity) {

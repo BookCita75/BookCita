@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.activity;
 
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dam.bookcita.R;
 import com.dam.bookcita.common.Util;
 
 public class NoInternetActivity extends AppCompatActivity {

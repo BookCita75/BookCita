@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.dam.bookcita.R;
 import com.dam.bookcita.login.LoginActivity;
 
 public class Splash extends AppCompatActivity {

@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.dam.bookcita.NoInternetActivity;
+import com.dam.bookcita.activity.NoInternetActivity;
 import com.dam.bookcita.R;
 import com.dam.bookcita.common.Util;
 

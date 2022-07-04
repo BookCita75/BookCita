@@ -1,8 +1,10 @@
-package com.dam.bookcita;
+package com.dam.bookcita.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.dam.bookcita.R;
 
 public class AjouterUnLivre extends AppCompatActivity {
 

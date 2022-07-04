@@ -1,4 +1,4 @@
-package com.dam.bookcita;
+package com.dam.bookcita.fragment;
 
 
 
@@ -19,6 +19,9 @@ import android.view.ViewGroup;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.dam.bookcita.adapter.AdapterDetailsBook;
+import com.dam.bookcita.R;
+import com.dam.bookcita.activity.DetailsLivreBD;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,7 +31,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
-import models.ModelDetailsLivre;
+import com.dam.bookcita.model.ModelDetailsLivre;
 
 /**
  * A simple {@link Fragment} subclass.

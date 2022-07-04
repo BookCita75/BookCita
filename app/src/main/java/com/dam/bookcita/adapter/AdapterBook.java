@@ -1,7 +1,6 @@
-package com.dam.bookcita;
+package com.dam.bookcita.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +15,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
-import models.ModelBook;
+import com.dam.bookcita.R;
+import com.dam.bookcita.model.ModelBook;
 
 public class AdapterBook extends RecyclerView.Adapter<AdapterBook.MyViewHolder> {
     private Context context;

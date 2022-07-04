@@ -7,7 +7,7 @@
     android:background="@color/greige"
     android:verticalScrollbarPosition="left"
     app:layout_scrollFlags="scroll"
-    tools:context=".DetailsLivreBD">
+    tools:context=".activity.DetailsLivreBD">
 
     <ImageView
         android:id="@+id/imageView2"

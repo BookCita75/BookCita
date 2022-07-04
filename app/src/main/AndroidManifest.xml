@@ -19,40 +19,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
-            android:name=".SaisieManuelleCitationActivity"
+            android:name=".activity.SaisieManuelleCitationActivity"
             android:exported="false" />
         <activity
-            android:name=".ModifierLivreBD"
+            android:name=".activity.ModifierLivreBD"
             android:exported="false" />
         <activity
-            android:name=".DetailsLivreBD"
+            android:name=".activity.DetailsLivreBD"
             android:exported="false" />
         <activity
-            android:name=".AjoutCitationActivity"
+            android:name=".activity.AjoutCitationActivity"
             android:exported="false" />
         <activity
-            android:name=".ImportTxtFileActivity"
+            android:name=".activity.ImportTxtFileActivity"
             android:exported="false" />
         <activity
-            android:name=".CameraXActivity"
+            android:name=".activity.CameraXActivity"
             android:exported="false" />
         <activity
-            android:name=".ScannerISBNActivity"
+            android:name=".activity.ScannerISBNActivity"
             android:exported="false" />
         <activity
-            android:name=".ImportCitationsAnnotationsJSON"
+            android:name=".activity.ImportCitationsAnnotationsJSON"
             android:exported="false" />
         <activity
-            android:name=".AjouterUnLivre"
+            android:name=".activity.AjouterUnLivre"
             android:exported="false" />
         <activity
-            android:name=".DetailsLivreISBN"
+            android:name=".activity.DetailsLivreISBN"
             android:exported="false" />
         <activity
-            android:name=".ListeDesLivresBD"
+            android:name=".activity.ListeDesLivresBD"
             android:exported="false" />
         <activity
-            android:name=".Splash"
+            android:name=".activity.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,10 +61,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="false" />
 
-        <activity android:name=".NoInternetActivity" />
+        <activity android:name=".activity.NoInternetActivity" />
         <activity android:name=".login.ResetPaswordActivity" />
         <activity android:name=".login.ChangePasswordActivity" />
         <activity android:name=".profile.ProfileActivity" />

@@ -1,8 +1,9 @@
-package com.dam.bookcita;
+package com.dam.bookcita.activity;
 import static com.dam.bookcita.common.Constantes.*;
 
 
-import models.ModelDetailsLivre;
+import com.dam.bookcita.R;
+import com.dam.bookcita.model.ModelDetailsLivre;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
