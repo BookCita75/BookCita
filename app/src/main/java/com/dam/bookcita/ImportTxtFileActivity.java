@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -78,6 +80,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     String uri_path;
     File file;
 
+    private TextView tvTitreIC;
+    private TextView tvAuteurIC;
+    private ImageView ivCoverIC;
+
     private String id_BD;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -89,6 +95,12 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private int cptCitationsDejaExistantesEnBD = 0;
     private int nbTotalCitationAImporter = 0;
 
+
+    private void init(){
+        tvTitreIC = findViewById(R.id.tvTitreIC);
+        tvAuteurIC = findViewById(R.id.tvAuteurIC);
+        ivCoverIC = findViewById(R.id.ivCoverIC);
+    }
 
     // Methode pour verifier les permissions de l'application
     public boolean checkPermissionReadExternalStorage() {
@@ -178,8 +190,61 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         id_BD = intent.getStringExtra(ID_BD);
         Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
 
+        init();
+        getFicheBookFromDB();
+
     }
 
+    private void getFicheBookFromDB() {
+
+
+//        Query query = livresRef.whereEqualTo("id", id_BD);
+
+        db.collection("livres")
+                .whereEqualTo(documentId(), id_BD)
+//                .whereEqualTo("auteur_livre", "Luc Lang")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            //comme on filtre par id, on devrait avoir ici qu'un seul resultat
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.i(TAG, document.getId() + " => " + document.getData());
+                                String titre = document.getString("title_livre");
+                                String auteur = document.getString("auteur_livre");
+                                String coverUrl = document.getString("url_cover_livre");
+                                Log.i(TAG, "onComplete: titre : " + titre);
+                                Log.i(TAG, "onComplete: auteur : " + auteur);
+                                Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
+                                tvTitreIC.setText(titre);
+                                tvAuteurIC.setText(auteur);
+                                //Gestion de l'image avec Glide
+                                Context context = ImportTxtFileActivity.this;
+
+                                RequestOptions options = new RequestOptions()
+                                        .centerCrop()
+                                        .error(R.drawable.ic_couverture_livre_150)
+                                        .placeholder(R.drawable.ic_couverture_livre_150);
+
+                                // methode normale
+                                Glide.with(context)
+                                        .load(coverUrl)
+                                        .apply(options)
+                                        .fitCenter()
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .into(ivCoverIC);
+                            }
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+
+
+    }
 
     private String readFileTxt(String uri_pathComplet) throws FileNotFoundException {
         String myData = "";
