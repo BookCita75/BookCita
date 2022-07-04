@@ -1,5 +1,5 @@
 package com.dam.bookcita;
-import static com.dam.bookcita.common.Constants.*;
+import static com.dam.bookcita.common.Constantes.*;
 
 
 import models.ModelDetailsLivre;

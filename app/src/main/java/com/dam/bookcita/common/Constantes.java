@@ -42,4 +42,14 @@ public interface Constantes {
     String REQUEST_STATUS_SENT = "sent";
     String REQUEST_STATUS_RECEIVED = "received";
     //-------------- end Friend Request
+
+    String ID_BD = "id_BD";
+    String FRAG_TO_LOAD = "frag_to_load";
+
+    int ACCUEIL_FRAGMENT = 0;
+    int MES_LIVRES_FRAGMENT = 1;
+
+    String ISBN = "isbn";
+    String ID = "id";
+    String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
 }

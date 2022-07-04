@@ -1,6 +1,6 @@
 package com.dam.bookcita;
 
-import static com.dam.bookcita.common.Constants.ID_BD;
+import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.Manifest;

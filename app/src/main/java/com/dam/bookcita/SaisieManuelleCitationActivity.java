@@ -1,6 +1,6 @@
 package com.dam.bookcita;
 
-import static com.dam.bookcita.common.Constants.*;
+import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
