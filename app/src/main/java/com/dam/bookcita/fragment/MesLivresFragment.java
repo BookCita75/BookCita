@@ -24,6 +24,7 @@ import com.dam.bookcita.R;
 import com.dam.bookcita.activity.DetailsLivreBD;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -107,7 +108,15 @@ public class MesLivresFragment extends Fragment {
         bookArrayList = new ArrayList<ModelDetailsLivre>();
     }
     public void getBooksFromDB(){
-        Query query = livresRef.orderBy("title_livre");
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        String id_user = firebaseUser.getUid();
+        Log.i(TAG, "getBooksFromDB: id_user : " + id_user);
+        Query query = livresRef
+                //On ne charge que les livres presents dans la BD de l'utilisateur connecté
+//                .orderBy("title_livre")
+                .whereEqualTo("id_user", id_user);
+//        Query query2 = query.orderBy("title_livre");
         Log.i(TAG, "Query : "+query);
         FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
                 .setQuery(query, ModelDetailsLivre.class)

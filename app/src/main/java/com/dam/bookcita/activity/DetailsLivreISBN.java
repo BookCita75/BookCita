@@ -28,6 +28,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -76,7 +78,11 @@ public class DetailsLivreISBN extends AppCompatActivity{
     }
     
     public void ajouterLivreBD(View view){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
+        String id_user = firebaseUser.getUid();
+        Log.i(TAG, "ajouterLivreBD: id_user : " + id_user);
 
         title_livre = detailsLivre.getTitle_livre();
         auteur_livre = detailsLivre.getAuteur_livre();
@@ -98,7 +104,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
         //int nbPagesSanP = Integer.parseInt(nombreDesPages);
         //Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
 
-       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres);
+       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres, id_user);
 
        livresRef.add(livre);
         Log.i(TAG, "ModelDetailsLivre : ISBN"+ livre.getIsbn_livre() +" Titre : "+ livre.getTitle_livre()+ " Nombre des pages : "+ livre.getNombre_livres());
