@@ -31,7 +31,7 @@ public class Splash extends AppCompatActivity {
                                 .withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
-                                        startActivity(new Intent(Splash.this, ListeCitationsFromOneBookActivity.class));
+                                        startActivity(new Intent(Splash.this, LoginActivity.class));
                                     }
                                 })
                                 .start();
