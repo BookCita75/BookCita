@@ -66,7 +66,7 @@
 
         <TextView
             android:id="@+id/tvCitationItemC"
-            android:layout_width="380dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
@@ -86,7 +86,7 @@
 
         <TextView
             android:id="@+id/tvAnnotationItemC"
-            android:layout_width="380dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
