@@ -93,7 +93,8 @@ public class ModifierLivreBD extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(TAG, "onClick: "+tv_auteur_livre.getText().toString());
 
-                //int nombredespages = Integer.parseInt(tv_nombres_pages_livres.getText().toString());
+                int nombredespages = Integer.parseInt(tv_nombres_pages_livres.getText().toString());
+                Log.i(TAG, "nombredespages: "+nombredespages);
                 if (tv_title_livre.getText().toString().equals("")) {
                     Toast.makeText(ModifierLivreBD.this, "Veuillez saisir un titre.", Toast.LENGTH_LONG).show();
                 }
@@ -103,12 +104,10 @@ public class ModifierLivreBD extends AppCompatActivity {
                         "editeur_livre",tv_editeur_livre.getText().toString(),
                         "date_parution_livre",tv_parution_livre.getText().toString(),
                         "resume_livre",tv_resume_livre.getText().toString(),
-                        "isbn_livre",tv_isbn_livre.getText().toString()
-                     //  "nombre_livres",4
+                        "isbn_livre",tv_isbn_livre.getText().toString(),
+                        "nombre_livres",nombredespages
                 );
                 Toast.makeText(ModifierLivreBD.this, "Mise à jour effectuée avec succès.", Toast.LENGTH_LONG).show();
-
-
 
             }
         });
@@ -116,10 +115,12 @@ public class ModifierLivreBD extends AppCompatActivity {
 
 
 
-        Intent intent = getIntent();
-        String detailsLivreID = intent.getStringExtra("IDdb");
 
-        Log.i(TAG, "ID livre : "+detailsLivreID);
+    }
+    public void updateImage(View v) {
+
+        Log.i(TAG, "updateImage: imdn");
+
     }
     public void getListBooksDB(String id_BD){
         livresRef.whereEqualTo(documentId(), id_BD).get()
@@ -138,9 +139,9 @@ public class ModifierLivreBD extends AppCompatActivity {
                                 parution_livre = document.getString("date_parution_livre");
                                 resume_livre = document.getString("resume_livre");
                                 isbn_livre = document.getString("isbn_livre");
-//                                nombres_pages_livres = document.getLong("nombre_livres");
+                                nombres_pages_livres = document.getLong("nombre_livres");
 //
-//                                String nbr_pages = String.valueOf(nombres_pages_livres);
+                                String nbr_pages = String.valueOf(nombres_pages_livres);
 
 
                                 Log.i(TAG, "onComplete: titre : " + title_livre);
@@ -152,7 +153,7 @@ public class ModifierLivreBD extends AppCompatActivity {
                                 tv_parution_livre.setText(parution_livre);
                                 tv_resume_livre.setText(resume_livre);
                                 tv_isbn_livre.setText(isbn_livre);
-                               // tv_nombres_pages_livres.setText(nbr_pages);
+                                tv_nombres_pages_livres.setText(nbr_pages);
 
 
                                 //Gestion de l'image avec Glide
