@@ -53,4 +53,9 @@ public interface Constantes {
     String ID = "id";
     String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
     String RESULT_TEXT_OCR = "result_text_OCR";
+
+    String TYPE_SAISIE_MANUELLE_OR_OCR = "type_saisie_manuelle_or_OCR";
+    String SAISIE_OCR = "saisie_OCR";
+    String SAISIE_MANUELLE = "saisie_manuelle";
+    String TEXTE_EXTRAIT = "texte_extrait";
 }

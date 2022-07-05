@@ -37,6 +37,7 @@ import com.dam.bookcita.model.ModelCitation;
 public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private static final String TAG = "SaisieManuelleCitationA";
 
+    private TextView tvTitreSaisie;
     private TextView tvTitreSMC;
     private TextView tvAuteurSMC;
     private ImageView ivCoverSMC;
@@ -49,6 +50,8 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private Button btnValiderAjoutCitation;
 
     private String id_BD;
+    private String type_saisie;
+    private String texte_extrait;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference citationsRef = db.collection("citations");
@@ -57,7 +60,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
 
     private void init() {
         //init UI
-
+        tvTitreSaisie = findViewById(R.id.tvTitreSaisie);
         tvTitreSMC = findViewById(R.id.tvTitreSMC);
         tvAuteurSMC = findViewById(R.id.tvAuteurSMC);
         ivCoverSMC = findViewById(R.id.ivCoverSMC);
@@ -77,9 +80,16 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id_BD = intent.getStringExtra(ID_BD);
+        type_saisie = intent.getStringExtra(TYPE_SAISIE_MANUELLE_OR_OCR);
+        texte_extrait = intent.getStringExtra(TEXTE_EXTRAIT);
         Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
 
         init();
+
+        if(type_saisie.equals(SAISIE_OCR)) {
+            tvTitreSaisie.setText("Scan OCR saisie citation");
+            etmlCitation.setText(texte_extrait);
+        }
 
         getFicheBookFromDB();
 

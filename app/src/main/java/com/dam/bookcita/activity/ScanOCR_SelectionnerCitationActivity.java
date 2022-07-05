@@ -1,7 +1,7 @@
 package com.dam.bookcita.activity;
 
-import static com.dam.bookcita.common.Constantes.ID_BD;
-import static com.dam.bookcita.common.Constantes.RESULT_TEXT_OCR;
+import static com.dam.bookcita.common.Constantes.*;
+
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -88,6 +88,11 @@ public class ScanOCR_SelectionnerCitationActivity extends AppCompatActivity {
                 } else {
                     String texteExtrait = etmlTexteExtrait.getText().toString();
                     Log.i(TAG, "onClick: texteExtrait : " + texteExtrait);
+                    Intent saisieIntent = new Intent(ScanOCR_SelectionnerCitationActivity.this, SaisieManuelleCitationActivity.class);
+                    saisieIntent.putExtra(TYPE_SAISIE_MANUELLE_OR_OCR, SAISIE_OCR);
+                    saisieIntent.putExtra(ID_BD, id_BD);
+                    saisieIntent.putExtra(TEXTE_EXTRAIT, texteExtrait);
+                    startActivity(saisieIntent);
                 }
 
             }

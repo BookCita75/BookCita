@@ -20,7 +20,7 @@
             app:srcCompat="@drawable/titre_barre_top" />
 
         <TextView
-            android:id="@+id/tvSaisieManuelle"
+            android:id="@+id/tvTitreSaisie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
