@@ -50,7 +50,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private Button btnValiderAjoutCitation;
 
     private String id_BD;
-    private String type_saisie;
+    private String type_saisie="";
     private String texte_extrait;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -81,12 +81,13 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id_BD = intent.getStringExtra(ID_BD);
         type_saisie = intent.getStringExtra(TYPE_SAISIE_MANUELLE_OR_OCR);
-        texte_extrait = intent.getStringExtra(TEXTE_EXTRAIT);
+
         Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
 
         init();
 
         if(type_saisie.equals(SAISIE_OCR)) {
+            texte_extrait = intent.getStringExtra(TEXTE_EXTRAIT);
             tvTitreSaisie.setText("Scan OCR saisie citation");
             etmlCitation.setText(texte_extrait);
         }

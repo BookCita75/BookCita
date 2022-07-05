@@ -131,6 +131,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent saisieManuelleCitationIntent = new Intent(AjoutCitationActivity.this, SaisieManuelleCitationActivity.class);
                 saisieManuelleCitationIntent.putExtra(ID_BD, id_BD);
+                saisieManuelleCitationIntent.putExtra(TYPE_SAISIE_MANUELLE_OR_OCR, SAISIE_MANUELLE);
                 startActivity(saisieManuelleCitationIntent);
             }
         });
