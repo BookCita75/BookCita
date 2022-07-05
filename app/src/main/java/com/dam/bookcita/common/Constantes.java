@@ -52,4 +52,5 @@ public interface Constantes {
     String ISBN = "isbn";
     String ID = "id";
     String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
+    String RESULT_TEXT_OCR = "result_text_OCR";
 }

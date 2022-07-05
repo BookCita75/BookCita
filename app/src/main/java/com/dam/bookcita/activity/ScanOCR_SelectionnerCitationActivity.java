@@ -1,7 +1,7 @@
 package com.dam.bookcita.activity;
 
-import static com.dam.bookcita.common.Constantes.*;
-
+import static com.dam.bookcita.common.Constantes.ID_BD;
+import static com.dam.bookcita.common.Constantes.RESULT_TEXT_OCR;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -28,37 +30,68 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class AjoutCitationActivity extends AppCompatActivity {
+public class ScanOCR_SelectionnerCitationActivity extends AppCompatActivity {
 
-    private static final String TAG = "AjoutCitationActivity";
+    private static final String TAG = "ScanOCR_SelectionnerCit";
 
-    private Button btnSaisieManuelleCitation;
-    private Button btnScanOCR;
-    private Button btnImportFichierTxt;
+    private TextView tvTitreSOS;
+    private TextView tvAuteurSOS;
+    private ImageView ivCoverSOS;
 
-    private TextView tvTitreAC;
-    private TextView tvAuteurAC;
-    private ImageView ivCoverAC;
 
+    private EditText etmlTexteOCR;
+    private EditText etmlTexteExtrait;
+
+
+    private Button btnValiderSelection;
 
     private String id_BD;
+    private String result_text_OCR;
+
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference citationsRef = db.collection("citations");
     private FirebaseAuth auth;
 
-
     private void init() {
-        //init UI
-        btnSaisieManuelleCitation = findViewById(R.id.btnSaisieManuelleCitation);
-        btnScanOCR = findViewById(R.id.btnScanOCR);
-        btnImportFichierTxt = findViewById(R.id.btnImportFichierTxt);
+        tvTitreSOS = findViewById(R.id.tvTitreSOS);
+        tvAuteurSOS = findViewById(R.id.tvAuteurSOS);
+        ivCoverSOS = findViewById(R.id.ivCoverSOS);
 
-        tvTitreAC = findViewById(R.id.tvTitreAC);
-        tvAuteurAC = findViewById(R.id.tvAuteurAC);
-        ivCoverAC = findViewById(R.id.ivCoverAC);
+        etmlTexteOCR = findViewById(R.id.etmlTexteOCR);
+        btnValiderSelection = findViewById(R.id.btnValiderSelection);
+        etmlTexteExtrait = findViewById(R.id.etmlTexteExtrait);
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scan_ocr_selectionner_citation);
 
+        Intent intent = getIntent();
+        id_BD = intent.getStringExtra(ID_BD);
+        result_text_OCR = intent.getStringExtra(RESULT_TEXT_OCR);
+        Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
+
+        init();
+
+        getFicheBookFromDB();
+
+        etmlTexteOCR.setText(result_text_OCR);
+
+        btnValiderSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(etmlTexteExtrait.getText().toString().isEmpty()) {
+                    Toast.makeText(ScanOCR_SelectionnerCitationActivity.this, "Veuillez coller une citation dans le champ texte prévu pour.", Toast.LENGTH_SHORT).show();
+                } else {
+                    String texteExtrait = etmlTexteExtrait.getText().toString();
+                    Log.i(TAG, "onClick: texteExtrait : " + texteExtrait);
+                }
+
+            }
+        });
     }
 
     private void getFicheBookFromDB() {
@@ -84,10 +117,10 @@ public class AjoutCitationActivity extends AppCompatActivity {
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
-                                tvTitreAC.setText(titre);
-                                tvAuteurAC.setText(auteur);
+                                tvTitreSOS.setText(titre);
+                                tvAuteurSOS.setText(auteur);
                                 //Gestion de l'image avec Glide
-                                Context context = AjoutCitationActivity.this ;
+                                Context context = ScanOCR_SelectionnerCitationActivity.this;
 
                                 RequestOptions options = new RequestOptions()
                                         .centerCrop()
@@ -100,7 +133,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
                                         .apply(options)
                                         .fitCenter()
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                        .into(ivCoverAC);
+                                        .into(ivCoverSOS);
                             }
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
@@ -110,48 +143,5 @@ public class AjoutCitationActivity extends AppCompatActivity {
                 });
 
 
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ajout_citation);
-
-        init();
-
-        Intent intent = getIntent();
-        id_BD = intent.getStringExtra(ID_BD);
-        Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
-
-        getFicheBookFromDB();
-
-        btnSaisieManuelleCitation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent saisieManuelleCitationIntent = new Intent(AjoutCitationActivity.this, SaisieManuelleCitationActivity.class);
-                saisieManuelleCitationIntent.putExtra(ID_BD, id_BD);
-                startActivity(saisieManuelleCitationIntent);
-            }
-        });
-
-        btnScanOCR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cameraXIntent = new Intent(AjoutCitationActivity.this, CameraXActivity.class);
-                cameraXIntent.putExtra(TYPE_ISBN_OR_OCR, "OCR");
-                cameraXIntent.putExtra(ID_BD, id_BD);
-                startActivity(cameraXIntent);
-            }
-        });
-
-        btnImportFichierTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent importTxtFileIntent = new Intent(AjoutCitationActivity.this, ImportTxtFileActivity.class);
-                importTxtFileIntent.putExtra(ID_BD, id_BD);
-                startActivity(importTxtFileIntent);
-            }
-        });
     }
 }

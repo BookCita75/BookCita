@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
+            android:name=".activity.ScanOCR_SelectionnerCitationActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SaisieManuelleCitationActivity"
             android:exported="false" />
         <activity
@@ -63,13 +66,12 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
-
         <activity android:name=".activity.NoInternetActivity" />
         <activity android:name=".login.ResetPaswordActivity" />
         <activity android:name=".login.ChangePasswordActivity" />
         <activity android:name=".profile.ProfileActivity" />
         <activity android:name=".login.SignupActivity" />
-        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.LoginActivity" />
     </application>
 
 </manifest>

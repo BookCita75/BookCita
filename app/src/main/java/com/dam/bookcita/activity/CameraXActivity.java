@@ -63,6 +63,8 @@ public class CameraXActivity extends AppCompatActivity {
 
     private String type_ISBN_or_OCR;
 
+    private String id_BD;
+
 
 
     @Override
@@ -72,6 +74,7 @@ public class CameraXActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         type_ISBN_or_OCR = intent.getStringExtra(TYPE_ISBN_OR_OCR);
+        id_BD = intent.getStringExtra(ID_BD);
 
         textureView = findViewById(R.id.view_finder);
 
@@ -289,6 +292,10 @@ public class CameraXActivity extends AppCompatActivity {
                                 Toast.makeText(CameraXActivity.this, "OCR réussie!", Toast.LENGTH_LONG).show();
                                 resultTextOCR = text.getText();
                                 Log.i(TAG, "onSuccess: resultTextOCR : " + resultTextOCR);
+                                Intent selectionCitationIntent = new Intent(CameraXActivity.this, ScanOCR_SelectionnerCitationActivity.class);
+                                selectionCitationIntent.putExtra(ID_BD, id_BD);
+                                selectionCitationIntent.putExtra(RESULT_TEXT_OCR, resultTextOCR);
+                                startActivity(selectionCitationIntent);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
