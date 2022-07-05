@@ -7,14 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".activity.ModifierLivreBD">
 
+    <ProgressBar
+        android:id="@+id/progressBarImage"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout5"
@@ -62,8 +78,9 @@
                     android:id="@+id/iv_couverture_livre_bd"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:onClick="updateImage"
-                    app:srcCompat="@drawable/ic_couverture_livre_150" />
+                    android:onClick="loadImage"
+                    app:srcCompat="@drawable/ic_couverture_livre_150"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -125,7 +142,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="ISBN"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <EditText
                     android:id="@+id/et_nombre_pages"
@@ -134,7 +152,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Nombre des pages"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <EditText

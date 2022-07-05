@@ -4,13 +4,16 @@ import static com.dam.bookcita.common.Constants.ID_BD;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.Log;
@@ -26,12 +29,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import com.dam.bookcita.R;
 
@@ -50,12 +57,22 @@ public class ModifierLivreBD extends AppCompatActivity {
     private static final String TAG = "UpadateLivreBD";
     private RequestQueue requestQueue;
 
+    private StorageReference fileStorage;
+
+    private Uri serverFileUri;
+
+    private Uri localFileUri;
+
+    private FirebaseAuth auth;
+
+    String id_BD;
+
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection("livres");
-    private FirebaseAuth auth;
     private Button btn_modifier;
-    ProgressDialog progressDialog;
+    private View progressBar;
+    String uriPhoto;
 
 
     public void initUI(){
@@ -73,6 +90,7 @@ public class ModifierLivreBD extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
+        progressBar = findViewById(R.id.progressBarImage);
 
         auth = FirebaseAuth.getInstance();
 
@@ -83,8 +101,10 @@ public class ModifierLivreBD extends AppCompatActivity {
         setContentView(R.layout.activity_modifier_livre_bd);
         initUI();
         Intent intent = getIntent();
-        String id_BD = intent.getStringExtra(ID_BD);
+        id_BD = intent.getStringExtra(ID_BD);
         Log.i(TAG, "onCreate: id_BD UPDATE : " + id_BD);
+
+        fileStorage = FirebaseStorage.getInstance().getReference();
 
         getListBooksDB(id_BD);
 
@@ -105,8 +125,11 @@ public class ModifierLivreBD extends AppCompatActivity {
                         "date_parution_livre",tv_parution_livre.getText().toString(),
                         "resume_livre",tv_resume_livre.getText().toString(),
                         "isbn_livre",tv_isbn_livre.getText().toString(),
-                        "nombre_livres",nombredespages
+                        "nombre_livres",nombredespages,
+                        "url_cover_livre",uriPhoto
+
                 );
+
                 Toast.makeText(ModifierLivreBD.this, "Mise à jour effectuée avec succès.", Toast.LENGTH_LONG).show();
 
             }
@@ -116,12 +139,75 @@ public class ModifierLivreBD extends AppCompatActivity {
 
 
 
+
+
+
     }
-    public void updateImage(View v) {
+    public void loadImage(View v) {
 
         Log.i(TAG, "updateImage: imdn");
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 101);
 
     }
+
+    public void uploadImage(){
+
+        long time= System.currentTimeMillis();
+        String imageName = time+".jpg";
+        Log.i(TAG, "uploadImage: imageName"+imageName);
+        final StorageReference fileRef = fileStorage.child("couvertures_livres/" + imageName);
+        uriPhoto = "https://firebasestorage.googleapis.com/v0/b/bookcita.appspot.com/o/couvertures_livres%2F"+imageName+"?alt=media&token=c865477c-af5d-4bb7-821a-73dc83215583";
+        Log.i(TAG, "uploadImage: Uri photo : "+uriPhoto);
+        progressBar.setVisibility(View.VISIBLE);
+
+        fileRef.putFile(localFileUri)
+                .addOnCompleteListener(ModifierLivreBD.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        progressBar.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                            fileRef.getDownloadUrl().addOnSuccessListener(ModifierLivreBD.this,
+                                    new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    serverFileUri = uri;
+                                    Log.i(TAG, "onSuccess: On success"+uri.getPath());
+                                    //serverFileUri = uri.getPath();
+
+                                }
+                            });
+                        }
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+        Log.i(TAG, "onActivityResult: after upload");
+        if (requestCode == 101) {
+            // Il y'a bien eu sélection d'image (sinon resultcode = RESULT_CANCELED)
+            if (resultCode == RESULT_OK) {
+                // Ajout des variables globales des uri cf 7.5
+                localFileUri = data.getData();
+                uploadImage();
+                Log.i(TAG, "onActivityResult: "+localFileUri);
+                // Affectation de l'image sélectionnée à l'avatar (pour la variable globale cf 7.5)
+                iv_couverture_livre.setImageURI(localFileUri);
+            }
+        }
+
+
+
+
+
+        
+    }
+
     public void getListBooksDB(String id_BD){
         livresRef.whereEqualTo(documentId(), id_BD).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
