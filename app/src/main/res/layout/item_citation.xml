@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    app:cardBackgroundColor="@color/primary_light_color"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvDateItemC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="05/07/2022" />
+
+        <TextView
+            android:id="@+id/tvHeureItemC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDateItemC"
+            app:layout_constraintStart_toEndOf="@+id/tvDateItemC"
+            tools:text="15:06" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:text="Page : "
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHeureItemC"
+            app:layout_constraintStart_toEndOf="@+id/tvHeureItemC" />
+
+        <TextView
+            android:id="@+id/tvPageItemIC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/textView22"
+            app:layout_constraintStart_toEndOf="@+id/textView22"
+            tools:text="XX" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Citation : "
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tvDateItemC"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateItemC" />
+
+        <TextView
+            android:id="@+id/tvCitationItemC"
+            android:layout_width="380dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/textView24"
+            app:layout_constraintTop_toBottomOf="@+id/textView24"
+            tools:text="Corps de la citation abrégée" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Annotation : "
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tvCitationItemC"
+            app:layout_constraintTop_toBottomOf="@+id/tvCitationItemC" />
+
+        <TextView
+            android:id="@+id/tvAnnotationItemC"
+            android:layout_width="380dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/textView27"
+            tools:text="Corps de l'annotation abrégée" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
