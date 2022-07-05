@@ -69,7 +69,6 @@ public class ModifierLivreBD extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection("livres");
     private Button btn_modifier;
-    private View progressBar;
     String uriPhoto;
 
 
@@ -88,7 +87,6 @@ public class ModifierLivreBD extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        progressBar = findViewById(R.id.progressBarImage);
 
         auth = FirebaseAuth.getInstance();
 
@@ -157,13 +155,13 @@ public class ModifierLivreBD extends AppCompatActivity {
         final StorageReference fileRef = fileStorage.child("couvertures_livres/" + imageName);
         uriPhoto = "https://firebasestorage.googleapis.com/v0/b/bookcita.appspot.com/o/couvertures_livres%2F"+imageName+"?alt=media&token=c865477c-af5d-4bb7-821a-73dc83215583";
         Log.i(TAG, "uploadImage: Uri photo : "+uriPhoto);
-        progressBar.setVisibility(View.VISIBLE);
+
 
         fileRef.putFile(localFileUri)
                 .addOnCompleteListener(ModifierLivreBD.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        progressBar.setVisibility(View.GONE);
+
                         if (task.isSuccessful()) {
                             fileRef.getDownloadUrl().addOnSuccessListener(ModifierLivreBD.this,
                                     new OnSuccessListener<Uri>() {
