@@ -43,7 +43,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
     private RecyclerView rvCitationsFOB;
 
     private AdapterCitation adapterCitation;
-    private RequestQueue requestQueue;
+
     private ProgressDialog progressDialog;
 
     private String id_BD;
@@ -75,7 +75,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
         init();
 
         getFicheBookFromDB();
-        requestQueue = Volley.newRequestQueue(this);
+
         rvCitationsFOB.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
         progressDialog = new ProgressDialog(this);
@@ -87,8 +87,8 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
     }
 
     public void getCitationsFOBFromDB(){
-//        Query query = citationsRef.whereEqualTo("id_BD_livre","SSRfUps53f5eTZekDiHc");
-        Query query = citationsRef.orderBy("citation");
+        Query query = citationsRef.whereEqualTo("id_BD_livre",id_BD);
+//        Query query = citationsRef.orderBy("citation");
         Log.i(TAG, "Query : "+query);
         FirestoreRecyclerOptions<ModelCitation> citationsFOB = new FirestoreRecyclerOptions.Builder<ModelCitation>()
                 .setQuery(query, ModelCitation.class)
@@ -98,6 +98,12 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
         if (progressDialog.isShowing()){
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapterCitation.startListening();
     }
 
     private void getFicheBookFromDB() {
