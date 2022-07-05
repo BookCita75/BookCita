@@ -9,183 +9,198 @@
     app:layout_scrollFlags="scroll"
     tools:context=".DetailsLivreBD">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/titre_barre_top" />
-
-    <TextView
-        android:id="@+id/txt_dettails_livre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="25dp"
-        android:text="Détails d'un livre"
-        android:textColor="#000000"
-        android:textSize="28dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
+    <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
-
-        <ImageView
-            android:id="@+id/iv_couverture_livre_bd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/ic_couverture_livre_150" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/secondary_light_color"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_title_updat_livre_bd"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/txt_dettails_livre"
+                app:layout_constraintStart_toEndOf="@+id/txt_dettails_livre">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_dettails_livre"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/titre_barre_top"
+                    tools:layout_conversion_absoluteHeight="74dp"
+                    tools:layout_conversion_absoluteWidth="411dp" />
+
+                <TextView
+                    android:id="@+id/txt_dettails_livre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Détails d'un livre"
+                    android:textColor="#000000"
+                    android:textSize="28dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="38dp"
+                    tools:layout_conversion_absoluteWidth="204dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titre de livre"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/tv_auteur_updat_livre_bd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="AUTEUR "
-                android:textColor="@color/black" />
+                <ImageView
+                    android:id="@+id/iv_couverture_livre_bd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_couverture_livre_150"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-            <TextView
-                android:id="@+id/tv_updat_editeur_livre_bd"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/secondary_light_color"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_title_updat_livre_bd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Titre de livre"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                    <TextView
+                        android:id="@+id/tv_auteur_updat_livre_bd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="AUTEUR "
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tv_updat_editeur_livre_bd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="EDITEUR "
+                        android:textColor="@color/black" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_updat_isbn_livre_bd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="ISBN : "
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tv_nombres_updat_pages_livres_bd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Nbre des pages"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_updat_parution_livre_bd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Date de parution"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_updat_editeur_livre_bd" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="EDITEUR "
-                android:textColor="@color/black" />
+                android:layout_marginTop="6dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:text="Résumé : "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/tv_updat_resume_livre_bd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:maxLines="15"
+                    android:paddingLeft="8dp"
+                    android:scrollbars="vertical"
+                    android:textAlignment="viewStart"
+                    android:textColor="#000000"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="6dp">
 
-                <TextView
-                    android:id="@+id/tv_updat_isbn_livre_bd"
+                <Button
+                    android:id="@+id/btnAjouterCitation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ISBN : "
+                    android:background="@drawable/button_validation"
+                    android:text="Ajouter citation"
                     android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/tv_nombres_updat_pages_livres_bd"
+                <Button
+                    android:id="@+id/btn_updat_livre_bd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Nbre des pages"
-                    android:textColor="@color/black" />
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/button_validation"
+                    android:text="MODIFIER LIVRE"
+                    android:textColor="@color/black"
+                    tools:ignore="TouchTargetSizeCheck" />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_updat_parution_livre_bd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Date de parution"
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_updat_editeur_livre_bd" />
-
-
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:text="Résumé : "
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/tv_updat_resume_livre_bd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:ems="10"
-            android:inputType="none"
-            android:maxLines="15"
-            android:paddingLeft="8dp"
-            android:scrollbars="vertical"
-            android:textAlignment="viewStart"
-            android:textColor="#000000"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_save_livre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SUPPRIMER LIVRE"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-    <Button
-        android:id="@+id/btn_updat_livre_bd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MODIFIER LIVRE"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-    <Button
-        android:id="@+id/btnAjouterCitation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/button_validation"
-        android:text="Ajouter citation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

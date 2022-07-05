@@ -74,6 +74,8 @@ public class DetailsLivreBD extends AppCompatActivity {
 
     }
 
+
+    
     public void getListBooksDB(String id_BD){
         livresRef.whereEqualTo(documentId(), id_BD).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -153,6 +155,8 @@ public class DetailsLivreBD extends AppCompatActivity {
                 startActivity(ajoutCitationIntent);
             }
         });
+
+       
 
         btnModifierLivreBD.setOnClickListener(new View.OnClickListener() {
             @Override
