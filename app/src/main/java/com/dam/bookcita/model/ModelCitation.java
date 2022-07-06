@@ -10,9 +10,11 @@ public class ModelCitation {
     private int numeroPage;
     private String date;
     private String heure;
+    private String id_user;
 
     public ModelCitation() {
     }
+
 
     public ModelCitation(String id_BD_livre, String citation, String annotation, int numeroPage, String date, String heure) {
         this.id_BD_livre = id_BD_livre;
@@ -21,6 +23,16 @@ public class ModelCitation {
         this.numeroPage = numeroPage;
         this.date = date;
         this.heure = heure;
+    }
+
+    public ModelCitation(String id_BD_livre, String citation, String annotation, int numeroPage, String date, String heure, String id_user) {
+        this.id_BD_livre = id_BD_livre;
+        this.citation = citation;
+        this.annotation = annotation;
+        this.numeroPage = numeroPage;
+        this.date = date;
+        this.heure = heure;
+        this.id_user = id_user;
     }
 
     @Exclude
@@ -78,5 +90,13 @@ public class ModelCitation {
 
     public void setHeure(String heure) {
         this.heure = heure;
+    }
+
+    public String getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(String id_user) {
+        this.id_user = id_user;
     }
 }

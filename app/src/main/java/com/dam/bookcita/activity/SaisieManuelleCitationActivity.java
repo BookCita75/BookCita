@@ -24,6 +24,7 @@ import com.dam.bookcita.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -57,6 +58,8 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private CollectionReference citationsRef = db.collection("citations");
     private FirebaseAuth auth;
 
+    String id_user;
+
 
     private void init() {
         //init UI
@@ -85,6 +88,12 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
 
         init();
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        id_user = firebaseUser.getUid();
+
 
         if(type_saisie.equals(SAISIE_OCR)) {
             texte_extrait = intent.getStringExtra(TEXTE_EXTRAIT);
@@ -130,7 +139,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick: strDateToday : " + strDateToday);
                 Log.i(TAG, "onClick: strHeureNow : " + strHeureNow);
 
-                ModelCitation citationSaisie = new ModelCitation(id_BD,citation, annotation, pageCitation, strDateToday, strHeureNow);
+                ModelCitation citationSaisie = new ModelCitation(id_BD,citation, annotation, pageCitation, strDateToday, strHeureNow, id_user);
                 try {
                     citationsRef.add(citationSaisie);
                 } catch (Exception e) {

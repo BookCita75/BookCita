@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -84,6 +85,8 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private int cptCitationsImportees = 0;
     private int cptCitationsDejaExistantesEnBD = 0;
     private int nbTotalCitationAImporter = 0;
+
+    private String id_user;
 
 
     private void init(){
@@ -185,6 +188,11 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
         init();
         getFicheBookFromDB();
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        id_user = firebaseUser.getUid();
 
     }
 
@@ -484,7 +492,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
     public void afterOnCompleteVerifieSiCitationExisteDsBD(boolean existeDeja, String citation, String annotation, int numPage, String date, String heure) {
         if (!existeDeja) {
-            ModelCitation citationImportee = new ModelCitation(id_BD, citation, annotation, numPage, date, heure);
+            ModelCitation citationImportee = new ModelCitation(id_BD, citation, annotation, numPage, date, heure, id_user);
             citationsRef.add(citationImportee);
             cptCitationsImportees++;
         } else {

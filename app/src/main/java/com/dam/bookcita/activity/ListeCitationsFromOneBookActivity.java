@@ -27,6 +27,8 @@ import com.dam.bookcita.model.ModelDetailsLivre;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -50,6 +52,10 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference citationsRef = db.collection("citations");
+    private FirebaseAuth auth;
+
+    private String id_user;
+
 
     private void init(){
         tvTitreLC = findViewById(R.id.tvTitreLC);
@@ -68,13 +74,18 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
         /************/
         // en attendant le code d'Ons
 
-        id_BD = "P7RpM6y4e5lh0B4IfG3c";
+        id_BD = "wue5sQiShWf7C5bNj8pl";
         // correspond à la force d'aimer
         /************/
 
         init();
 
         getFicheBookFromDB();
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        id_user = firebaseUser.getUid();
 
         rvCitationsFOB.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
@@ -87,7 +98,9 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
     }
 
     public void getCitationsFOBFromDB(){
-        Query query = citationsRef.whereEqualTo("id_BD_livre",id_BD);
+        Query query = citationsRef
+                .whereEqualTo("id_user",id_user)
+                .whereEqualTo("id_BD_livre",id_BD);
 //        Query query = citationsRef.orderBy("citation");
         Log.i(TAG, "Query : "+query);
         FirestoreRecyclerOptions<ModelCitation> citationsFOB = new FirestoreRecyclerOptions.Builder<ModelCitation>()
