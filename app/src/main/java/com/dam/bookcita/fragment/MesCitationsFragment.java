@@ -1,6 +1,8 @@
 package com.dam.bookcita.fragment;
 
+import static com.dam.bookcita.common.Constantes.ID;
 import static com.dam.bookcita.common.Constantes.ID_BD;
+import static com.dam.bookcita.common.Constantes.ISBN;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.app.ProgressDialog;
@@ -21,8 +23,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.dam.bookcita.R;
 import com.dam.bookcita.activity.DetailsLivreBD;
+import com.dam.bookcita.activity.DetailsLivreISBN;
+import com.dam.bookcita.activity.ListeCitationsFromOneBookActivity;
+import com.dam.bookcita.adapter.AdapterBook;
 import com.dam.bookcita.adapter.AdapterBookNbrCitations;
 import com.dam.bookcita.adapter.AdapterDetailsBook;
+import com.dam.bookcita.model.ModelBook;
 import com.dam.bookcita.model.ModelDetailsLivre;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,7 +50,7 @@ import java.util.Set;
  * Use the {@link MesCitationsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MesCitationsFragment extends Fragment {
+public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCitations.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -109,6 +115,7 @@ public class MesCitationsFragment extends Fragment {
 
                             adapterBook = new AdapterBookNbrCitations(livres);
                             rvLivres.setAdapter(adapterBook);
+                            adapterBook.setOnItemClickListener(MesCitationsFragment.this);
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
                             }
@@ -195,5 +202,15 @@ public class MesCitationsFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+        Intent listeCitationFOBIntent = new Intent(getContext(), ListeCitationsFromOneBookActivity.class);
+        String id_BD_livreSelectionne = documentSnapshot.getId();
+        Log.i(TAG, "onItemClick: id_BD_livreSelectionne : " + id_BD_livreSelectionne);
+        listeCitationFOBIntent.putExtra(ID_BD, id_BD_livreSelectionne);
+
+        startActivity(listeCitationFOBIntent);
     }
 }

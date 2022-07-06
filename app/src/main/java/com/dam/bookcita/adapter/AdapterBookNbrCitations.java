@@ -89,6 +89,7 @@ public class AdapterBookNbrCitations extends FirestoreRecyclerAdapter<ModelDetai
         this.onItemClickListener = onItemClickListener;
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitre, tvAuteur, tvNbrCitationsLivre;
         ImageView ivCover;

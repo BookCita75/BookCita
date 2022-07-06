@@ -1,5 +1,6 @@
 package com.dam.bookcita.activity;
 
+import static com.dam.bookcita.common.Constantes.ID_BD;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -71,13 +73,9 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_citations_from_one_book);
+        Intent intent = getIntent();
+        id_BD = intent.getStringExtra(ID_BD);
 
-        /************/
-        // en attendant le code d'Ons
-
-        id_BD = "fweUpQaZlBDbmzYyEylz";
-        // correspond à la force d'aimer
-        /************/
 
         init();
 
