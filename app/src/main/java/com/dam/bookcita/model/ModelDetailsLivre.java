@@ -13,6 +13,30 @@ public class ModelDetailsLivre {
     private String isbn_livre;
     private String id_user;
     private int nombre_livres;
+    private int nbrCitations;
+
+    public ModelDetailsLivre(String id, String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nombre_livres, int nbrCitations) {
+        this.id = id;
+        this.title_livre = title_livre;
+        this.auteur_livre = auteur_livre;
+        this.editeur_livre = editeur_livre;
+        this.date_parution_livre = date_parution_livre;
+        this.resume_livre = resume_livre;
+        this.url_cover_livre = url_cover_livre;
+        this.isbn_livre = isbn_livre;
+        this.nombre_livres = nombre_livres;
+        this.nbrCitations = nbrCitations;
+    }
+
+
+
+    public int getNbrCitations() {
+        return nbrCitations;
+    }
+
+    public void setNbrCitations(int nbrCitations) {
+        this.nbrCitations = nbrCitations;
+    }
 
     public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, String id_user) {
         this.title_livre = title_livre;
