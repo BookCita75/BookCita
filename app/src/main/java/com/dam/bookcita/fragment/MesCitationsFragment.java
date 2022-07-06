@@ -28,6 +28,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,6 +68,7 @@ public class MesCitationsFragment extends Fragment {
     ProgressDialog progressDialog;
 
     private FirebaseAuth auth;
+    private String id_user;
 
     private void init(View view) {
         Log.i(TAG, "init: View");
@@ -79,8 +81,9 @@ public class MesCitationsFragment extends Fragment {
         bookArrayList = new ArrayList<ModelDetailsLivre>();
     }
 
-    public void getBooksFromDB(){
-        Query queryListeDesCitations = citationsRef;
+    //affiche la liste des livres avec des citations
+    public void getBooksWithCitationFromDB(){
+        Query queryListeDesCitations = citationsRef.whereEqualTo("id_user", id_user);
         queryListeDesCitations.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -134,7 +137,7 @@ public class MesCitationsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getBooksFromDB();
+
 
     }
 
@@ -183,8 +186,12 @@ public class MesCitationsFragment extends Fragment {
 
         init(view);
 
+        FirebaseUser firebaseUser = auth.getCurrentUser();
 
+        id_user = firebaseUser.getUid();
+        Log.i(TAG, "onCreateView: id_user : " + id_user);
 
+        getBooksWithCitationFromDB();
 
 
         return view;
