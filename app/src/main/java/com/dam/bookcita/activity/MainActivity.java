@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int intentFragment = intent.getIntExtra(FRAG_TO_LOAD, ACCUEIL_FRAGMENT);
 
-
+        viewPager2.setCurrentItem(intentFragment);
+        /*
         switch (intentFragment){
             case ACCUEIL_FRAGMENT:
                 viewPager2.setCurrentItem(intentFragment);
@@ -87,7 +88,11 @@ public class MainActivity extends AppCompatActivity {
             case MES_LIVRES_FRAGMENT:
                 viewPager2.setCurrentItem(intentFragment);
                 break;
-        }
+
+            case MES_CITATIONS_FRAGMENT:
+                viewPager2.setCurrentItem(intentFragment);
+                break;
+        }*/
 
     }
 

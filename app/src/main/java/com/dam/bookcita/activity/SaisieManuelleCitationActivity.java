@@ -154,6 +154,9 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                     return;
                 }
                 Toast.makeText(SaisieManuelleCitationActivity.this, "Citation enregistrée avec succès.", Toast.LENGTH_SHORT).show();
+                Intent mainIntent = new Intent(SaisieManuelleCitationActivity.this, MainActivity.class);
+                mainIntent.putExtra(FRAG_TO_LOAD, MES_CITATIONS_FRAGMENT);
+                startActivity(mainIntent);
 
             }
 

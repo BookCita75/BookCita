@@ -48,6 +48,7 @@ public interface Constantes {
 
     int ACCUEIL_FRAGMENT = 0;
     int MES_LIVRES_FRAGMENT = 1;
+    int MES_CITATIONS_FRAGMENT = 2;
 
     String ISBN = "isbn";
     String ID = "id";

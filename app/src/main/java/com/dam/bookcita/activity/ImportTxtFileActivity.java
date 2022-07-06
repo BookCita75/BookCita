@@ -531,6 +531,9 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         if ((cptCitationsImportees + cptCitationsDejaExistantesEnBD) == nbTotalCitationAImporter) {
             //dernière citation à importer a été traitée
             Toast.makeText(this, String.valueOf(cptCitationsImportees) + " citation(s) et annotation(s) importée(s) avec succès.\n" + String.valueOf(cptCitationsDejaExistantesEnBD) + " citation(s) et annotation(s) non importée(s) car déjà existante(s) dans la base de données.", Toast.LENGTH_LONG).show();
+            Intent mainIntent = new Intent(ImportTxtFileActivity.this, MainActivity.class);
+            mainIntent.putExtra(FRAG_TO_LOAD, MES_CITATIONS_FRAGMENT);
+            startActivity(mainIntent);
         }
     }
 
