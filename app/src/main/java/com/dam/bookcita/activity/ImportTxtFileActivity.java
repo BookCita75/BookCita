@@ -74,6 +74,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private TextView tvTitreIC;
     private TextView tvAuteurIC;
     private ImageView ivCoverIC;
+    private TextView tvNbCitationsIC;
 
     private String id_BD;
 
@@ -93,6 +94,8 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         tvTitreIC = findViewById(R.id.tvTitreIC);
         tvAuteurIC = findViewById(R.id.tvAuteurIC);
         ivCoverIC = findViewById(R.id.ivCoverIC);
+
+        tvNbCitationsIC = findViewById(R.id.tvNbCitationsIC);
     }
 
     // Methode pour verifier les permissions de l'application
@@ -187,12 +190,15 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
 
         init();
-        getFicheBookFromDB();
-
         auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
 
         id_user = firebaseUser.getUid();
+
+        getFicheBookFromDB();
+        remplirNbCitationsFOBFromDB();
+
+
 
     }
 
@@ -237,6 +243,30 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(ivCoverIC);
                             }
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+
+
+    }
+
+    private void remplirNbCitationsFOBFromDB() {
+
+        db.collection("citations")
+                .whereEqualTo("id_user",id_user)
+                .whereEqualTo("id_BD_livre", id_BD)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            int nbCitationFOB = querySnapshot.size();
+                            Log.i(TAG, "onComplete: nbCitationFOB : " + nbCitationFOB);
+                            tvNbCitationsIC.setText(String.valueOf(nbCitationFOB));
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
                         }

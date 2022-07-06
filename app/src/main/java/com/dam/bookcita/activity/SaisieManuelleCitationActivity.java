@@ -43,6 +43,8 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
     private TextView tvAuteurSMC;
     private ImageView ivCoverSMC;
 
+    private TextView tvNbCitationsSMC;
+
     private EditText etPageCitation;
     private EditText etmlCitation;
     private EditText etmlAnnotation;
@@ -67,6 +69,8 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
         tvTitreSMC = findViewById(R.id.tvTitreSMC);
         tvAuteurSMC = findViewById(R.id.tvAuteurSMC);
         ivCoverSMC = findViewById(R.id.ivCoverSMC);
+        tvNbCitationsSMC = findViewById(R.id.tvNbCitationsSMC);
+
         btnValiderAjoutCitation = findViewById(R.id.btnValiderAjoutCitation);
 
         etPageCitation = findViewById(R.id.etPageCitation);
@@ -102,6 +106,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
         }
 
         getFicheBookFromDB();
+        remplirNbCitationsFOBFromDB();
 
         btnValiderAjoutCitation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +202,30 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(ivCoverSMC);
                             }
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+
+
+    }
+
+    private void remplirNbCitationsFOBFromDB() {
+
+        db.collection("citations")
+                .whereEqualTo("id_user",id_user)
+                .whereEqualTo("id_BD_livre", id_BD)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            int nbCitationFOB = querySnapshot.size();
+                            Log.i(TAG, "onComplete: nbCitationFOB : " + nbCitationFOB);
+                            tvNbCitationsSMC.setText(String.valueOf(nbCitationFOB));
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
                         }

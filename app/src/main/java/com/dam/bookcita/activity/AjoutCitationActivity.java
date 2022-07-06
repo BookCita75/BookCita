@@ -23,6 +23,7 @@ import com.dam.bookcita.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -40,8 +41,10 @@ public class AjoutCitationActivity extends AppCompatActivity {
     private TextView tvAuteurAC;
     private ImageView ivCoverAC;
 
+    private TextView tvNbCitations;
 
     private String id_BD;
+    private String id_user;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection("livres");
@@ -57,6 +60,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
         tvTitreAC = findViewById(R.id.tvTitreAC);
         tvAuteurAC = findViewById(R.id.tvAuteurAC);
         ivCoverAC = findViewById(R.id.ivCoverAC);
+        tvNbCitations = findViewById(R.id.tvNbCitations);
 
 
     }
@@ -124,7 +128,13 @@ public class AjoutCitationActivity extends AppCompatActivity {
         id_BD = intent.getStringExtra(ID_BD);
         Log.i(TAG, "onCreate: id_BD reçu : " + id_BD);
 
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        id_user = firebaseUser.getUid();
+
         getFicheBookFromDB();
+        remplirNbCitationsFOBFromDB();
 
         btnSaisieManuelleCitation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,5 +164,30 @@ public class AjoutCitationActivity extends AppCompatActivity {
                 startActivity(importTxtFileIntent);
             }
         });
+    }
+
+
+    private void remplirNbCitationsFOBFromDB() {
+
+        db.collection("citations")
+                .whereEqualTo("id_user",id_user)
+                .whereEqualTo("id_BD_livre", id_BD)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            int nbCitationFOB = querySnapshot.size();
+                            Log.i(TAG, "onComplete: nbCitationFOB : " + nbCitationFOB);
+                            tvNbCitations.setText(String.valueOf(nbCitationFOB));
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+
+
     }
 }
