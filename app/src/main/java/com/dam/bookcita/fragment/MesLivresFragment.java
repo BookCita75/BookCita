@@ -112,19 +112,28 @@ public class MesLivresFragment extends Fragment {
 
         String id_user = firebaseUser.getUid();
         Log.i(TAG, "getBooksFromDB: id_user : " + id_user);
-        Query query = livresRef
-                //On ne charge que les livres presents dans la BD de l'utilisateur connecté
-//                .orderBy("title_livre")
-                .whereEqualTo("id_user", id_user);
+        try {
+            Query query = livresRef
+                    //On ne charge que les livres presents dans la BD de l'utilisateur connecté
+                    .whereEqualTo("id_user", id_user)
+                    .orderBy("title_livre");
+//                    .orderBy("auteur_livre");
 //        Query query2 = query.orderBy("title_livre");
-        Log.i(TAG, "Query : "+query);
-        FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
-                .setQuery(query, ModelDetailsLivre.class)
-                .build();
+            Log.i(TAG, "Query : "+query);
+            FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
+                    .setQuery(query, ModelDetailsLivre.class)
+                    .build();
+
+
         adapterBook = new AdapterDetailsBook(livres);
         rvLivres.setAdapter(adapterBook);
         if (progressDialog.isShowing()){
             progressDialog.dismiss();
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "getBooksFromDB: erreur dans le query : " + e.getMessage());
+
         }
     }
 
