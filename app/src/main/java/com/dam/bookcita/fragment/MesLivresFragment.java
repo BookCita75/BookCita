@@ -66,7 +66,7 @@ public class MesLivresFragment extends Fragment {
     private CollectionReference livresRef = db.collection("livres");
     private FirebaseAuth auth;
     ProgressDialog progressDialog;
-    private ImageView btn_search;
+
     private FirestoreRecyclerOptions displayedList;
 
     String id_user;
@@ -127,7 +127,7 @@ public class MesLivresFragment extends Fragment {
         rvLivres = view.findViewById(R.id.rv_listesDesLivres);
         rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         et_search_livre = view.findViewById(R.id.et_search);
-        btn_search = view.findViewById(R.id.btn_search);
+
         auth = FirebaseAuth.getInstance();
         bookArrayList = new ArrayList<ModelDetailsLivre>();
     }
@@ -157,12 +157,15 @@ public class MesLivresFragment extends Fragment {
             Log.i(TAG, "getBooksFromDB: erreur dans le query : " + e.getMessage());
 
         }
+        adapterBook.startListening();
+        adapterBookSetOnItemClickListener();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         adapterBook.startListening();
+        adapterBookSetOnItemClickListener();
 
     }
 
@@ -179,18 +182,20 @@ public class MesLivresFragment extends Fragment {
         progressDialog.show();
 
         init(view);
-        btn_search.setOnClickListener(new View.OnClickListener() {
 
 
+        et_search_livre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
 
             @Override
-            public void onClick(View v) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                String searchLivre = et_search_livre.getText().toString();
-                if(!searchLivre.equals("")){
-                    Log.i(TAG, "SearchLivre: "+ searchLivre);
+                    Log.i(TAG, "SearchLivre: "+ s.toString());
                     Query querySearch = livresRef
-                            .whereEqualTo("auteur_livre", searchLivre);
+                            .whereEqualTo("auteur_livre", s.toString());
                     //.whereEqualTo("id_user",id_user)
                     Log.i(TAG, "onClick: "+querySearch.toString());
                     FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
@@ -201,20 +206,8 @@ public class MesLivresFragment extends Fragment {
                     Log.i(TAG, "livres from query search: "+adapterBook.toString());
                     rvLivres.setAdapter(adapterBook);
                     adapterBook.startListening();
-                }
+                adapterBookSetOnItemClickListener();
 
-
-            }
-        });
-
-        et_search_livre.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
@@ -230,6 +223,13 @@ public class MesLivresFragment extends Fragment {
         getBooksFromDB();
 
 
+
+
+        return view;
+    }
+
+
+    public void adapterBookSetOnItemClickListener() {
         adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -242,10 +242,6 @@ public class MesLivresFragment extends Fragment {
 //                startActivity(new Intent(getContext(), DetailsLivreBD.class));
             }
         });
-
-        return view;
     }
-
-
 
 }
