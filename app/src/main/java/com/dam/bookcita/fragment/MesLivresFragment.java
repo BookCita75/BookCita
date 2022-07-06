@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +19,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -27,6 +30,9 @@ import com.dam.bookcita.adapter.AdapterDetailsBook;
 import com.dam.bookcita.R;
 import com.dam.bookcita.activity.DetailsLivreBD;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.common.data.DataHolder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -35,8 +41,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.dam.bookcita.model.ModelDetailsLivre;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -111,7 +119,7 @@ public class MesLivresFragment extends Fragment {
         id_user = firebaseUser.getUid();
 
 
-       
+
     }
     private void init(View view) {
         Log.i(TAG, "init: View");
@@ -119,7 +127,7 @@ public class MesLivresFragment extends Fragment {
         rvLivres = view.findViewById(R.id.rv_listesDesLivres);
         rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         et_search_livre = view.findViewById(R.id.et_search);
-
+        btn_search = view.findViewById(R.id.btn_search);
         auth = FirebaseAuth.getInstance();
         bookArrayList = new ArrayList<ModelDetailsLivre>();
     }
@@ -139,17 +147,16 @@ public class MesLivresFragment extends Fragment {
                     .build();
 
 
-        adapterBook = new AdapterDetailsBook(livres);
-        rvLivres.setAdapter(adapterBook);
-        if (progressDialog.isShowing()){
-            progressDialog.dismiss();
-        }
+            adapterBook = new AdapterDetailsBook(livres);
+            rvLivres.setAdapter(adapterBook);
+            if (progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "getBooksFromDB: erreur dans le query : " + e.getMessage());
 
         }
-        adapterBookSetItemClickListener();
     }
 
     @Override
@@ -159,20 +166,6 @@ public class MesLivresFragment extends Fragment {
 
     }
 
-    public void adapterBookSetItemClickListener(){
-        adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                Intent detailsLivresBDIntent = new Intent(getContext(), DetailsLivreBD.class);
-                String id_BD = documentSnapshot.getId();
-                Log.i(TAG, "onItemClick: id_BD : " + id_BD);
-                detailsLivresBDIntent.putExtra(ID_BD, id_BD);
-                startActivity(detailsLivresBDIntent);
-
-//                startActivity(new Intent(getContext(), DetailsLivreBD.class));
-            }
-        });
-    }
 
 
     @Override
@@ -186,22 +179,18 @@ public class MesLivresFragment extends Fragment {
         progressDialog.show();
 
         init(view);
+        btn_search.setOnClickListener(new View.OnClickListener() {
 
 
-        et_search_livre.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onClick(View v) {
+
                 String searchLivre = et_search_livre.getText().toString();
-                Log.i(TAG, "onTextChanged: "+s.toString());
                 if(!searchLivre.equals("")){
-                    Log.i(TAG, "SearchLivre: "+ s.toString());
+                    Log.i(TAG, "SearchLivre: "+ searchLivre);
                     Query querySearch = livresRef
-                            .whereEqualTo("auteur_livre", s.toString());
+                            .whereEqualTo("auteur_livre", searchLivre);
                     //.whereEqualTo("id_user",id_user)
                     Log.i(TAG, "onClick: "+querySearch.toString());
                     FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
@@ -212,19 +201,28 @@ public class MesLivresFragment extends Fragment {
                     Log.i(TAG, "livres from query search: "+adapterBook.toString());
                     rvLivres.setAdapter(adapterBook);
                     adapterBook.startListening();
-
-                    adapterBookSetItemClickListener();
-
                 }
+
+
+            }
+        });
+
+        et_search_livre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.length() == 0) {
                     getBooksFromDB();
                     adapterBook.startListening();
-                    adapterBookSetItemClickListener();
                 }
             }
         });
@@ -232,7 +230,18 @@ public class MesLivresFragment extends Fragment {
         getBooksFromDB();
 
 
+        adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Intent detailsLivresBDIntent = new Intent(getContext(), DetailsLivreBD.class);
+                String id_BD = documentSnapshot.getId();
+                Log.i(TAG, "onItemClick: id_BD : " + id_BD);
+                detailsLivresBDIntent.putExtra(ID_BD, id_BD);
+                startActivity(detailsLivresBDIntent);
 
+//                startActivity(new Intent(getContext(), DetailsLivreBD.class));
+            }
+        });
 
         return view;
     }
