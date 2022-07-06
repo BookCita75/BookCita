@@ -95,18 +95,29 @@ public class MesCitationsFragment extends Fragment {
                     Set<String> mySet = new HashSet<String>(listeDesLivres);
                     ArrayList<String> listeLivreSansDoublons = new ArrayList<String>(mySet);
                     Log.i(TAG, "liste Sans Doublons: "+listeLivreSansDoublons);
-                    Query queryListeLivreSansDoublons = livresRef.whereIn(documentId(), listeLivreSansDoublons);
 
-                    FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
-                            .setQuery(queryListeLivreSansDoublons, ModelDetailsLivre.class)
-                            .build();
+                    try {
+                        if (!listeLivreSansDoublons.isEmpty()) {
+                            Query queryListeLivreSansDoublons = livresRef.whereIn(documentId(), listeLivreSansDoublons);
 
-                    adapterBook = new AdapterBookNbrCitations(livres);
-                    rvLivres.setAdapter(adapterBook);
-                    if (progressDialog.isShowing()){
-                        progressDialog.dismiss();
+                            FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
+                                    .setQuery(queryListeLivreSansDoublons, ModelDetailsLivre.class)
+                                    .build();
+
+                            adapterBook = new AdapterBookNbrCitations(livres);
+                            rvLivres.setAdapter(adapterBook);
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            adapterBook.startListening();
+                        } else {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG, "Error queryListeLivreSansDoublons "+e.getMessage());
                     }
-                    adapterBook.startListening();
 
                 }
             }

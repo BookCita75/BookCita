@@ -75,7 +75,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
         /************/
         // en attendant le code d'Ons
 
-        id_BD = "wue5sQiShWf7C5bNj8pl";
+        id_BD = "fweUpQaZlBDbmzYyEylz";
         // correspond à la force d'aimer
         /************/
 
