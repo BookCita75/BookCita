@@ -42,6 +42,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
     private TextView tvTitreLC;
     private TextView tvAuteurLC;
     private ImageView ivCoverLC;
+    private TextView tvNbCitationsLC;
     private RecyclerView rvCitationsFOB;
 
     private AdapterCitation adapterCitation;
@@ -61,7 +62,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
         tvTitreLC = findViewById(R.id.tvTitreLC);
         tvAuteurLC = findViewById(R.id.tvAuteurLC);
         ivCoverLC = findViewById(R.id.ivCoverLC);
-
+        tvNbCitationsLC = findViewById(R.id.tvNbCitationsLC);
         rvCitationsFOB = findViewById(R.id.rvCitationsFOB);
 
     }
@@ -95,6 +96,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
         progressDialog.show();
 
         getCitationsFOBFromDB();
+        remplirNbCitationsFOBFromDB();
     }
 
     public void getCitationsFOBFromDB(){
@@ -160,6 +162,30 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(ivCoverLC);
                             }
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+
+
+    }
+
+    private void remplirNbCitationsFOBFromDB() {
+
+        db.collection("citations")
+                .whereEqualTo("id_user",id_user)
+                .whereEqualTo("id_BD_livre", id_BD)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            int nbCitationFOB = querySnapshot.size();
+                            Log.i(TAG, "onComplete: nbCitationFOB : " + nbCitationFOB);
+                            tvNbCitationsLC.setText(String.valueOf(nbCitationFOB));
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
                         }
