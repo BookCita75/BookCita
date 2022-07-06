@@ -94,7 +94,7 @@ public class AdapterDetailsBook extends FirestoreRecyclerAdapter <ModelDetailsLi
             super(itemView);
             tvTitre = itemView.findViewById(R.id.tvTitre);
             tvAuteur = itemView.findViewById(R.id.tvAuteur);
-            ivCover = itemView.findViewById(R.id.ivCover);
+            ivCover = itemView.findViewById(R.id.ivCoverLivre);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
