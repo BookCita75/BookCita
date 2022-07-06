@@ -82,7 +82,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         String id_user = firebaseUser.getUid();
-        Log.i(TAG, "ajouterLivreBD: id_user : " + id_user);
+
 
         title_livre = detailsLivre.getTitle_livre();
         auteur_livre = detailsLivre.getAuteur_livre();
@@ -93,6 +93,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
         nombres_pages_livres = detailsLivre.getNombre_livres();
         couvertureImage = detailsLivre.getUrl_cover_livre();
 
+        Log.i(TAG, "isbn livre : " + isbn_livre);
        // String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
 
         Log.i(TAG, "Auteeuuuuuur: " +detailsLivre.getAuteur_livre());

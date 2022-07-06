@@ -8,14 +8,21 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -23,6 +30,9 @@ import com.dam.bookcita.adapter.AdapterDetailsBook;
 import com.dam.bookcita.R;
 import com.dam.bookcita.activity.DetailsLivreBD;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.common.data.DataHolder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,8 +41,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.dam.bookcita.model.ModelDetailsLivre;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +55,8 @@ public class MesLivresFragment extends Fragment {
 
     private static final String TAG = "AfficherListeLivres";
     private RecyclerView rvLivres;
+    private EditText et_search_livre ;
+
     private ArrayList<ModelDetailsLivre> bookArrayList;
     private AdapterDetailsBook adapterBook;
     //private ImageView coverLivreImage;
@@ -52,7 +66,10 @@ public class MesLivresFragment extends Fragment {
     private CollectionReference livresRef = db.collection("livres");
     private FirebaseAuth auth;
     ProgressDialog progressDialog;
+    private ImageView btn_search;
+    private FirestoreRecyclerOptions displayedList;
 
+    String id_user;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,6 +112,13 @@ public class MesLivresFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
 
         }
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        id_user = firebaseUser.getUid();
+
+
        
     }
     private void init(View view) {
@@ -102,8 +126,8 @@ public class MesLivresFragment extends Fragment {
         requestQueue = Volley.newRequestQueue(getContext());
         rvLivres = view.findViewById(R.id.rv_listesDesLivres);
         rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
-
-
+        et_search_livre = view.findViewById(R.id.et_search);
+        btn_search = view.findViewById(R.id.btn_search);
         auth = FirebaseAuth.getInstance();
         bookArrayList = new ArrayList<ModelDetailsLivre>();
     }
@@ -117,8 +141,6 @@ public class MesLivresFragment extends Fragment {
                     //On ne charge que les livres presents dans la BD de l'utilisateur connecté
                     .whereEqualTo("id_user", id_user)
                     .orderBy("title_livre");
-//                    .orderBy("auteur_livre");
-//        Query query2 = query.orderBy("title_livre");
             Log.i(TAG, "Query : "+query);
             FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
                     .setQuery(query, ModelDetailsLivre.class)
@@ -144,6 +166,8 @@ public class MesLivresFragment extends Fragment {
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -155,8 +179,56 @@ public class MesLivresFragment extends Fragment {
         progressDialog.show();
 
         init(view);
+        btn_search.setOnClickListener(new View.OnClickListener() {
+
+
+
+            @Override
+            public void onClick(View v) {
+
+                String searchLivre = et_search_livre.getText().toString();
+                if(!searchLivre.equals("")){
+                    Log.i(TAG, "SearchLivre: "+ searchLivre);
+                    Query querySearch = livresRef
+                            .whereEqualTo("auteur_livre", searchLivre);
+                    //.whereEqualTo("id_user",id_user)
+                    Log.i(TAG, "onClick: "+querySearch.toString());
+                    FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
+                            .setQuery(querySearch, ModelDetailsLivre.class)
+                            .build();
+
+                    adapterBook = new AdapterDetailsBook(livres);
+                    Log.i(TAG, "livres from query search: "+adapterBook.toString());
+                    rvLivres.setAdapter(adapterBook);
+                    adapterBook.startListening();
+                }
+
+
+            }
+        });
+
+        et_search_livre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() == 0) {
+                    getBooksFromDB();
+                    adapterBook.startListening();
+                }
+            }
+        });
 
         getBooksFromDB();
+
 
         adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
             @Override
