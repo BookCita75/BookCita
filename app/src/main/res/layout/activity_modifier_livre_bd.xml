@@ -55,7 +55,7 @@
 
                 <ImageView
                     android:id="@+id/iv_couverture_livre_bd"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:onClick="loadImage"
                     app:srcCompat="@drawable/ic_couverture_livre_150"
