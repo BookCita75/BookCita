@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCita">
         <activity
+            android:name=".activity.DetailsCitationActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ListeCitationsFromOneBookActivity"
             android:exported="false" />
         <activity
