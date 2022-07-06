@@ -111,7 +111,7 @@ public class MesLivresFragment extends Fragment {
         id_user = firebaseUser.getUid();
 
 
-       
+
     }
     private void init(View view) {
         Log.i(TAG, "init: View");
@@ -139,11 +139,11 @@ public class MesLivresFragment extends Fragment {
                     .build();
 
 
-        adapterBook = new AdapterDetailsBook(livres);
-        rvLivres.setAdapter(adapterBook);
-        if (progressDialog.isShowing()){
-            progressDialog.dismiss();
-        }
+            adapterBook = new AdapterDetailsBook(livres);
+            rvLivres.setAdapter(adapterBook);
+            if (progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "getBooksFromDB: erreur dans le query : " + e.getMessage());
