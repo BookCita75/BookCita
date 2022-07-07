@@ -7,7 +7,7 @@
     tools:context=".activity.ListeCitationsFromOneBookActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
+        android:id="@+id/headerLivre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -36,7 +36,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header"
+        android:layout_below="@id/headerLivre"
         android:layout_margin="4dp">
 
         <LinearLayout

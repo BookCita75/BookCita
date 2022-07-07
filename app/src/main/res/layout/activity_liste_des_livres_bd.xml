@@ -7,7 +7,7 @@
     tools:context=".activity.ListeDesLivresBD">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
+        android:id="@+id/headerLivre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -37,7 +37,7 @@
         android:id="@+id/layout_listedeslivres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header"
+        android:layout_below="@id/headerLivre"
         android:orientation="vertical"
         android:padding="6dp">
 
