@@ -1,6 +1,6 @@
 package com.dam.bookcita.activity;
 
-import static com.dam.bookcita.common.Constantes.ID_BD;
+import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -22,8 +22,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
+import com.dam.bookcita.adapter.AdapterBookNbrCitations;
 import com.dam.bookcita.adapter.AdapterCitation;
 import com.dam.bookcita.adapter.AdapterDetailsBook;
+import com.dam.bookcita.fragment.MesCitationsFragment;
 import com.dam.bookcita.model.ModelCitation;
 import com.dam.bookcita.model.ModelDetailsLivre;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -32,12 +34,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
+public class ListeCitationsFromOneBookActivity extends AppCompatActivity implements AdapterCitation.OnItemClickListener {
 
     private static final String TAG = "ListeCitationsFromOneBo";
 
@@ -108,6 +111,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
                 .build();
         adapterCitation = new AdapterCitation(citationsFOB);
         rvCitationsFOB.setAdapter(adapterCitation);
+        adapterCitation.setOnItemClickListener(ListeCitationsFromOneBookActivity.this);
         if (progressDialog.isShowing()){
             progressDialog.dismiss();
         }
@@ -192,5 +196,17 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    @Override
+    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+        Intent detailsCitationFOBIntent = new Intent(ListeCitationsFromOneBookActivity.this, DetailsCitationActivity.class);
+        String id_citationSelectionnee = documentSnapshot.getId();
+        Log.i(TAG, "onItemClick: id_citationSelectionnee : " + id_citationSelectionnee);
+        detailsCitationFOBIntent.putExtra(ID_BD, id_BD);
+        detailsCitationFOBIntent.putExtra(ID_BD_CITATION, id_citationSelectionnee);
+
+
+        startActivity(detailsCitationFOBIntent);
     }
 }
