@@ -63,8 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="@string/enter_email"
-                    android:inputType="textEmailAddress"/>
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,9 +78,9 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="@string/enter_password"
-                    android:imeOptions="actionDone"/>
+                    android:hint="Mot de pase"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,7 +102,8 @@
                 android:onClick="btnResetPasswordClick"
                 android:text="@string/reset_password"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/secondary_dark_color" />
+                android:textColor="@color/secondary_dark_color"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 
@@ -135,7 +136,8 @@
             android:paddingStart="8dp"
             android:text="@string/signup"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/secondary_dark_color" />
+            android:textColor="@color/secondary_dark_color"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
 
