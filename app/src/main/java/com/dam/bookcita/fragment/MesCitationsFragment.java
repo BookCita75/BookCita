@@ -1,8 +1,6 @@
 package com.dam.bookcita.fragment;
 
-import static com.dam.bookcita.common.Constantes.ID;
 import static com.dam.bookcita.common.Constantes.ID_BD;
-import static com.dam.bookcita.common.Constantes.ISBN;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.app.ProgressDialog;
@@ -22,13 +20,8 @@ import android.view.ViewGroup;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.dam.bookcita.R;
-import com.dam.bookcita.activity.DetailsLivreBD;
-import com.dam.bookcita.activity.DetailsLivreISBN;
 import com.dam.bookcita.activity.ListeCitationsFromOneBookActivity;
-import com.dam.bookcita.adapter.AdapterBook;
 import com.dam.bookcita.adapter.AdapterBookNbrCitations;
-import com.dam.bookcita.adapter.AdapterDetailsBook;
-import com.dam.bookcita.model.ModelBook;
 import com.dam.bookcita.model.ModelDetailsLivre;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -79,7 +72,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     private void init(View view) {
         Log.i(TAG, "init: View");
         requestQueue = Volley.newRequestQueue(getContext());
-        rv_listesDesCitations = view.findViewById(R.id.rv_listesDesCitations);
+        rv_listesDesCitations = view.findViewById(R.id.rv_listesDesLivresAyantCitations);
         rv_listesDesCitations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
 
