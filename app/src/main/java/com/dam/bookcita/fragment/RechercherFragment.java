@@ -142,7 +142,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
         etKeyword = view.findViewById(R.id.etKeyword);
         rvBookByKeyword = view.findViewById(R.id.rvBookByKeyword);
         btnClearText = view.findViewById(R.id.btnClearText);
-        btnChercher = view.findViewById(R.id.btnChercher);
+
         btnRechScanISBN = view.findViewById(R.id.btnRechScanISBN);
         bookArrayList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(getContext());
@@ -336,19 +336,19 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
         init(view);
 
-        btnChercher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bookArrayList.clear();
-                keyword = etKeyword.getText().toString().trim();
-                //Toast.makeText(this, "motCle : " + keyword, Toast.LENGTH_SHORT).show();
-                try {
-                    parseJSON();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        btnChercher.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bookArrayList.clear();
+//                keyword = etKeyword.getText().toString().trim();
+//                //Toast.makeText(this, "motCle : " + keyword, Toast.LENGTH_SHORT).show();
+//                try {
+//                    parseJSON();
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         btnClearText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -381,7 +381,14 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                bookArrayList.clear();
+                keyword = etKeyword.getText().toString().trim();
+                //Toast.makeText(this, "motCle : " + keyword, Toast.LENGTH_SHORT).show();
+                try {
+                    parseJSON();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbarStyle="outsideInset"
     tools:context=".fragment.RechercherFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,74 +13,69 @@
         android:layout_height="match_parent">
 
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:padding="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-
-            <EditText
-                android:id="@+id/etKeyword"
-                android:layout_width="210dp"
-                android:layout_height="42dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Rechercher un livre"
-                android:inputType="text"
-                android:imeOptions="actionDone"/>
-
-            <Button
-                android:id="@+id/btnClearText"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0"
-                android:background="@android:drawable/ic_delete" />
-
-            <Button
-                android:id="@+id/btnChercher"
-                android:layout_width="24dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/ic_search_barre_bottom_24" />
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/etKeyword"
+                    android:layout_width="260dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Rechercher un livre"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <Button
+                    android:id="@+id/btnClearText"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0"
+                    android:background="@android:drawable/ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <Button
+                    android:id="@+id/btnRechScanISBN"
+                    style="@style/FirebaseUI.VerifyPhoneButton"
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:background="@drawable/barcode"
+                    android:textStyle="bold"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBookByKeyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/btnRechScanISBN"
-                android:layout_width="24dp"
-                android:layout_height="match_parent"
+                android:id="@+id/btnAjoutManuelLivre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@drawable/barcode" />
+                android:text="Ajout manuel" />
 
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvBookByKeyword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btnAjoutManuelLivre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Ajout manuel" />
-
-    </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
