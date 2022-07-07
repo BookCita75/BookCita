@@ -68,7 +68,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     private CollectionReference livresRef = db.collection("livres");
     private CollectionReference citationsRef = db.collection("citations");
 
-    private RecyclerView rvLivres;
+    private RecyclerView rv_listesDesCitations;
     private ArrayList<ModelDetailsLivre> bookArrayList;
     private AdapterBookNbrCitations adapterBook;
     ProgressDialog progressDialog;
@@ -79,8 +79,8 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     private void init(View view) {
         Log.i(TAG, "init: View");
         requestQueue = Volley.newRequestQueue(getContext());
-        rvLivres = view.findViewById(R.id.rv_listesDesLivres);
-        rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
+        rv_listesDesCitations = view.findViewById(R.id.rv_listesDesCitations);
+        rv_listesDesCitations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
 
         auth = FirebaseAuth.getInstance();
@@ -114,7 +114,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
                                     .build();
 
                             adapterBook = new AdapterBookNbrCitations(livres);
-                            rvLivres.setAdapter(adapterBook);
+                            rv_listesDesCitations.setAdapter(adapterBook);
                             adapterBook.setOnItemClickListener(MesCitationsFragment.this);
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
@@ -185,7 +185,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mes_livres, container, false);
+        View view = inflater.inflate(R.layout.fragment_mes_citations, container, false);
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Data...");
