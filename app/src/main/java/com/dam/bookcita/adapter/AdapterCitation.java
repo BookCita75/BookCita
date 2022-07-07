@@ -12,6 +12,7 @@ import com.dam.bookcita.R;
 import com.dam.bookcita.model.ModelCitation;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, AdapterCitation.MyViewHolder> {
     /**
@@ -20,6 +21,9 @@ public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, Ada
      *
      * @param options
      */
+
+    public AdapterCitation.OnItemClickListener onItemClickListener;
+
     public AdapterCitation(@NonNull FirestoreRecyclerOptions<ModelCitation> options) {
         super(options);
     }
@@ -49,6 +53,14 @@ public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, Ada
         return new MyViewHolder(view);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+
+    public void setOnItemClickListener(AdapterCitation.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvDate, tvHeure, tvPage, tvCitation, tvAnnotation;
         public MyViewHolder(@NonNull View itemView) {
@@ -58,6 +70,17 @@ public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, Ada
             tvPage = itemView.findViewById(R.id.tvPageItemIC);
             tvCitation = itemView.findViewById(R.id.tvCitationItemC);
             tvAnnotation = itemView.findViewById(R.id.tvAnnotationItemC);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getBindingAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION && onItemClickListener != null){
+                        DocumentSnapshot citationSnapshot = getSnapshots().getSnapshot(position);
+                        onItemClickListener.onItemClick(citationSnapshot, position);
+                    }
+                }
+            });
 
         }
     }
