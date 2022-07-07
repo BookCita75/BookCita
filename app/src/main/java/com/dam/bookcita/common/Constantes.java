@@ -44,6 +44,7 @@ public interface Constantes {
     //-------------- end Friend Request
 
     String ID_BD = "id_BD";
+    String ID_BD_CITATION = "id_BD_citation";
     String FRAG_TO_LOAD = "frag_to_load";
 
     int ACCUEIL_FRAGMENT = 0;
