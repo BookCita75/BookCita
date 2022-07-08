@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "793435650729",
-    "firebase_url": "https://bookcita-default-rtdb.firebaseio.com",
-    "project_id": "bookcita",
-    "storage_bucket": "bookcita.appspot.com"
+    "project_number": "412466937398",
+    "project_id": "bookcita-59fc2",
+    "storage_bucket": "bookcita-59fc2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:793435650729:android:7d88b398aa1bc9e5cac7b8",
+        "mobilesdk_app_id": "1:412466937398:android:df1c395a146090d5e66297",
         "android_client_info": {
           "package_name": "com.dam.bookcita"
         }
       },
       "oauth_client": [
         {
-          "client_id": "793435650729-9m0tk1j7dts5v7p3i096ikls1m09tt65.apps.googleusercontent.com",
+          "client_id": "412466937398-5ialnp99rj8pkn4hddgfgpfrftu2ia1j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyApN4tgYjCu0GE8bBWHUJSEWjSz_QB5w78"
+          "current_key": "AIzaSyCqsYn-dr6pfp4EcPmdmdgufcxrGWoAcFM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "793435650729-9m0tk1j7dts5v7p3i096ikls1m09tt65.apps.googleusercontent.com",
+              "client_id": "412466937398-5ialnp99rj8pkn4hddgfgpfrftu2ia1j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
