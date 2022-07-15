@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:padding="8dp"
+    app:cardBackgroundColor="@color/primary_light_color"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvDateItemATL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="15/07/2022" />
+
+        <TextView
+            android:id="@+id/tvHeureItemATL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/tvDateItemATL"
+            app:layout_constraintStart_toEndOf="@id/tvDateItemATL"
+            tools:text="15:06" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:text="Page : "
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/tvHeureItemATL"
+            app:layout_constraintStart_toEndOf="@id/tvHeureItemATL" />
+
+        <TextView
+            android:id="@+id/tvPageItemATL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/textView28"
+            app:layout_constraintStart_toEndOf="@id/textView28"
+            tools:text="XX" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Citation : "
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/tvDateItemATL"
+            app:layout_constraintTop_toBottomOf="@id/tvDateItemATL" />
+
+        <TextView
+            android:id="@+id/tvCitationItemATL"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/textView29"
+            app:layout_constraintTop_toBottomOf="@id/textView29"
+            tools:text="Corps de la citation abrégée" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Annotation : "
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/tvCitationItemATL"
+            app:layout_constraintTop_toBottomOf="@id/tvCitationItemATL" />
+
+        <TextView
+            android:id="@+id/tvAnnotationItemATL"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/textView30"
+            app:layout_constraintTop_toBottomOf="@id/textView30"
+            tools:text="Corps de l'annotation abrégée" />
+
+        <TextView
+            android:id="@+id/tvTitreATL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tvAnnotationItemATL"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnnotationItemATL"
+            tools:text="Titre" />
+
+        <TextView
+            android:id="@+id/tvAuteurATL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tvTitreATL"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitreATL"
+            tools:text="Auteur" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

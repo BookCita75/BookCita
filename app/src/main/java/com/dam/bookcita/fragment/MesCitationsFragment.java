@@ -3,25 +3,35 @@ package com.dam.bookcita.fragment;
 import static com.dam.bookcita.common.Constantes.ID_BD;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.dam.bookcita.R;
 import com.dam.bookcita.activity.ListeCitationsFromOneBookActivity;
 import com.dam.bookcita.adapter.AdapterBookNbrCitations;
+import com.dam.bookcita.adapter.AdapterCitationAvecTitreLivre;
+import com.dam.bookcita.model.ModelCitation;
 import com.dam.bookcita.model.ModelDetailsLivre;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,8 +43,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.meilisearch.sdk.Client;
+import com.meilisearch.sdk.Config;
+import com.meilisearch.sdk.Index;
+import com.meilisearch.sdk.Key;
+import com.meilisearch.sdk.SearchRequest;
+import com.meilisearch.sdk.exceptions.MeiliSearchApiException;
+import com.meilisearch.sdk.model.SearchResult;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.ConnectException;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,8 +72,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String TAG = "AfficherListeCitations";
-
+    private static final String TAG = "MesCitationsFragment";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,10 +82,15 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection("livres");
     private CollectionReference citationsRef = db.collection("citations");
-
+    private RecyclerView rvListeResultSearchCitation;
     private RecyclerView rv_listesDesCitations;
+    private EditText etSearchMesCitations;
     private ArrayList<ModelDetailsLivre> bookArrayList;
+    private ArrayList<ModelCitation> citationArrayList;
+
     private AdapterBookNbrCitations adapterBook;
+    private AdapterCitationAvecTitreLivre adapterCitationAvecTitreLivre;
+
     ProgressDialog progressDialog;
 
     private FirebaseAuth auth;
@@ -72,12 +99,18 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     private void init(View view) {
         Log.i(TAG, "init: View");
         requestQueue = Volley.newRequestQueue(getContext());
+
+        etSearchMesCitations = view.findViewById(R.id.etSearchMesCitations);
         rv_listesDesCitations = view.findViewById(R.id.rv_listesDesLivresAyantCitations);
         rv_listesDesCitations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
+
+        rvListeResultSearchCitation = view.findViewById(R.id.rvListeResultSearchCitation);
+        rvListeResultSearchCitation.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
 
         auth = FirebaseAuth.getInstance();
         bookArrayList = new ArrayList<ModelDetailsLivre>();
+        citationArrayList = new ArrayList<ModelCitation>();
     }
 
     //affiche la liste des livres avec des citations
@@ -190,6 +223,99 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
 
         id_user = firebaseUser.getUid();
         Log.i(TAG, "onCreateView: id_user : " + id_user);
+
+        etSearchMesCitations.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                citationArrayList.clear();
+
+                Log.i(TAG, "beforeTextChanged: s : " + s);
+//                String hostUrl = "https://bc_meilysearch_dam.com";
+//                String hostUrl = "localhost:7700";
+//                String hostUrl = "http://localhost:7700";
+                String hostUrl = "http://127.0.0.1:7700";
+
+
+                Client client = new Client(new Config(hostUrl, "iIqRYifw83a6b3ffc067335ea7cd19fde2cd0ea6383535843a67cd22c1b7df53dfcd4360"));
+                try {
+                    if (android.os.Build.VERSION.SDK_INT > 9) {
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+                    }
+
+
+
+
+                    Index index = client.index("citations");
+
+//                    String docs = index.getDocuments();
+//                    Log.i(TAG, "onTextChanged: docs : " + docs);
+//                    Log.i(TAG, "onTextChanged: docs : " + docs);
+
+
+                    String[] strAttrToRetrieve = {"*"};
+                    String[] filterUser = {"id_user = " + id_user};
+                    SearchRequest searchRequest = new SearchRequest()
+                            .setQ(s.toString().trim())
+                            .setAttributesToRetrieve(null)
+                            .setLimit(100)
+                            //.setFilter(filterUser)
+                            ;
+
+
+//                    String rsResult = index.rawSearch(searchRequest);
+//                    Log.i(TAG, "onTextChanged: rsResult : " + rsResult);
+                    SearchResult results = index.search(searchRequest);
+                    ArrayList<HashMap<String,Object>> arrayListResults = results.getHits();
+                    for (HashMap<String,Object> r:arrayListResults
+                         ) {
+
+                        Log.i(TAG, "onTextChanged: r.toString() : " + r.toString());
+                        String date = (String) r.get("date");
+                        String heure = (String) r.get("heure");
+                        Double page = (Double) r.get("numeroPage");
+                        String citation = (String) r.get("citation");
+                        Log.i(TAG, "onTextChanged: citation : " + citation);
+                        String annotation = (String) r.get("annotation");
+                        String id_BD_livre = (String) r.get("id_BD_livre");
+                        String id_userCitation = (String) r.get("id_user");
+
+                        citationArrayList.add(new ModelCitation(id_BD_livre, citation, annotation, page.intValue(), date, heure, id_userCitation));
+
+                    }
+                    adapterCitationAvecTitreLivre = new AdapterCitationAvecTitreLivre(getContext(), citationArrayList);
+                    rvListeResultSearchCitation.setAdapter(adapterCitationAvecTitreLivre);
+
+                    Log.i(TAG, "onTextChanged: results : " + results.toString());
+
+                } catch (ConnectException e) {
+                    e.printStackTrace();
+                    Log.i(TAG, "onTextChanged: e.getMessage() : " + e.getMessage());
+                    Toast.makeText(getContext(), "Erreur connection : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (MeiliSearchApiException e) {
+                    e.printStackTrace();
+                    Log.i(TAG, "onTextChanged: MeiliSearchApiException e.getMessage() :" + e.getMessage());
+                    Toast.makeText(getContext(), "Erreur meilisearch : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i(TAG, "onTextChanged: e.getMessage() : " + e.getMessage());
+                    Toast.makeText(getContext(), "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         getBooksWithCitationFromDB();
 
