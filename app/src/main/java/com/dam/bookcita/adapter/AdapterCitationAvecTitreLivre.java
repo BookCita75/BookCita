@@ -1,6 +1,9 @@
 package com.dam.bookcita.adapter;
 
+import static com.google.firebase.firestore.FieldPath.documentId;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +12,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
+import com.dam.bookcita.activity.ListeCitationsFromOneBookActivity;
 import com.dam.bookcita.model.ModelCitation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterCitationAvecTitreLivre.MyViewHolder> {
     private Context context;
     private ArrayList<ModelCitation> citationArrayList;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final String TAG = "AdapterCitationAvecTitr";
 
     public AdapterCitationAvecTitreLivre(Context context, ArrayList<ModelCitation> citationArrayList) {
         this.context = context;
@@ -48,7 +62,37 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
         holder.tvAnnotationItemATL.setText(annotation);
 
         //TODO à remplacer par le titre plus tard
-        holder.tvTitreATL.setText(id_BD_livre);
+        //holder.tvTitreATL.setText(id_BD_livre);
+        getThenSetTitreAuteurFromId_BD_livre(holder, id_BD_livre);
+    }
+
+    private void getThenSetTitreAuteurFromId_BD_livre(@NonNull MyViewHolder holder, String id_BD_livre) {
+        db.collection("livres")
+                .whereEqualTo(documentId(), id_BD_livre)
+//                .whereEqualTo("auteur_livre", "Luc Lang")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            //comme on filtre par id, on devrait avoir ici qu'un seul resultat
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.i(TAG, document.getId() + " => " + document.getData());
+                                String titre = document.getString("title_livre");
+                                String auteur = document.getString("auteur_livre");
+                                Log.i(TAG, "onComplete: titre : " + titre);
+                                Log.i(TAG, "onComplete: auteur : " + auteur);
+
+                                holder.tvTitreATL.setText(titre);
+                                holder.tvAuteurATL.setText(auteur);
+                            }
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
     }
 
     @Override
