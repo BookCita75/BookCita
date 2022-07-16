@@ -1,6 +1,7 @@
 package com.dam.bookcita.fragment;
 
 import static com.dam.bookcita.common.Constantes.ID_BD;
+import static com.dam.bookcita.common.Constantes.ID_BD_CITATION;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.app.Application;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.dam.bookcita.R;
+import com.dam.bookcita.activity.DetailsCitationActivity;
 import com.dam.bookcita.activity.ListeCitationsFromOneBookActivity;
 import com.dam.bookcita.adapter.AdapterBookNbrCitations;
 import com.dam.bookcita.adapter.AdapterCitationAvecTitreLivre;
@@ -48,6 +50,7 @@ import com.meilisearch.sdk.Config;
 import com.meilisearch.sdk.Index;
 import com.meilisearch.sdk.Key;
 import com.meilisearch.sdk.SearchRequest;
+import com.meilisearch.sdk.Settings;
 import com.meilisearch.sdk.exceptions.MeiliSearchApiException;
 import com.meilisearch.sdk.model.SearchResult;
 
@@ -66,7 +69,7 @@ import java.util.Set;
  * Use the {@link MesCitationsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCitations.OnItemClickListener {
+public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCitations.OnItemClickListener, AdapterCitationAvecTitreLivre.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -260,12 +263,18 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
 
 
                     String[] strAttrToRetrieve = {"*"};
+
+                    Settings settings = new Settings();
+                    settings.setFilterableAttributes(new String[] {"id_user"});
+//                    index.updateSettings(settings);
+
+
                     String[] filterUser = {"id_user = " + id_user};
                     SearchRequest searchRequest = new SearchRequest()
                             .setQ(s.toString().trim())
                             .setAttributesToRetrieve(null)
                             .setLimit(100)
-                            //.setFilter(filterUser)
+//                            .setFilter(filterUser)
                             ;
 
 
@@ -285,13 +294,14 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
                         String annotation = (String) r.get("annotation");
                         String id_BD_livre = (String) r.get("id_BD_livre");
                         String id_userCitation = (String) r.get("id_user");
-
-                        citationArrayList.add(new ModelCitation(id_BD_livre, citation, annotation, page.intValue(), date, heure, id_userCitation));
+                        String id_citation = (String) r.get("_firestore_id");
+                        Log.i(TAG, "onTextChanged: id_citation : " + id_citation);
+                        citationArrayList.add(new ModelCitation(id_citation, id_BD_livre, citation, annotation, page.intValue(), date, heure, id_userCitation));
 
                     }
                     adapterCitationAvecTitreLivre = new AdapterCitationAvecTitreLivre(getContext(), citationArrayList);
                     rvListeResultSearchCitation.setAdapter(adapterCitationAvecTitreLivre);
-
+                    adapterCitationAvecTitreLivre.setOnItemClickListener(MesCitationsFragment.this);
                     Log.i(TAG, "onTextChanged: results : " + results.toString());
 
                 } catch (ConnectException e) {
@@ -331,5 +341,23 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
         listeCitationFOBIntent.putExtra(ID_BD, id_BD_livreSelectionne);
 
         startActivity(listeCitationFOBIntent);
+    }
+
+    @Override
+    public void onItemClick(int position, View view) {
+//        Intent listeCitationFOBIntent = new Intent(getContext(), ListeCitationsFromOneBookActivity.class);
+//        String id_BD_livreSelectionne = citationArrayList.get(position).getId_BD_livre();
+//        Log.i(TAG, "onItemClick: id_BD_livreSelectionne : " + id_BD_livreSelectionne);
+//        listeCitationFOBIntent.putExtra(ID_BD, id_BD_livreSelectionne);
+//
+//        startActivity(listeCitationFOBIntent);
+
+        Intent detailsCitationFOBIntent = new Intent(getContext(), DetailsCitationActivity.class);
+        String id_BD_livreSelectionne = citationArrayList.get(position).getId_BD_livre();
+        String id_citationSelectionnee = citationArrayList.get(position).getId();
+        Log.i(TAG, "onItemClick: id_citationSelectionnee : " + id_citationSelectionnee);
+        detailsCitationFOBIntent.putExtra(ID_BD, id_BD_livreSelectionne);
+        detailsCitationFOBIntent.putExtra(ID_BD_CITATION, id_citationSelectionnee);
+        startActivity(detailsCitationFOBIntent);
     }
 }

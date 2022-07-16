@@ -35,6 +35,17 @@ public class ModelCitation {
         this.id_user = id_user;
     }
 
+    public ModelCitation(String id, String id_BD_livre, String citation, String annotation, int numeroPage, String date, String heure, String id_user) {
+        this.id = id;
+        this.id_BD_livre = id_BD_livre;
+        this.citation = citation;
+        this.annotation = annotation;
+        this.numeroPage = numeroPage;
+        this.date = date;
+        this.heure = heure;
+        this.id_user = id_user;
+    }
+
     @Exclude
     public String getId() {
         return id;

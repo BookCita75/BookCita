@@ -32,6 +32,9 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "AdapterCitationAvecTitr";
 
+    // La gestion du click
+    public AdapterCitationAvecTitreLivre.OnItemClickListener onItemClickListener;
+
     public AdapterCitationAvecTitreLivre(Context context, ArrayList<ModelCitation> citationArrayList) {
         this.context = context;
         this.citationArrayList = citationArrayList;
@@ -114,6 +117,21 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
             tvTitreATL = itemView.findViewById(R.id.tvTitreATL);
             tvAuteurATL = itemView.findViewById(R.id.tvAuteurATL);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(getAdapterPosition(),v);
+                }
+            });
+
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, View view);
+    }
+
+    public void setOnItemClickListener(AdapterCitationAvecTitreLivre.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }
