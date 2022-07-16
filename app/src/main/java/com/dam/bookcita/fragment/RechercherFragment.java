@@ -43,6 +43,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import com.dam.bookcita.activity.SaisieManuelleLivreActivity;
 import com.dam.bookcita.adapter.AdapterBook;
 import com.dam.bookcita.R;
 import com.dam.bookcita.activity.CameraXActivity;
@@ -73,6 +74,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
     private Button btnChercher;
     private Button btnClearText;
     private Button btnRechScanISBN;
+    private Button btnAjoutManuelLivre;
 
 
     private ArrayList<ModelBook> bookArrayList;
@@ -142,6 +144,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
         etKeyword = view.findViewById(R.id.etKeyword);
         rvBookByKeyword = view.findViewById(R.id.rvBookByKeyword);
         btnClearText = view.findViewById(R.id.btnClearText);
+        btnAjoutManuelLivre = view.findViewById(R.id.btnAjoutManuelLivre);
 
         btnRechScanISBN = view.findViewById(R.id.btnRechScanISBN);
         bookArrayList = new ArrayList<>();
@@ -372,6 +375,14 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
             //remplissageArrayListeEnDur();
         }
         btnClearText.setVisibility(View.INVISIBLE);
+
+        btnAjoutManuelLivre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent saisieManuelleIntent = new Intent(getContext(), SaisieManuelleLivreActivity.class);
+                startActivity(saisieManuelleIntent);
+            }
+        });
 
         etKeyword.addTextChangedListener(new TextWatcher() {
             @Override
