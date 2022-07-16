@@ -1,7 +1,11 @@
 package com.dam.bookcita.activity;
 
+import static com.dam.bookcita.common.Constantes.FRAG_TO_LOAD;
+import static com.dam.bookcita.common.Constantes.MES_LIVRES_FRAGMENT;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -87,7 +91,10 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                 String id_user = firebaseUser.getUid();
 
                 String couvertureImage = "";
-                int nbPages = Integer.valueOf(nbPagesStr);
+                int nbPages = 0;
+                if (!nbPagesStr.equals("")) {
+                    nbPages = Integer.valueOf(nbPagesStr);
+                }
 
                 ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume,couvertureImage,isbn, nbPages, id_user);
 
@@ -99,6 +106,11 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
                 }
                 Toast.makeText(SaisieManuelleLivreActivity.this, "Livre ajouté avec succès !", Toast.LENGTH_LONG).show();
+
+                Intent mainIntent = new Intent(SaisieManuelleLivreActivity.this, MainActivity.class);
+                mainIntent.putExtra(FRAG_TO_LOAD, MES_LIVRES_FRAGMENT);
+
+                startActivity(mainIntent);
 
             }
         });
