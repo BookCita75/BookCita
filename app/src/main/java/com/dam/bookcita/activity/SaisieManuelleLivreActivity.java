@@ -6,9 +6,12 @@ import static com.dam.bookcita.common.Constantes.MES_LIVRES_FRAGMENT;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +34,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
     private EditText etEditeurSML;
     private EditText etNbPagesSML;
     private EditText etIsbnSML;
-    private EditText etLangueSML;
+    private AutoCompleteTextView actvLangueSML;
     private Button btChooseFileSML;
     private ImageView ivCoverSML;
     private EditText etmlResumeSML;
@@ -39,6 +42,8 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection("livres");
+
+    private static final String[] LANGUES_VAL = new String[] { "fr", "en", "de" };
 
 
     private void init(){
@@ -48,7 +53,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
         etEditeurSML = findViewById(R.id.etEditeurSML);
         etNbPagesSML = findViewById(R.id.etNbPagesSML);
         etIsbnSML = findViewById(R.id.etIsbnSML);
-        etLangueSML = findViewById(R.id.etLangueSML);
+        actvLangueSML = findViewById(R.id.actvLangueSML);
         btChooseFileSML = findViewById(R.id.btChooseFileSML);
         ivCoverSML = findViewById(R.id.ivCoverSML);
         etmlResumeSML = findViewById(R.id.etmlResumeSML);
@@ -62,12 +67,37 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saisie_manuelle_livre);
 
         init();
+
+        final ArrayAdapter<String> adapterLangues = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                LANGUES_VAL
+        );
+        //adapterLangues.setDropDownViewTheme();
+        actvLangueSML.setAdapter(adapterLangues);
+
+        actvLangueSML.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actvLangueSML.showDropDown();
+            }
+        });
+
+
+
+
         Log.i(TAG, "onCreate: av btValider");
         btValiderSML.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String titre = etTitreSML.getText().toString();
                 Log.i(TAG, "onClick: titre : " + titre);
+
+                if (titre.equals("")) {
+                    Toast.makeText(SaisieManuelleLivreActivity.this, "Veuillez saisir un titre.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 String auteur = etAuteurSML.getText().toString();
                 Log.i(TAG, "onClick: auteur : " + auteur);
                 String date = etDateSML.getText().toString();
@@ -78,8 +108,12 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick: nbPagesStr : " + nbPagesStr);
                 String isbn = etIsbnSML.getText().toString();
                 Log.i(TAG, "onClick: isbn : " + isbn);
-                String langue = etLangueSML.getText().toString();
+                String langue = actvLangueSML.getText().toString();
                 Log.i(TAG, "onClick: langue : " + langue);
+                if (!(langue.equals("fr") || langue.equals("en") || langue.equals("de")) ) {
+                    Toast.makeText(SaisieManuelleLivreActivity.this, "Veuillez choisir une langue entre fr, en ou de.", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 //ivCoverSML
                 String resume = etmlResumeSML.getText().toString();
                 Log.i(TAG, "onClick: resume : " + resume);

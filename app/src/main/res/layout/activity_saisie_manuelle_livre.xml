@@ -171,6 +171,19 @@
                     app:layout_constraintStart_toStartOf="@+id/textView35"
                     app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
+                <AutoCompleteTextView
+                    android:id="@+id/actvLangueSML"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginBottom="-10dp"
+                    android:autoText="false"
+                    android:popupTheme="@style/Theme.AppCompat"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView36"
+                    app:layout_constraintStart_toEndOf="@+id/textView36" />
+
                 <EditText
                     android:id="@+id/etIsbnSML"
                     android:layout_width="wrap_content"
@@ -194,19 +207,6 @@
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView36"
                     app:layout_constraintTop_toBottomOf="@+id/textView36" />
-
-                <EditText
-                    android:id="@+id/etLangueSML"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginBottom="-10dp"
-                    android:ems="10"
-                    android:hint="fr/en/de"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView36"
-                    app:layout_constraintStart_toEndOf="@+id/textView36" />
 
                 <TextView
                     android:id="@+id/textView38"
