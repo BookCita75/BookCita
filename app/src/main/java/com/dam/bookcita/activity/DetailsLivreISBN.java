@@ -50,7 +50,9 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private TextView tv_resume_livre;
     private TextView tv_isbn_livre;
     private TextView tv_nombres_pages_livres;
+    private  TextView tvLangueDLI;
     private ImageView iv_couverture_livre;
+
     private static final String TAG = "AjouterLivreBD";
 
 
@@ -61,8 +63,9 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private CollectionReference livresRef = db.collection("livres");
 
 
-    String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage;
-    int nombres_pages_livres;
+    private String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage, langue;
+    private int nombres_pages_livres;
+
     public void initUI(){
         tv_title_livre = findViewById(R.id.tv_title_updat_livre_bd);
         tv_auteur_livre = findViewById(R.id.tv_auteur_updat_livre_bd);
@@ -73,6 +76,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
         tv_nombres_pages_livres = findViewById(R.id.tv_nombres_updat_pages_livres_bd);
         iv_couverture_livre = (ImageView) findViewById(R.id.iv_couverture_livre_bd);
         tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
+        tvLangueDLI = findViewById(R.id.tvLangueDLI);
 
         requestQueue = Volley.newRequestQueue(this);
     }
@@ -90,8 +94,9 @@ public class DetailsLivreISBN extends AppCompatActivity{
         parution_livre = detailsLivre.getDate_parution_livre();
         resume_livre = detailsLivre.getResume_livre();
         isbn_livre = detailsLivre.getIsbn_livre();
-        nombres_pages_livres = detailsLivre.getNombre_livres();
+        nombres_pages_livres = detailsLivre.getNbPages_livre();
         couvertureImage = detailsLivre.getUrl_cover_livre();
+        langue = detailsLivre.getLangue();
 
         Log.i(TAG, "isbn livre : " + isbn_livre);
        // String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
@@ -105,10 +110,10 @@ public class DetailsLivreISBN extends AppCompatActivity{
         //int nbPagesSanP = Integer.parseInt(nombreDesPages);
         //Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
 
-       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres, id_user);
+       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres, langue, id_user);
 
        livresRef.add(livre);
-        Log.i(TAG, "ModelDetailsLivre : ISBN"+ livre.getIsbn_livre() +" Titre : "+ livre.getTitle_livre()+ " Nombre des pages : "+ livre.getNombre_livres());
+        Log.i(TAG, "ModelDetailsLivre : ISBN"+ livre.getIsbn_livre() +" Titre : "+ livre.getTitle_livre()+ " Nombre des pages : "+ livre.getNbPages_livre());
 
         Log.i(TAG, "ajouterLivreBD: livresRef.getId : "+livresRef.getId());
 
@@ -249,8 +254,13 @@ public class DetailsLivreISBN extends AppCompatActivity{
                         }
                     }
 
+                    String langue = "";
+                    if (volumeInfo.has("language")) {
+                        langue = volumeInfo.getString("language");
+                    }
+                    Log.i(TAG, "onResponse: langue : " + langue);
 
-                   detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount);
+                   detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount, langue);
 
                     Log.i(TAG, "Details Livre  : " + detailsLivre.getTitle_livre() + " || " + detailsLivre.getAuteur_livre() +" || " + detailsLivre.getEditeur_livre()+" || "+detailsLivre.getDate_parution_livre());
 
@@ -261,6 +271,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
                     tv_editeur_livre.setText(editeur);
                     tv_isbn_livre.setText(isbn);
                     tv_nombres_pages_livres.setText(String.valueOf(pageCount)+"p.");
+                    tvLangueDLI.setText(langue);
 
                     // Utilisation de Glide pour la gestion des images
                     Context context = DetailsLivreISBN.this ;

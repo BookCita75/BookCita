@@ -60,4 +60,20 @@ public interface Constantes {
     String SAISIE_OCR = "saisie_OCR";
     String SAISIE_MANUELLE = "saisie_manuelle";
     String TEXTE_EXTRAIT = "texte_extrait";
+
+    /** BD **/
+    String TITRE_LIVRE = "title_livre";
+    String AUTEUR_LIVRE = "auteur_livre";
+    String URL_COVER_LIVRE = "url_cover_livre";
+    String EDITEUR_LIVRE = "editeur_livre";
+    String DATE_PARUTION_LIVRE = "date_parution_livre";
+    String RESUME_LIVRE = "resume_livre";
+    String ISBN_LIVRE = "isbn_livre";
+    String NB_PAGES_LIVRE = "nbPages_livre";
+    String LANGUE_LIVRE = "langue";
+
+
+
+
+
 }

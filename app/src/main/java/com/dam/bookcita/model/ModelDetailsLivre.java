@@ -12,45 +12,17 @@ public class ModelDetailsLivre {
     private String url_cover_livre;
     private String isbn_livre;
     private String id_user;
-    private int nombre_livres;
+    private int nbPages_livre;
+    //langue : fr/en/de
+    private String langue;
 
 
-
-    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre) {
-        this.title_livre = title_livre;
-        this.auteur_livre = auteur_livre;
-        this.editeur_livre = editeur_livre;
-        this.date_parution_livre = date_parution_livre;
-        this.resume_livre = resume_livre;
-        this.url_cover_livre = url_cover_livre;
-        this.isbn_livre = isbn_livre;
-
-    }
-
-    public ModelDetailsLivre(String id, String title_livre, String auteur_livre, String url_cover_livre, String isbn_livre) {
-        this.id = id;
-        this.title_livre = title_livre;
-        this.auteur_livre = auteur_livre;
-        this.url_cover_livre = url_cover_livre;
-        this.isbn_livre = isbn_livre;
-    }
 
     public ModelDetailsLivre() {
     }
 
-    public ModelDetailsLivre(String id, String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nombre_livres) {
-        this.title_livre = title_livre;
-        this.auteur_livre = auteur_livre;
-        this.editeur_livre = editeur_livre;
-        this.date_parution_livre = date_parution_livre;
-        this.resume_livre = resume_livre;
-        this.url_cover_livre = url_cover_livre;
-        this.isbn_livre = isbn_livre;
-        this.nombre_livres = nombre_livres;
-        this.id= id;
-    }
 
-    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nombre_livres, String id_user) {
+    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue, String id_user) {
         this.title_livre = title_livre;
         this.auteur_livre = auteur_livre;
         this.editeur_livre = editeur_livre;
@@ -58,11 +30,13 @@ public class ModelDetailsLivre {
         this.resume_livre = resume_livre;
         this.url_cover_livre = url_cover_livre;
         this.isbn_livre = isbn_livre;
-        this.nombre_livres = nombre_livres;
+        this.nbPages_livre = nbPages_livre;
+        this.langue = langue;
         this.id_user = id_user;
     }
 
-    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nombre_livres) {
+
+    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue) {
         this.title_livre = title_livre;
         this.auteur_livre = auteur_livre;
         this.editeur_livre = editeur_livre;
@@ -70,7 +44,8 @@ public class ModelDetailsLivre {
         this.resume_livre = resume_livre;
         this.url_cover_livre = url_cover_livre;
         this.isbn_livre = isbn_livre;
-        this.nombre_livres = nombre_livres;
+        this.nbPages_livre = nbPages_livre;
+        this.langue = langue;
     }
 
     @Exclude
@@ -138,12 +113,12 @@ public class ModelDetailsLivre {
         this.isbn_livre = isbn_livre;
     }
 
-    public int getNombre_livres() {
-        return nombre_livres;
+    public int getNbPages_livre() {
+        return nbPages_livre;
     }
 
-    public void setNombre_livres(int nombre_livres) {
-        this.nombre_livres = nombre_livres;
+    public void setNbPages_livre(int nbPages_livre) {
+        this.nbPages_livre = nbPages_livre;
     }
 
     public String getId_user() {
@@ -152,5 +127,13 @@ public class ModelDetailsLivre {
 
     public void setId_user(String id_user) {
         this.id_user = id_user;
+    }
+
+    public String getLangue() {
+        return langue;
+    }
+
+    public void setLangue(String langue) {
+        this.langue = langue;
     }
 }

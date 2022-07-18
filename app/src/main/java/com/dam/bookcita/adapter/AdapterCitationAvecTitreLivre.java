@@ -1,5 +1,6 @@
 package com.dam.bookcita.adapter;
 
+import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.content.Context;
@@ -82,8 +83,8 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString("title_livre");
-                                String auteur = document.getString("auteur_livre");
+                                String titre = document.getString(TITRE_LIVRE);
+                                String auteur = document.getString(AUTEUR_LIVRE);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
 

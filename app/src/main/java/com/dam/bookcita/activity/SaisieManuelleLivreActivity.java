@@ -130,7 +130,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                     nbPages = Integer.valueOf(nbPagesStr);
                 }
 
-                ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume,couvertureImage,isbn, nbPages, id_user);
+                ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume,couvertureImage,isbn, nbPages,langue, id_user);
 
                 try {
                     livresRef.add(livre);

@@ -1,7 +1,6 @@
 package com.dam.bookcita.activity;
 
-import static com.dam.bookcita.common.Constantes.ID_BD;
-import static com.dam.bookcita.common.Constantes.ID_BD_CITATION;
+import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -110,9 +109,9 @@ public class DetailsCitationActivity extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString("title_livre");
-                                String auteur = document.getString("auteur_livre");
-                                String coverUrl = document.getString("url_cover_livre");
+                                String titre = document.getString(TITRE_LIVRE);
+                                String auteur = document.getString(AUTEUR_LIVRE);
+                                String coverUrl = document.getString(URL_COVER_LIVRE);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);

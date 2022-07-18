@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -34,7 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class DetailsLivreBD extends AppCompatActivity {
 
     private Button btnAjouterCitation, btnModifierLivreBD;
-    String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage;
+    private String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage, langue;
     long nombres_pages_livres;
     private TextView tv_title_livre;
     private TextView tv_auteur_livre;
@@ -43,6 +44,7 @@ public class DetailsLivreBD extends AppCompatActivity {
     private TextView tv_resume_livre;
     private TextView tv_isbn_livre;
     private TextView tv_nombres_pages_livres;
+    private TextView tvLangueDLBD;
     private ImageView iv_couverture_livre;
     private static final String TAG = "DetailsLivreBD";
     private RequestQueue requestQueue;
@@ -64,6 +66,7 @@ public class DetailsLivreBD extends AppCompatActivity {
         tv_nombres_pages_livres = findViewById(R.id.tv_nombres_updat_pages_livres_bd);
         iv_couverture_livre = (ImageView) findViewById(R.id.iv_couverture_livre_bd);
         tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
+        tvLangueDLBD = findViewById(R.id.tvLangueDLBD);
 
         btnAjouterCitation = findViewById(R.id.btnAjouterCitation);
         btnModifierLivreBD = findViewById(R.id.btn_updat_livre_bd);
@@ -87,44 +90,53 @@ public class DetailsLivreBD extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                title_livre = document.getString("title_livre");
-                                auteur_livre = document.getString("auteur_livre");
-                                couvertureImage = document.getString("url_cover_livre");
-                                editeur_livre =document.getString("editeur_livre");
-                                parution_livre = document.getString("date_parution_livre");
-                                resume_livre = document.getString("resume_livre");
-                                isbn_livre = document.getString("isbn_livre");
-                                nombres_pages_livres = document.getLong("nombre_livres");
+                                try {
+                                    title_livre = document.getString(TITRE_LIVRE);
+                                    auteur_livre = document.getString(AUTEUR_LIVRE);
+                                    couvertureImage = document.getString(URL_COVER_LIVRE);
+                                    editeur_livre =document.getString(EDITEUR_LIVRE);
+                                    parution_livre = document.getString(DATE_PARUTION_LIVRE);
+                                    resume_livre = document.getString(RESUME_LIVRE);
+                                    isbn_livre = document.getString(ISBN_LIVRE);
+                                    nombres_pages_livres = document.getLong(NB_PAGES_LIVRE);
+                                    langue = document.getString(LANGUE_LIVRE);
 
-                                String nbr_pages = String.valueOf(nombres_pages_livres);
+                                    String nbr_pages = String.valueOf(nombres_pages_livres);
 
-                                Log.i(TAG, "onComplete: titre : " + title_livre);
-                                Log.i(TAG, "onComplete: nombres_pages_livres : " + nombres_pages_livres);
+                                    Log.i(TAG, "onComplete: titre : " + title_livre);
+                                    Log.i(TAG, "onComplete: nombres_pages_livres : " + nombres_pages_livres);
 
-                                tv_title_livre.setText(title_livre);
-                                tv_auteur_livre.setText(auteur_livre);
-                                tv_editeur_livre.setText(editeur_livre);
-                                tv_parution_livre.setText(parution_livre);
-                                tv_resume_livre.setText(resume_livre);
-                                tv_isbn_livre.setText(isbn_livre);
-                                tv_nombres_pages_livres.setText(nbr_pages+"p.");
+                                    tv_title_livre.setText(title_livre);
+                                    tv_auteur_livre.setText(auteur_livre);
+                                    tv_editeur_livre.setText(editeur_livre);
+                                    tv_parution_livre.setText(parution_livre);
+                                    tv_resume_livre.setText(resume_livre);
+                                    tv_isbn_livre.setText(isbn_livre);
+                                    tv_nombres_pages_livres.setText(nbr_pages+"p.");
+                                    tvLangueDLBD.setText(langue);
 
 
-                                //Gestion de l'image avec Glide
-                                Context context = DetailsLivreBD.this ;
+                                    //Gestion de l'image avec Glide
+                                    Context context = DetailsLivreBD.this ;
 
-                                RequestOptions options = new RequestOptions()
-                                        .centerCrop()
-                                        .error(R.drawable.ic_couverture_livre_150)
-                                        .placeholder(R.drawable.ic_couverture_livre_150);
+                                    RequestOptions options = new RequestOptions()
+                                            .centerCrop()
+                                            .error(R.drawable.ic_couverture_livre_150)
+                                            .placeholder(R.drawable.ic_couverture_livre_150);
 
-                                // methode normale
-                                Glide.with(context)
-                                        .load(couvertureImage)
-                                        .apply(options)
-                                        .fitCenter()
-                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                        .into(iv_couverture_livre);
+                                    // methode normale
+                                    Glide.with(context)
+                                            .load(couvertureImage)
+                                            .apply(options)
+                                            .fitCenter()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                            .into(iv_couverture_livre);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Log.e(TAG, "onComplete: erreur : e.getMessage() : " + e.getMessage());
+                                    Toast.makeText(DetailsLivreBD.this, "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+
                             }
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());

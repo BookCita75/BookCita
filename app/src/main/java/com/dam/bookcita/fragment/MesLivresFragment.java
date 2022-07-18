@@ -140,7 +140,7 @@ public class MesLivresFragment extends Fragment {
             Query query = livresRef
                     //On ne charge que les livres presents dans la BD de l'utilisateur connecté
                     .whereEqualTo("id_user", id_user)
-                    .orderBy("title_livre");
+                    .orderBy(TITRE_LIVRE);
             Log.i(TAG, "Query : "+query);
             FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
                     .setQuery(query, ModelDetailsLivre.class)
@@ -195,7 +195,7 @@ public class MesLivresFragment extends Fragment {
 
                     Log.i(TAG, "SearchLivre: "+ s.toString());
                     Query querySearch = livresRef
-                            .whereEqualTo("auteur_livre", s.toString());
+                            .whereEqualTo(AUTEUR_LIVRE, s.toString());
                     //.whereEqualTo("id_user",id_user)
                     Log.i(TAG, "onClick: "+querySearch.toString());
                     FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()

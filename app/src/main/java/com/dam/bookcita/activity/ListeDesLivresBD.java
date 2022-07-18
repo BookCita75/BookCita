@@ -1,5 +1,7 @@
 package com.dam.bookcita.activity;
 
+import static com.dam.bookcita.common.Constantes.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,7 +53,7 @@ public class ListeDesLivresBD extends  AppCompatActivity{
 
     }
     public void getBooksFromDB(){
-        Query query = livresRef.orderBy("title_livre");
+        Query query = livresRef.orderBy(TITRE_LIVRE);
         Log.i(TAG, "Query : "+query);
         FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
                 .setQuery(query, ModelDetailsLivre.class)
