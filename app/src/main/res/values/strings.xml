@@ -43,4 +43,8 @@
     <string name="add_avatar_from_gallery">Sélectionnez un avatar dans la galerie</string>
     <string name="add_avatar_from_camera">Prendre une photo</string>
 
+    <!-- String pour la decription pour l'aide aux déficients visuels   -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

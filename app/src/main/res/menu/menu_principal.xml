@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_fragment_accueil"
+            android:title="Accueil" />
+        <item
+            android:id="@+id/nav_fragment_mes_livres"
+            android:title="Mes livres" />
+        <item
+            android:id="@+id/nav_fragment_mes_citations"
+            android:title="Mes citations" />
+        <item
+            android:id="@+id/nav_fragment_rechercher"
+            android:title="Rechercher" />
+        <item
+            android:id="@+id/nav_fragment_profil"
+            android:title="Profil" />
+    </group>
+</menu>

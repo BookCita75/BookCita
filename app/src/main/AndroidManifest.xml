@@ -17,7 +17,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/icon_button_bookcita_2"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BookCita"
+        android:theme="@style/Theme.BookCita.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.SaisieManuelleLivreActivity"
