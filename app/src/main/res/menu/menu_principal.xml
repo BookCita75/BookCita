@@ -4,18 +4,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_fragment_accueil"
+            android:icon="@drawable/ic_accueil_24"
             android:title="Accueil" />
         <item
             android:id="@+id/nav_fragment_mes_livres"
+            android:icon="@drawable/ic_books_bottom_bar_24"
             android:title="Mes livres" />
         <item
             android:id="@+id/nav_fragment_mes_citations"
+            android:icon="@drawable/ic_baseline_format_quote_24"
             android:title="Mes citations" />
         <item
             android:id="@+id/nav_fragment_rechercher"
+            android:icon="@drawable/ic_search_barre_bottom_24"
             android:title="Rechercher" />
         <item
             android:id="@+id/nav_fragment_profil"
+            android:icon="@drawable/ic_profile_barre_bottom_24"
             android:title="Profil" />
     </group>
 </menu>

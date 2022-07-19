@@ -221,9 +221,10 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 //                        beginTransaction().
 //                        replace(R.id.fragment_container, new Fragment_05()).
 //                        commit();
-//                break;
+
                 Intent profilIntent = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(profilIntent);
+                break;
         }
 
         drawer_layout.closeDrawer(GravityCompat.START);
