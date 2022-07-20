@@ -1,7 +1,6 @@
 package com.dam.bookcita.activity;
 
-import static com.dam.bookcita.common.Constantes.FRAG_TO_LOAD;
-import static com.dam.bookcita.common.Constantes.MES_LIVRES_FRAGMENT;
+import static com.dam.bookcita.common.Constantes.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,7 +40,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
     private Button btValiderSML;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
 
     private static final String[] LANGUES_VAL = new String[] { "fr", "en", "de" };
 

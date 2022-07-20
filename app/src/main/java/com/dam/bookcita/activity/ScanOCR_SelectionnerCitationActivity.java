@@ -50,7 +50,7 @@ public class ScanOCR_SelectionnerCitationActivity extends AppCompatActivity {
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference citationsRef = db.collection("citations");
+    private CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
     private FirebaseAuth auth;
 
     private void init() {
@@ -104,7 +104,7 @@ public class ScanOCR_SelectionnerCitationActivity extends AppCompatActivity {
 
 //        Query query = livresRef.whereEqualTo("id", id_BD);
 
-        db.collection("livres")
+        db.collection(LIVRES_COLLECTION_BD)
                 .whereEqualTo(documentId(), id_BD)
 //                .whereEqualTo("auteur_livre", "Luc Lang")
                 .get()
@@ -116,9 +116,9 @@ public class ScanOCR_SelectionnerCitationActivity extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString(TITRE_LIVRE);
-                                String auteur = document.getString(AUTEUR_LIVRE);
-                                String coverUrl = document.getString(URL_COVER_LIVRE);
+                                String titre = document.getString(TITRE_LIVRE_BD);
+                                String auteur = document.getString(AUTEUR_LIVRE_BD);
+                                String coverUrl = document.getString(URL_COVER_LIVRE_BD);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);

@@ -47,7 +47,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
     private String id_user;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
     private FirebaseAuth auth;
 
 
@@ -70,7 +70,7 @@ public class AjoutCitationActivity extends AppCompatActivity {
 
 //        Query query = livresRef.whereEqualTo("id", id_BD);
 
-        db.collection("livres")
+        db.collection(LIVRES_COLLECTION_BD)
                 .whereEqualTo(documentId(), id_BD)
 //                .whereEqualTo("auteur_livre", "Luc Lang")
                 .get()
@@ -82,9 +82,9 @@ public class AjoutCitationActivity extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString(TITRE_LIVRE);
-                                String auteur = document.getString(AUTEUR_LIVRE);
-                                String coverUrl = document.getString(URL_COVER_LIVRE);
+                                String titre = document.getString(TITRE_LIVRE_BD);
+                                String auteur = document.getString(AUTEUR_LIVRE_BD);
+                                String coverUrl = document.getString(URL_COVER_LIVRE_BD);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
@@ -169,9 +169,9 @@ public class AjoutCitationActivity extends AppCompatActivity {
 
     private void remplirNbCitationsFOBFromDB() {
 
-        db.collection("citations")
-                .whereEqualTo("id_user",id_user)
-                .whereEqualTo("id_BD_livre", id_BD)
+        db.collection(CITATIONS_COLLECTION_BD)
+                .whereEqualTo(ID_USER_CITATION_BD,id_user)
+                .whereEqualTo(ID_BD_LIVRE_CITATION_BD, id_BD)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

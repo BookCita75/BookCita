@@ -51,7 +51,7 @@ public class DetailsLivreBD extends AppCompatActivity {
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
     private FirebaseAuth auth;
     ProgressDialog progressDialog;
 
@@ -91,15 +91,15 @@ public class DetailsLivreBD extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
                                 try {
-                                    title_livre = document.getString(TITRE_LIVRE);
-                                    auteur_livre = document.getString(AUTEUR_LIVRE);
-                                    couvertureImage = document.getString(URL_COVER_LIVRE);
-                                    editeur_livre =document.getString(EDITEUR_LIVRE);
-                                    parution_livre = document.getString(DATE_PARUTION_LIVRE);
-                                    resume_livre = document.getString(RESUME_LIVRE);
-                                    isbn_livre = document.getString(ISBN_LIVRE);
-                                    nombres_pages_livres = document.getLong(NB_PAGES_LIVRE);
-                                    langue = document.getString(LANGUE_LIVRE);
+                                    title_livre = document.getString(TITRE_LIVRE_BD);
+                                    auteur_livre = document.getString(AUTEUR_LIVRE_BD);
+                                    couvertureImage = document.getString(URL_COVER_LIVRE_BD);
+                                    editeur_livre =document.getString(EDITEUR_LIVRE_BD);
+                                    parution_livre = document.getString(DATE_PARUTION_LIVRE_BD);
+                                    resume_livre = document.getString(RESUME_LIVRE_BD);
+                                    isbn_livre = document.getString(ISBN_LIVRE_BD);
+                                    nombres_pages_livres = document.getLong(NB_PAGES_LIVRE_BD);
+                                    langue = document.getString(LANGUE_LIVRE_BD);
 
                                     String nbr_pages = String.valueOf(nombres_pages_livres);
 

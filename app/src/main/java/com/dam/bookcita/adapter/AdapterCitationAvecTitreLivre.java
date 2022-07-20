@@ -13,11 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
-import com.dam.bookcita.activity.ListeCitationsFromOneBookActivity;
 import com.dam.bookcita.model.ModelCitation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,7 +67,7 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
     }
 
     private void getThenSetTitreAuteurFromId_BD_livre(@NonNull MyViewHolder holder, String id_BD_livre) {
-        db.collection("livres")
+        db.collection(LIVRES_COLLECTION_BD)
                 .whereEqualTo(documentId(), id_BD_livre)
 //                .whereEqualTo("auteur_livre", "Luc Lang")
                 .get()
@@ -83,8 +79,8 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString(TITRE_LIVRE);
-                                String auteur = document.getString(AUTEUR_LIVRE);
+                                String titre = document.getString(TITRE_LIVRE_BD);
+                                String auteur = document.getString(AUTEUR_LIVRE_BD);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
 

@@ -35,7 +35,7 @@ public class ListeDesLivresBD extends  AppCompatActivity{
     private RequestQueue requestQueue;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
     private FirebaseAuth auth;
     ProgressDialog progressDialog;
     private void intUI(){
@@ -53,7 +53,7 @@ public class ListeDesLivresBD extends  AppCompatActivity{
 
     }
     public void getBooksFromDB(){
-        Query query = livresRef.orderBy(TITRE_LIVRE);
+        Query query = livresRef.orderBy(TITRE_LIVRE_BD);
         Log.i(TAG, "Query : "+query);
         FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
                 .setQuery(query, ModelDetailsLivre.class)

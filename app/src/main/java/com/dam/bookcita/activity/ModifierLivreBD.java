@@ -7,15 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -71,7 +68,7 @@ public class ModifierLivreBD extends AppCompatActivity {
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
     private Button btn_modifier;
     String uriPhoto;
 
@@ -129,15 +126,15 @@ public class ModifierLivreBD extends AppCompatActivity {
                     }
 
                     livresRef.document(id_BD).update(
-                            TITRE_LIVRE, tv_title_livre.getText().toString(),
-                            AUTEUR_LIVRE,tv_auteur_livre.getText().toString(),
-                            EDITEUR_LIVRE,tv_editeur_livre.getText().toString(),
-                            DATE_PARUTION_LIVRE,tv_parution_livre.getText().toString(),
-                            RESUME_LIVRE,tv_resume_livre.getText().toString(),
-                            ISBN_LIVRE,tv_isbn_livre.getText().toString(),
-                            NB_PAGES_LIVRE,nombredespages,
-                            LANGUE_LIVRE,langue,
-                            URL_COVER_LIVRE,uriPhoto
+                            TITRE_LIVRE_BD, tv_title_livre.getText().toString(),
+                            AUTEUR_LIVRE_BD,tv_auteur_livre.getText().toString(),
+                            EDITEUR_LIVRE_BD,tv_editeur_livre.getText().toString(),
+                            DATE_PARUTION_LIVRE_BD,tv_parution_livre.getText().toString(),
+                            RESUME_LIVRE_BD,tv_resume_livre.getText().toString(),
+                            ISBN_LIVRE_BD,tv_isbn_livre.getText().toString(),
+                            NB_PAGES_LIVRE_BD,nombredespages,
+                            LANGUE_LIVRE_BD,langue,
+                            URL_COVER_LIVRE_BD,uriPhoto
 
                     );
 
@@ -239,15 +236,15 @@ public class ModifierLivreBD extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                title_livre = document.getString(TITRE_LIVRE);
-                                auteur_livre = document.getString(AUTEUR_LIVRE);
-                                couvertureImage = document.getString(URL_COVER_LIVRE);
-                                editeur_livre =document.getString(EDITEUR_LIVRE);
-                                parution_livre = document.getString(DATE_PARUTION_LIVRE);
-                                resume_livre = document.getString(RESUME_LIVRE);
-                                isbn_livre = document.getString(ISBN_LIVRE);
-                                nombres_pages_livres = document.getLong(NB_PAGES_LIVRE);
-                                langue = document.getString(LANGUE_LIVRE);
+                                title_livre = document.getString(TITRE_LIVRE_BD);
+                                auteur_livre = document.getString(AUTEUR_LIVRE_BD);
+                                couvertureImage = document.getString(URL_COVER_LIVRE_BD);
+                                editeur_livre =document.getString(EDITEUR_LIVRE_BD);
+                                parution_livre = document.getString(DATE_PARUTION_LIVRE_BD);
+                                resume_livre = document.getString(RESUME_LIVRE_BD);
+                                isbn_livre = document.getString(ISBN_LIVRE_BD);
+                                nombres_pages_livres = document.getLong(NB_PAGES_LIVRE_BD);
+                                langue = document.getString(LANGUE_LIVRE_BD);
                                 String nbr_pages = String.valueOf(nombres_pages_livres);
 
 

@@ -79,7 +79,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private String id_BD;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference citationsRef = db.collection("citations");
+    private CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
     private FirebaseAuth auth;
 
     private boolean existeDeja = false;
@@ -207,7 +207,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
 //        Query query = livresRef.whereEqualTo("id", id_BD);
 
-        db.collection("livres")
+        db.collection(LIVRES_COLLECTION_BD)
                 .whereEqualTo(documentId(), id_BD)
 //                .whereEqualTo("auteur_livre", "Luc Lang")
                 .get()
@@ -219,9 +219,9 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString(TITRE_LIVRE);
-                                String auteur = document.getString(AUTEUR_LIVRE);
-                                String coverUrl = document.getString(URL_COVER_LIVRE);
+                                String titre = document.getString(TITRE_LIVRE_BD);
+                                String auteur = document.getString(AUTEUR_LIVRE_BD);
+                                String coverUrl = document.getString(URL_COVER_LIVRE_BD);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
@@ -255,9 +255,9 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
     private void remplirNbCitationsFOBFromDB() {
 
-        db.collection("citations")
-                .whereEqualTo("id_user",id_user)
-                .whereEqualTo("id_BD_livre", id_BD)
+        db.collection(CITATIONS_COLLECTION_BD)
+                .whereEqualTo(ID_USER_CITATION_BD,id_user)
+                .whereEqualTo(ID_BD_LIVRE_CITATION_BD, id_BD)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -413,12 +413,12 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                         }
 
 
-                        item.put("date", date);
-                        item.put("heure", heure);
+                        item.put(DATE_CITATION_BD, date);
+                        item.put(HEURE_CITATION_BD, heure);
                         item.put("page", numeroPage);
-                        item.put("citation", citation);
+                        item.put(CITATION_CITATION_BD, citation);
                         if (indexDebutNote != -1) {
-                            item.put("annotation", annotation);
+                            item.put(ANNOTATION_CITATION_BD, annotation);
                         }
                         arrayList.add(item);
 
@@ -481,11 +481,11 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                 parsedJSON += "item n° : " + i + '\n';
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String date = item.getString("date");
+                String date = item.getString(DATE_CITATION_BD);
                 Log.i(TAG, "parseGeneratedJson: date : " + date);
                 parsedJSON += "date : " + date + '\n';
 
-                String heure = item.getString("heure");
+                String heure = item.getString(HEURE_CITATION_BD);
                 Log.i(TAG, "parseGeneratedJson: heure : " + heure);
                 parsedJSON += "heure : " + heure + '\n';
 
@@ -495,13 +495,13 @@ public class ImportTxtFileActivity extends AppCompatActivity {
 
                 parsedJSON += "page : " + page + '\n';
 
-                String citation = item.getString("citation");
+                String citation = item.getString(CITATION_CITATION_BD);
                 Log.i(TAG, "parseGeneratedJson: citation : " + citation);
                 parsedJSON += "citation : " + citation + '\n';
 
                 String annotation = "";
-                if (item.has("annotation")) {
-                    annotation = item.getString("annotation");
+                if (item.has(ANNOTATION_CITATION_BD)) {
+                    annotation = item.getString(ANNOTATION_CITATION_BD);
                     Log.i(TAG, "parseGeneratedJson: annotation : " + annotation);
                     parsedJSON += "annotation : " + annotation + '\n';
                 }
@@ -540,10 +540,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
     private void verifieSiCitationExisteDsBD(String date, String heure, String citation, String annotation, int numPage) {
         existeDeja = false;
 
-        db.collection("citations")
-                .whereEqualTo("id_BD_livre", id_BD)
-                .whereEqualTo("date", date)
-                .whereEqualTo("heure", heure)
+        db.collection(CITATIONS_COLLECTION_BD)
+                .whereEqualTo(ID_BD_LIVRE_CITATION_BD, id_BD)
+                .whereEqualTo(DATE_CITATION_BD, date)
+                .whereEqualTo(HEURE_CITATION_BD, heure)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -556,10 +556,10 @@ public class ImportTxtFileActivity extends AppCompatActivity {
                                 // normalement, il n'y a qu'un seul enregistrement en base avec la même date et la même heure
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                    String annotationFromDB = document.getString("annotation");
-                                    String citationFromDB = document.getString("citation");
-                                    String dateFromDB = document.getString("date");
-                                    String heureFromDB = document.getString("heure");
+                                    String annotationFromDB = document.getString(ANNOTATION_CITATION_BD);
+                                    String citationFromDB = document.getString(CITATION_CITATION_BD);
+                                    String dateFromDB = document.getString(DATE_CITATION_BD);
+                                    String heureFromDB = document.getString(HEURE_CITATION_BD);
 
                                     Log.i(TAG, "onComplete: annotationFromDB : " + annotationFromDB);
                                     Log.i(TAG, "onComplete: citationFromDB : " + citationFromDB);

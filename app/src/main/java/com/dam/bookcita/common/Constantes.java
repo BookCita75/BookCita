@@ -63,15 +63,31 @@ public interface Constantes {
     String TEXTE_EXTRAIT = "texte_extrait";
 
     /** BD **/
-    String TITRE_LIVRE = "title_livre";
-    String AUTEUR_LIVRE = "auteur_livre";
-    String URL_COVER_LIVRE = "url_cover_livre";
-    String EDITEUR_LIVRE = "editeur_livre";
-    String DATE_PARUTION_LIVRE = "date_parution_livre";
-    String RESUME_LIVRE = "resume_livre";
-    String ISBN_LIVRE = "isbn_livre";
-    String NB_PAGES_LIVRE = "nbPages_livre";
-    String LANGUE_LIVRE = "langue";
+    String LIVRES_COLLECTION_BD = "livres";
+    String CITATIONS_COLLECTION_BD = "citations";
+
+    /* Collection livres */
+    String TITRE_LIVRE_BD = "title_livre";
+    String AUTEUR_LIVRE_BD = "auteur_livre";
+    String URL_COVER_LIVRE_BD = "url_cover_livre";
+    String EDITEUR_LIVRE_BD = "editeur_livre";
+    String DATE_PARUTION_LIVRE_BD = "date_parution_livre";
+    String RESUME_LIVRE_BD = "resume_livre";
+    String ISBN_LIVRE_BD = "isbn_livre";
+    String NB_PAGES_LIVRE_BD = "nbPages_livre";
+    String LANGUE_LIVRE_BD = "langue";
+    String ID_USER_LIVRE_BD = "id_user";
+
+    /* Collection citations */
+    String ID_USER_CITATION_BD = "id_user";
+    String ID_BD_LIVRE_CITATION_BD = "id_BD_livre";
+    String DATE_CITATION_BD = "date";
+    String HEURE_CITATION_BD = "heure";
+    String NUMERO_PAGE_CITATION_BD = "numeroPage";
+    String CITATION_CITATION_BD = "citation";
+    String ANNOTATION_CITATION_BD = "annotation";
+    String _FIRESTORE_ID_CITATION_BD = "_firestore_id";
+
 
 
 

@@ -1,10 +1,8 @@
 package com.dam.bookcita.fragment;
 
-import static com.dam.bookcita.common.Constantes.ID_BD;
-import static com.dam.bookcita.common.Constantes.ID_BD_CITATION;
+import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -48,17 +46,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.meilisearch.sdk.Client;
 import com.meilisearch.sdk.Config;
 import com.meilisearch.sdk.Index;
-import com.meilisearch.sdk.Key;
 import com.meilisearch.sdk.SearchRequest;
 import com.meilisearch.sdk.Settings;
 import com.meilisearch.sdk.exceptions.MeiliSearchApiException;
 import com.meilisearch.sdk.model.SearchResult;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.net.ConnectException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -83,8 +76,8 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     private RequestQueue requestQueue;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
-    private CollectionReference citationsRef = db.collection("citations");
+    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
+    private CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
     private RecyclerView rvListeResultSearchCitation;
     private RecyclerView rv_listesDesCitations;
     private EditText etSearchMesCitations;
@@ -118,15 +111,15 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
 
     //affiche la liste des livres avec des citations
     public void getBooksWithCitationFromDB(){
-        Query queryListeDesCitations = citationsRef.whereEqualTo("id_user", id_user);
+        Query queryListeDesCitations = citationsRef.whereEqualTo(ID_USER_CITATION_BD, id_user);
         queryListeDesCitations.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 ArrayList<String> listeDesLivres=new ArrayList<>();
                 if(task.isSuccessful()){
                     for(DocumentSnapshot documentSnapshot : task.getResult()){
-                        Log.i(TAG, documentSnapshot.getString("id_BD_livre"));
-                        listeDesLivres.add(documentSnapshot.getString("id_BD_livre"));
+                        Log.i(TAG, documentSnapshot.getString(ID_BD_LIVRE_CITATION_BD));
+                        listeDesLivres.add(documentSnapshot.getString(ID_BD_LIVRE_CITATION_BD));
 
                     }
                     Log.i(TAG, "Liste des Livres" + listeDesLivres);
@@ -255,7 +248,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
 
 
 
-                    Index index = client.index("citations");
+                    Index index = client.index(CITATIONS_COLLECTION_BD);
 
 //                    String docs = index.getDocuments();
 //                    Log.i(TAG, "onTextChanged: docs : " + docs);
@@ -265,11 +258,11 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
                     String[] strAttrToRetrieve = {"*"};
 
                     Settings settings = new Settings();
-                    settings.setFilterableAttributes(new String[] {"id_user"});
+                    settings.setFilterableAttributes(new String[] {ID_USER_CITATION_BD});
 //                    index.updateSettings(settings);
 
 
-                    String[] filterUser = {"id_user = " + id_user};
+                    String[] filterUser = {ID_USER_CITATION_BD + " = " + id_user};
                     SearchRequest searchRequest = new SearchRequest()
                             .setQ(s.toString().trim())
                             .setAttributesToRetrieve(null)
@@ -286,15 +279,15 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
                          ) {
 
                         Log.i(TAG, "onTextChanged: r.toString() : " + r.toString());
-                        String date = (String) r.get("date");
-                        String heure = (String) r.get("heure");
-                        Double page = (Double) r.get("numeroPage");
-                        String citation = (String) r.get("citation");
+                        String date = (String) r.get(DATE_CITATION_BD);
+                        String heure = (String) r.get(HEURE_CITATION_BD);
+                        Double page = (Double) r.get(NUMERO_PAGE_CITATION_BD);
+                        String citation = (String) r.get(CITATION_CITATION_BD);
                         Log.i(TAG, "onTextChanged: citation : " + citation);
-                        String annotation = (String) r.get("annotation");
-                        String id_BD_livre = (String) r.get("id_BD_livre");
-                        String id_userCitation = (String) r.get("id_user");
-                        String id_citation = (String) r.get("_firestore_id");
+                        String annotation = (String) r.get(ANNOTATION_CITATION_BD);
+                        String id_BD_livre = (String) r.get(ID_BD_LIVRE_CITATION_BD);
+                        String id_userCitation = (String) r.get(ID_USER_CITATION_BD);
+                        String id_citation = (String) r.get(_FIRESTORE_ID_CITATION_BD);
                         Log.i(TAG, "onTextChanged: id_citation : " + id_citation);
                         citationArrayList.add(new ModelCitation(id_citation, id_BD_livre, citation, annotation, page.intValue(), date, heure, id_userCitation));
 

@@ -16,18 +16,12 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
-import com.dam.bookcita.adapter.AdapterBookNbrCitations;
 import com.dam.bookcita.adapter.AdapterCitation;
-import com.dam.bookcita.adapter.AdapterDetailsBook;
-import com.dam.bookcita.fragment.MesCitationsFragment;
 import com.dam.bookcita.model.ModelCitation;
-import com.dam.bookcita.model.ModelDetailsLivre;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,7 +51,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
     private String id_BD;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference citationsRef = db.collection("citations");
+    private CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
     private FirebaseAuth auth;
 
     private String id_user;
@@ -102,9 +96,9 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
 
     public void getCitationsFOBFromDB(){
         Query query = citationsRef
-                .whereEqualTo("id_user",id_user)
-                .whereEqualTo("id_BD_livre",id_BD);
-//        Query query = citationsRef.orderBy("citation");
+                .whereEqualTo(ID_USER_CITATION_BD,id_user)
+                .whereEqualTo(ID_BD_LIVRE_CITATION_BD,id_BD);
+//        Query query = citationsRef.orderBy(CITATION_CITATION_BD);
         Log.i(TAG, "Query : "+query);
         FirestoreRecyclerOptions<ModelCitation> citationsFOB = new FirestoreRecyclerOptions.Builder<ModelCitation>()
                 .setQuery(query, ModelCitation.class)
@@ -128,7 +122,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
 
 //        Query query = livresRef.whereEqualTo("id", id_BD);
 
-        db.collection("livres")
+        db.collection(LIVRES_COLLECTION_BD)
                 .whereEqualTo(documentId(), id_BD)
 //                .whereEqualTo("auteur_livre", "Luc Lang")
                 .get()
@@ -140,9 +134,9 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString(TITRE_LIVRE);
-                                String auteur = document.getString(AUTEUR_LIVRE);
-                                String coverUrl = document.getString(URL_COVER_LIVRE);
+                                String titre = document.getString(TITRE_LIVRE_BD);
+                                String auteur = document.getString(AUTEUR_LIVRE_BD);
+                                String coverUrl = document.getString(URL_COVER_LIVRE_BD);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
@@ -176,9 +170,9 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
 
     private void remplirNbCitationsFOBFromDB() {
 
-        db.collection("citations")
-                .whereEqualTo("id_user",id_user)
-                .whereEqualTo("id_BD_livre", id_BD)
+        db.collection(CITATIONS_COLLECTION_BD)
+                .whereEqualTo(ID_USER_CITATION_BD,id_user)
+                .whereEqualTo(ID_BD_LIVRE_CITATION_BD, id_BD)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

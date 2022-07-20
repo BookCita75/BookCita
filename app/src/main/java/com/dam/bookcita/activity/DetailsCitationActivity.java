@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,7 +49,7 @@ public class DetailsCitationActivity extends AppCompatActivity {
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference citationsRef = db.collection("citations");
+    private CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
     private FirebaseAuth auth;
 
     String id_user;
@@ -97,7 +96,7 @@ public class DetailsCitationActivity extends AppCompatActivity {
 
 //        Query query = livresRef.whereEqualTo("id", id_BD);
 
-        db.collection("livres")
+        db.collection(LIVRES_COLLECTION_BD)
                 .whereEqualTo(documentId(), id_BD)
 //                .whereEqualTo("auteur_livre", "Luc Lang")
                 .get()
@@ -109,9 +108,9 @@ public class DetailsCitationActivity extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString(TITRE_LIVRE);
-                                String auteur = document.getString(AUTEUR_LIVRE);
-                                String coverUrl = document.getString(URL_COVER_LIVRE);
+                                String titre = document.getString(TITRE_LIVRE_BD);
+                                String auteur = document.getString(AUTEUR_LIVRE_BD);
+                                String coverUrl = document.getString(URL_COVER_LIVRE_BD);
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
@@ -145,9 +144,9 @@ public class DetailsCitationActivity extends AppCompatActivity {
 
     private void remplirNbCitationsFOBFromDB() {
 
-        db.collection("citations")
-                .whereEqualTo("id_user",id_user)
-                .whereEqualTo("id_BD_livre", id_BD)
+        db.collection(CITATIONS_COLLECTION_BD)
+                .whereEqualTo(ID_USER_CITATION_BD,id_user)
+                .whereEqualTo(ID_BD_LIVRE_CITATION_BD, id_BD)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -170,8 +169,8 @@ public class DetailsCitationActivity extends AppCompatActivity {
     }
 
     private void remplirDetailsCitationFromDB () {
-        db.collection("citations")
-                .whereEqualTo("id_user",id_user)
+        db.collection(CITATIONS_COLLECTION_BD)
+                .whereEqualTo(ID_USER_CITATION_BD,id_user)
                 .whereEqualTo(documentId(), id_BD_citation)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -182,11 +181,11 @@ public class DetailsCitationActivity extends AppCompatActivity {
                             //comme on filtre par id, on devrait avoir ici qu'un seul resultat
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.i(TAG, document.getId() + " => " + document.getData());
-//                                String date = document.getString("date");
-//                                String heure = document.getString("heure");
-                                String numero_page = document.get("numeroPage").toString();
-                                String citation = document.getString("citation");
-                                String annotation = document.getString("annotation");
+//                                String date = document.getString(DATE_CITATION_BD);
+//                                String heure = document.getString(HEURE_CITATION_BD);
+                                String numero_page = document.get(NUMERO_PAGE_CITATION_BD).toString();
+                                String citation = document.getString(CITATION_CITATION_BD);
+                                String annotation = document.getString(ANNOTATION_CITATION_BD);
 
                                 etmlCitationDC.setText(citation);
                                 etmlAnnotationDC.setText(annotation);

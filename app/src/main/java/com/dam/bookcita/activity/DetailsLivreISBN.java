@@ -60,7 +60,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private RequestQueue requestQueue;
     private ModelDetailsLivre detailsLivre;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection("livres");
+    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
 
 
     private String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage, langue;
