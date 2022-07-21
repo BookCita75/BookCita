@@ -248,7 +248,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
 
 
 
-                    Index index = client.index(CITATIONS_COLLECTION_BD);
+                    Index index = client.index(INDEX_CITATIONS_MEILISEARCH);
 
 //                    String docs = index.getDocuments();
 //                    Log.i(TAG, "onTextChanged: docs : " + docs);

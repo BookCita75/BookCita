@@ -88,6 +88,9 @@ public interface Constantes {
     String ANNOTATION_CITATION_BD = "annotation";
     String _FIRESTORE_ID_CITATION_BD = "_firestore_id";
 
+    /* Meilisearch */
+    String INDEX_CITATIONS_MEILISEARCH = "citations";
+
 
 
 
