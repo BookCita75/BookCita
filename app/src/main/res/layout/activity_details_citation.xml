@@ -166,7 +166,7 @@
                     android:id="@+id/textView25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:text="Annotation :"
                     android:textColor="@color/black"
