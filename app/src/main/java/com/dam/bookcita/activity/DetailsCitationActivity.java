@@ -5,6 +5,8 @@ import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +17,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
+import com.dam.bookcita.dialogFragment.SupprimerCitationDialogFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,13 +49,17 @@ public class DetailsCitationActivity extends AppCompatActivity {
     private EditText etmlAnnotationDC;
 
     private Button btnModifierCitationDC;
+    private Button btnSupprimerCitationDC;
 
     private String id_BD;
-    private String id_BD_citation;
+    // static pour que SupprimerCitationDialogFragment puisse appeler supprimerCitation
+    private static String id_BD_citation;
 
+    // static pour que SupprimerCitationDialogFragment puisse appeler supprimerCitation
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
+    // static pour que SupprimerCitationDialogFragment puisse appeler supprimerCitation
+    private static CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
     private FirebaseAuth auth;
 
     private String id_user;
@@ -69,6 +77,7 @@ public class DetailsCitationActivity extends AppCompatActivity {
         etmlAnnotationDC = findViewById(R.id.etmlAnnotationDC);
 
         btnModifierCitationDC = findViewById(R.id.btnModifierCitationDC);
+        btnSupprimerCitationDC = findViewById(R.id.btnSupprimerCitationDC);
 
     }
 
@@ -96,6 +105,15 @@ public class DetailsCitationActivity extends AppCompatActivity {
             }
         });
 
+        btnSupprimerCitationDC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SupprimerCitationDialogFragment supprimerCitationDialogFragment = new SupprimerCitationDialogFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                supprimerCitationDialogFragment.show(fragmentManager, "");
+            }
+        });
+
         auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
 
@@ -105,6 +123,20 @@ public class DetailsCitationActivity extends AppCompatActivity {
         remplirNbCitationsFOBFromDB();
         remplirDetailsCitationFromDB();
     }
+
+    // static pour que SupprimerCitationDialogFragment puisse appeler supprimerCitation
+    public static void supprimerCitation(){
+
+        try {
+            Log.i(TAG, "supprimerCitation: id_BD_citation : " + id_BD_citation);
+            citationsRef.document(id_BD_citation).delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "supprimerCitation: e.getMessage() : " + e.getMessage());
+        }
+
+    }
+
 
     private void getFicheBookFromDB() {
 
