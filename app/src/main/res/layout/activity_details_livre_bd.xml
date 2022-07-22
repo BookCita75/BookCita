@@ -23,12 +23,12 @@
             app:srcCompat="@drawable/titre_barre_top" />
 
         <TextView
-            android:id="@+id/tvTitreSaisie"
+            android:id="@+id/tvTitreDetailsLivreBD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Details Livre"
+            android:text="Détails Livre"
             android:textColor="@color/black"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +181,6 @@
                     android:editable="false"
                     android:ems="10"
                     android:inputType="none"
-                    android:maxLines="15"
                     android:paddingLeft="8dp"
                     android:scrollbars="vertical"
                     android:textAlignment="viewStart"
