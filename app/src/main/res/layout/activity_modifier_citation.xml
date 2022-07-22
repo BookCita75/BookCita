@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DetailsCitationActivity">
+    tools:context=".activity.ModifierCitationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
@@ -20,12 +20,12 @@
             app:srcCompat="@drawable/titre_barre_top" />
 
         <TextView
-            android:id="@+id/tvTitreDetailCitation"
+            android:id="@+id/tvTitreModifierCitation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Détails citation"
+            android:text="Modifier citation"
             android:textColor="@color/black"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView14"
+                    android:id="@+id/imageViewMC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -59,17 +59,17 @@
                     app:srcCompat="@drawable/fiche_essentielle_livre" />
 
                 <ImageView
-                    android:id="@+id/ivCoverDC"
+                    android:id="@+id/ivCoverMC"
                     android:layout_width="80dp"
                     android:layout_height="120dp"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="11dp"
-                    app:layout_constraintStart_toStartOf="@id/imageView14"
-                    app:layout_constraintTop_toTopOf="@id/imageView14"
+                    app:layout_constraintStart_toStartOf="@id/imageViewMC"
+                    app:layout_constraintTop_toTopOf="@id/imageViewMC"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
-                    android:id="@+id/tvTitreDC"
+                    android:id="@+id/tvTitreMC"
                     android:layout_width="250dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -78,37 +78,37 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/ivCoverDC"
-                    app:layout_constraintTop_toTopOf="@id/imageView14" />
+                    app:layout_constraintStart_toEndOf="@id/ivCoverMC"
+                    app:layout_constraintTop_toTopOf="@id/imageViewMC" />
 
                 <TextView
-                    android:id="@+id/tvAuteurDC"
+                    android:id="@+id/tvAuteurMC"
                     android:layout_width="250dp"
                     android:layout_height="32dp"
                     android:layout_marginTop="12dp"
                     android:text="Auteur"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="@id/tvTitreDC"
-                    app:layout_constraintTop_toBottomOf="@id/tvTitreDC" />
+                    app:layout_constraintStart_toStartOf="@id/tvTitreMC"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitreMC" />
 
                 <TextView
-                    android:id="@+id/tvNbCitationsDC"
+                    android:id="@+id/tvNbCitationsMC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="XX"
                     android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@id/tvAuteurDC"
-                    app:layout_constraintTop_toBottomOf="@id/tvAuteurDC" />
+                    app:layout_constraintEnd_toEndOf="@id/tvAuteurMC"
+                    app:layout_constraintTop_toBottomOf="@id/tvAuteurMC" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/textView20MC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre de citations : "
                     android:textSize="12sp"
-                    app:layout_constraintEnd_toStartOf="@id/tvNbCitationsDC"
-                    app:layout_constraintTop_toTopOf="@id/tvNbCitationsDC" />
+                    app:layout_constraintEnd_toStartOf="@id/tvNbCitationsMC"
+                    app:layout_constraintTop_toTopOf="@id/tvNbCitationsMC" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -117,7 +117,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/textView21MC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -128,20 +128,20 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/etPageCitationDC"
+                    android:id="@+id/etPageCitationMC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"
                     android:layout_marginBottom="-10dp"
-                    android:editable="false"
+                    android:editable="true"
                     android:ems="10"
                     android:inputType="none"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/textView21"
-                    app:layout_constraintStart_toEndOf="@id/textView21" />
+                    app:layout_constraintBottom_toBottomOf="@id/textView21MC"
+                    app:layout_constraintStart_toEndOf="@id/textView21MC" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/textView23MC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -149,22 +149,22 @@
                     android:text="Citation :"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView21" />
+                    app:layout_constraintTop_toBottomOf="@id/textView21MC" />
 
                 <EditText
-                    android:id="@+id/etmlCitationDC"
+                    android:id="@+id/etmlCitationMC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:editable="false"
+                    android:editable="true"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="none"
                     android:maxLines="15"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView23" />
+                    app:layout_constraintTop_toBottomOf="@id/textView23MC" />
 
                 <TextView
-                    android:id="@+id/textView25"
+                    android:id="@+id/textView25MC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -172,35 +172,34 @@
                     android:text="Annotation :"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/etmlCitationDC" />
+                    app:layout_constraintTop_toBottomOf="@id/etmlCitationMC" />
 
                 <EditText
-                    android:id="@+id/etmlAnnotationDC"
+                    android:id="@+id/etmlAnnotationMC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:editable="false"
+                    android:editable="true"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="none"
                     android:maxLines="15"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView25" />
+                    app:layout_constraintTop_toBottomOf="@id/textView25MC" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnModifierCitationDC"
+                    android:id="@+id/btnEnregistrerMC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:background="@drawable/button_validation"
-                    android:text="Modifier Citation" />
+                    android:text="Enregistrer" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

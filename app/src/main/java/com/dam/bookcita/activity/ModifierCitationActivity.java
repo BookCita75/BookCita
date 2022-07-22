@@ -1,6 +1,26 @@
 package com.dam.bookcita.activity;
 
-import static com.dam.bookcita.common.Constantes.*;
+import static com.dam.bookcita.common.Constantes.ANNOTATION_CITATION_BD;
+import static com.dam.bookcita.common.Constantes.AUTEUR_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.CITATIONS_COLLECTION_BD;
+import static com.dam.bookcita.common.Constantes.CITATION_CITATION_BD;
+import static com.dam.bookcita.common.Constantes.DATE_PARUTION_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.EDITEUR_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.FRAG_TO_LOAD;
+import static com.dam.bookcita.common.Constantes.ID_BD;
+import static com.dam.bookcita.common.Constantes.ID_BD_CITATION;
+import static com.dam.bookcita.common.Constantes.ID_BD_LIVRE_CITATION_BD;
+import static com.dam.bookcita.common.Constantes.ID_USER_CITATION_BD;
+import static com.dam.bookcita.common.Constantes.ISBN_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.LANGUE_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.LIVRES_COLLECTION_BD;
+import static com.dam.bookcita.common.Constantes.MES_CITATIONS_FRAGMENT;
+import static com.dam.bookcita.common.Constantes.MES_LIVRES_FRAGMENT;
+import static com.dam.bookcita.common.Constantes.NB_PAGES_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.NUMERO_PAGE_CITATION_BD;
+import static com.dam.bookcita.common.Constantes.RESUME_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.TITRE_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.URL_COVER_LIVRE_BD;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -15,6 +35,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -29,22 +50,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class DetailsCitationActivity extends AppCompatActivity {
+public class ModifierCitationActivity extends AppCompatActivity {
 
-    private static final String TAG = "DetailsCitationActivity";
+    private static final String TAG = "ModifierCitationActivit";
+    private TextView tvTitreMC;
+    private TextView tvAuteurMC;
+    private ImageView ivCoverMC;
 
-    private TextView tvTitreDetailCitation;
-    private TextView tvTitreDC;
-    private TextView tvAuteurDC;
-    private ImageView ivCoverDC;
+    private TextView tvNbCitationsMC;
 
-    private TextView tvNbCitationsDC;
+    private EditText etPageCitationMC;
+    private EditText etmlCitationMC;
+    private EditText etmlAnnotationMC;
 
-    private EditText etPageCitationDC;
-    private EditText etmlCitationDC;
-    private EditText etmlAnnotationDC;
-
-    private Button btnModifierCitationDC;
+    private Button btnEnregistrerMC;
 
     private String id_BD;
     private String id_BD_citation;
@@ -58,24 +77,23 @@ public class DetailsCitationActivity extends AppCompatActivity {
 
     private void init() {
         //init UI
-        tvTitreDetailCitation = findViewById(R.id.tvTitreDetailCitation);
-        tvTitreDC = findViewById(R.id.tvTitreDC);
-        tvAuteurDC = findViewById(R.id.tvAuteurDC);
-        ivCoverDC = findViewById(R.id.ivCoverDC);
-        tvNbCitationsDC = findViewById(R.id.tvNbCitationsDC);
+        tvTitreMC = findViewById(R.id.tvTitreMC);
+        tvAuteurMC = findViewById(R.id.tvAuteurMC);
+        ivCoverMC = findViewById(R.id.ivCoverMC);
+        tvNbCitationsMC = findViewById(R.id.tvNbCitationsMC);
 
-        etPageCitationDC = findViewById(R.id.etPageCitationDC);
-        etmlCitationDC = findViewById(R.id.etmlCitationDC);
-        etmlAnnotationDC = findViewById(R.id.etmlAnnotationDC);
+        etPageCitationMC = findViewById(R.id.etPageCitationMC);
+        etmlCitationMC = findViewById(R.id.etmlCitationMC);
+        etmlAnnotationMC = findViewById(R.id.etmlAnnotationMC);
 
-        btnModifierCitationDC = findViewById(R.id.btnModifierCitationDC);
+        btnEnregistrerMC = findViewById(R.id.btnEnregistrerMC);
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_citation);
+        setContentView(R.layout.activity_modifier_citation);
 
         Intent intent = getIntent();
         id_BD = intent.getStringExtra(ID_BD);
@@ -85,14 +103,46 @@ public class DetailsCitationActivity extends AppCompatActivity {
 
         init();
 
-        btnModifierCitationDC.setOnClickListener(new View.OnClickListener() {
+        btnEnregistrerMC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent modifierCitationIntent = new Intent(DetailsCitationActivity.this, ModifierCitationActivity.class);
-                modifierCitationIntent.putExtra(ID_BD, id_BD);
-                modifierCitationIntent.putExtra(ID_BD_CITATION, id_BD_citation);
+                try {
 
-                startActivity(modifierCitationIntent);
+                    String numeroPageStr = etPageCitationMC.getText().toString();
+                    int numeroPage = 0;
+                    if(numeroPageStr.equals("")) {
+                        Toast.makeText(ModifierCitationActivity.this, "Veuillez saisir un numéro de page.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    numeroPage = Integer.parseInt(numeroPageStr);
+                    Log.i(TAG, "numeroPage: "+ numeroPage);
+
+                    String citation = etmlCitationMC.getText().toString();
+                    if (citation.equals("")) {
+                        Toast.makeText(ModifierCitationActivity.this, "Veuillez saisir une citation.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    String annotation = etmlAnnotationMC.getText().toString();
+
+                    citationsRef.document(id_BD_citation).update(
+                            NUMERO_PAGE_CITATION_BD, numeroPage,
+                            CITATION_CITATION_BD, citation,
+                            ANNOTATION_CITATION_BD, annotation
+                    );
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i(TAG, "onClick: e.getMessage() : " + e.getMessage());
+                    Toast.makeText(ModifierCitationActivity.this, "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+
+                Toast.makeText(ModifierCitationActivity.this, "Modification enregistrée avec succès.", Toast.LENGTH_LONG).show();
+                Intent mainIntent = new Intent(ModifierCitationActivity.this, MainActivity.class);
+                mainIntent.putExtra(FRAG_TO_LOAD, MES_CITATIONS_FRAGMENT);
+
+                startActivity(mainIntent);
             }
         });
 
@@ -104,10 +154,10 @@ public class DetailsCitationActivity extends AppCompatActivity {
         getFicheBookFromDB();
         remplirNbCitationsFOBFromDB();
         remplirDetailsCitationFromDB();
+
     }
 
     private void getFicheBookFromDB() {
-
 
 //        Query query = livresRef.whereEqualTo("id", id_BD);
 
@@ -129,10 +179,10 @@ public class DetailsCitationActivity extends AppCompatActivity {
                                 Log.i(TAG, "onComplete: titre : " + titre);
                                 Log.i(TAG, "onComplete: auteur : " + auteur);
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
-                                tvTitreDC.setText(titre);
-                                tvAuteurDC.setText(auteur);
+                                tvTitreMC.setText(titre);
+                                tvAuteurMC.setText(auteur);
                                 //Gestion de l'image avec Glide
-                                Context context = DetailsCitationActivity.this;
+                                Context context = ModifierCitationActivity.this;
 
                                 RequestOptions options = new RequestOptions()
                                         .centerCrop()
@@ -145,7 +195,7 @@ public class DetailsCitationActivity extends AppCompatActivity {
                                         .apply(options)
                                         .fitCenter()
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                        .into(ivCoverDC);
+                                        .into(ivCoverMC);
                             }
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
@@ -170,7 +220,7 @@ public class DetailsCitationActivity extends AppCompatActivity {
                             QuerySnapshot querySnapshot = task.getResult();
                             int nbCitationFOB = querySnapshot.size();
                             Log.i(TAG, "onComplete: nbCitationFOB : " + nbCitationFOB);
-                            tvNbCitationsDC.setText(String.valueOf(nbCitationFOB));
+                            tvNbCitationsMC.setText(String.valueOf(nbCitationFOB));
 
 
                         } else {
@@ -179,7 +229,6 @@ public class DetailsCitationActivity extends AppCompatActivity {
                     }
 
                 });
-
 
     }
 
@@ -202,9 +251,9 @@ public class DetailsCitationActivity extends AppCompatActivity {
                                 String citation = document.getString(CITATION_CITATION_BD);
                                 String annotation = document.getString(ANNOTATION_CITATION_BD);
 
-                                etmlCitationDC.setText(citation);
-                                etmlAnnotationDC.setText(annotation);
-                                etPageCitationDC.setText(numero_page);
+                                etmlCitationMC.setText(citation);
+                                etmlAnnotationMC.setText(annotation);
+                                etPageCitationMC.setText(numero_page);
                             }
 
                         } else {
