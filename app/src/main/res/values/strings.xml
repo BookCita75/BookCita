@@ -47,8 +47,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- String pour l'alertDialog   -->
+    <!-- String pour l'alertDialog supprimerCitation  -->
     <string name="dialog_supprimer_citation">Voulez-vous vraiment supprimer cette citation?</string>
+
+    <!-- String pour l'alertDialog supprimerCitation  -->
+    <string name="dialog_supprimer_livre">Voulez-vous vraiment supprimer ce livre?</string>
+
     <string name="supprimer">Supprimer</string>
     <string name="annuler">Annuler</string>
 

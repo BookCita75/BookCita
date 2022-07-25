@@ -5,6 +5,7 @@ import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,17 +25,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
+import com.dam.bookcita.dialogFragment.SupprimerCitationDialogFragment;
+import com.dam.bookcita.dialogFragment.SupprimerLivreDialogFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class DetailsLivreBD extends AppCompatActivity {
 
-    private Button btnAjouterCitation, btnModifierLivreBD;
+    private Button btnAjouterCitation, btnModifierLivreBD, btnSupprimerLivreBD;
     private String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage, langue;
     long nombres_pages_livres;
     private TextView tv_title_livre;
@@ -49,14 +54,19 @@ public class DetailsLivreBD extends AppCompatActivity {
     private static final String TAG = "DetailsLivreBD";
     private RequestQueue requestQueue;
 
+    private static String id_BD;
+    private static String id_user;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
+
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
+    private static CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
+
     private FirebaseAuth auth;
     ProgressDialog progressDialog;
 
 
-    public void initUI(){
+    public void initUI() {
         tv_title_livre = findViewById(R.id.tv_title_updat_livre_bd);
         tv_auteur_livre = findViewById(R.id.tv_auteur_updat_livre_bd);
         tv_editeur_livre = findViewById(R.id.tv_updat_editeur_livre_bd);
@@ -70,17 +80,15 @@ public class DetailsLivreBD extends AppCompatActivity {
 
         btnAjouterCitation = findViewById(R.id.btnAjouterCitation);
         btnModifierLivreBD = findViewById(R.id.btn_updat_livre_bd);
+        btnSupprimerLivreBD = findViewById(R.id.btnSupprimerLivreBD);
 
         requestQueue = Volley.newRequestQueue(this);
 
 
-        auth = FirebaseAuth.getInstance();
-
     }
 
 
-    
-    public void getListBooksDB(String id_BD){
+    public void getListBooksDB(String id_BD) {
         livresRef.whereEqualTo(documentId(), id_BD).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -94,7 +102,7 @@ public class DetailsLivreBD extends AppCompatActivity {
                                     title_livre = document.getString(TITRE_LIVRE_BD);
                                     auteur_livre = document.getString(AUTEUR_LIVRE_BD);
                                     couvertureImage = document.getString(URL_COVER_LIVRE_BD);
-                                    editeur_livre =document.getString(EDITEUR_LIVRE_BD);
+                                    editeur_livre = document.getString(EDITEUR_LIVRE_BD);
                                     parution_livre = document.getString(DATE_PARUTION_LIVRE_BD);
                                     resume_livre = document.getString(RESUME_LIVRE_BD);
                                     isbn_livre = document.getString(ISBN_LIVRE_BD);
@@ -112,12 +120,12 @@ public class DetailsLivreBD extends AppCompatActivity {
                                     tv_parution_livre.setText(parution_livre);
                                     tv_resume_livre.setText(resume_livre);
                                     tv_isbn_livre.setText(isbn_livre);
-                                    tv_nombres_pages_livres.setText(nbr_pages+"p.");
+                                    tv_nombres_pages_livres.setText(nbr_pages + "p.");
                                     tvLangueDLBD.setText(langue);
 
 
                                     //Gestion de l'image avec Glide
-                                    Context context = DetailsLivreBD.this ;
+                                    Context context = DetailsLivreBD.this;
 
                                     RequestOptions options = new RequestOptions()
                                             .centerCrop()
@@ -152,11 +160,15 @@ public class DetailsLivreBD extends AppCompatActivity {
 
         initUI();
 
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        id_user = firebaseUser.getUid();
+
         Intent intent = getIntent();
-        String id_BD = intent.getStringExtra(ID_BD);
+        id_BD = intent.getStringExtra(ID_BD);
         Log.i(TAG, "onCreate: id_BD : " + id_BD);
         getListBooksDB(id_BD);
-
 
 
         btnAjouterCitation.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +181,6 @@ public class DetailsLivreBD extends AppCompatActivity {
             }
         });
 
-       
 
         btnModifierLivreBD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,5 +191,52 @@ public class DetailsLivreBD extends AppCompatActivity {
                 startActivity(modifierCitationIntent);
             }
         });
+
+        btnSupprimerLivreBD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SupprimerLivreDialogFragment supprimerLivreDialogFragment = new SupprimerLivreDialogFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                supprimerLivreDialogFragment.show(fragmentManager, "");
+            }
+        });
+    }
+
+    public static void supprimerLivreBD() {
+        try {
+            // suppression en cascade des citations du livre en question
+            citationsRef
+                    .whereEqualTo(ID_USER_CITATION_BD, id_user)
+                    .whereEqualTo(ID_BD_LIVRE_CITATION_BD, id_BD)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                try {
+                                    for (QueryDocumentSnapshot document : querySnapshot) {
+                                        String id_citationASupprimer = document.getId();
+                                        Log.i(TAG, "onComplete: id_citationASupprimer : " + id_citationASupprimer);
+
+                                        citationsRef.document(id_citationASupprimer).delete();
+                                    }
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                    Log.i(TAG, "onComplete: e.getMessage() : " + e.getMessage());
+                                }
+
+                            } else {
+                                Log.i(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
+            Log.i(TAG, "supprimerLivreBD: id_BD : " + id_BD);
+            livresRef.document(id_BD).delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "supprimerCitation: e.getMessage() : " + e.getMessage());
+        }
     }
 }
