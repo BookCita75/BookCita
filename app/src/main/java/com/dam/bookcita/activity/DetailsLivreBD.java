@@ -236,7 +236,7 @@ public class DetailsLivreBD extends AppCompatActivity {
             livresRef.document(id_BD).delete();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "supprimerCitation: e.getMessage() : " + e.getMessage());
+            Log.i(TAG, "supprimerLivreBD: e.getMessage() : " + e.getMessage());
         }
     }
 }
