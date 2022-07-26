@@ -65,9 +65,6 @@
             android:name=".activity.DetailsLivreISBN"
             android:exported="false" />
         <activity
-            android:name=".activity.ListeDesLivresBD"
-            android:exported="false" />
-        <activity
             android:name=".activity.Splash"
             android:exported="true">
             <intent-filter>
