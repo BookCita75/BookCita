@@ -77,6 +77,7 @@ public interface Constantes {
     String NB_PAGES_LIVRE_BD = "nbPages_livre";
     String LANGUE_LIVRE_BD = "langue";
     String ID_USER_LIVRE_BD = "id_user";
+    String ID_GOOGLE_BOOKS_LIVRE_BD = "idGoogleBooks";
 
     /* Collection citations */
     String ID_USER_CITATION_BD = "id_user";

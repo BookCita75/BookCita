@@ -1,10 +1,12 @@
 package com.dam.bookcita.activity;
 import static com.dam.bookcita.common.Constantes.*;
+import static com.google.firebase.firestore.FieldPath.documentId;
 
 
 import com.dam.bookcita.R;
 import com.dam.bookcita.model.ModelDetailsLivre;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,10 +31,14 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +61,15 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private ImageView iv_couverture_livre;
 
     private String idGoogleBooks;
+    private String isbn;
+
+    private boolean existeDeja;
+
+    private Button btn_ajouter_livre_bd;
+
+    private String id_user;
+
+    private FirebaseAuth auth;
 
     private static final String TAG = "AjouterLivreBD";
 
@@ -79,6 +95,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
         iv_couverture_livre = (ImageView) findViewById(R.id.iv_couverture_livre_bd);
         tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
         tvLangueDLI = findViewById(R.id.tvLangueDLI);
+        btn_ajouter_livre_bd = findViewById(R.id.btn_ajouter_livre_bd);
 
         requestQueue = Volley.newRequestQueue(this);
     }
@@ -248,7 +265,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
                             if (jsonObjectIsbn.has("type")) {
                                 if (jsonObjectIsbn.getString("type").equals("ISBN_13")) {
                                     if (jsonObjectIsbn.has("identifier")) {
-                                        isbn = "ISBN:"+jsonObjectIsbn.getString("identifier");
+                                        isbn = jsonObjectIsbn.getString("identifier");
                                     }
                                 }
 
@@ -323,14 +340,21 @@ public class DetailsLivreISBN extends AppCompatActivity{
         setContentView(R.layout.activity_details_livre_isbn);
         initUI();
 
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        id_user = firebaseUser.getUid();
+
         /** #1 Récupération de l'intent **/
         Intent intent = getIntent();
-        String isbn = intent.getStringExtra(ISBN);
+        isbn = intent.getStringExtra(ISBN);
         idGoogleBooks = intent.getStringExtra(ID_GOOGLE_BOOKS);
+
 
         //Log.i(TAG, "ISBN BDD: "+detailsLivre.getId());
 //        intent.putExtra("IDBD",isbn);
         try {
+            verifieExistsBookInDB();
             getBooksFromApi(isbn, idGoogleBooks);
         }
         catch (IOException e) {
@@ -338,5 +362,75 @@ public class DetailsLivreISBN extends AppCompatActivity{
         }
     }
 
+    private void verifieExistsBookInDB(){
+        existeDeja = false;
+        if (!idGoogleBooks.equals("")){
+            // verifie si idGoogleBooks deja present en BD
+            db.collection(LIVRES_COLLECTION_BD)
+                    .whereEqualTo(ID_USER_LIVRE_BD, id_user)
+                    .whereEqualTo(ID_GOOGLE_BOOKS_LIVRE_BD, idGoogleBooks)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                //comme on filtre par id, on devrait avoir ici qu'un seul resultat
+                                if (querySnapshot.size() != 0) {
+                                    existeDeja = true;
+                                    for (QueryDocumentSnapshot document : querySnapshot) {
+                                        // Le livre existe dans la BD
+                                        Log.i(TAG, "onComplete: document.getId() :" + document.getId());
+
+                                    }
+                                    afterOnCompleteVerifieExistsBookInDB(existeDeja);
+                                }
+                                else {
+                                    existeDeja = false;
+                                    afterOnCompleteVerifieExistsBookInDB(existeDeja);
+                                }
+                            } else {
+                                Log.i(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        } else {
+            // On vient de l'ecran scanISBN  => nous n'avons que l'ISBN : verifie si ISBN existe dans la BD
+            db.collection(LIVRES_COLLECTION_BD)
+                    .whereEqualTo(ID_USER_LIVRE_BD, id_user)
+                    .whereEqualTo(ISBN_LIVRE_BD, isbn)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                //comme on filtre par id, on devrait avoir ici qu'un seul resultat
+                                if (querySnapshot.size() != 0) {
+                                    existeDeja = true;
+                                    for (QueryDocumentSnapshot document : querySnapshot) {
+                                        // Le livre existe dans la BD
+                                        Log.i(TAG, "onComplete: document.getId() :" + document.getId());
+
+                                    }
+                                    afterOnCompleteVerifieExistsBookInDB(existeDeja);
+                                }
+                                else {
+                                    existeDeja = false;
+                                    afterOnCompleteVerifieExistsBookInDB(existeDeja);
+                                }
+                            } else {
+                                Log.i(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void afterOnCompleteVerifieExistsBookInDB(boolean existeDeja) {
+        if(!existeDeja) {
+            btn_ajouter_livre_bd.setVisibility(View.VISIBLE);
+        }
+    }
 
 }

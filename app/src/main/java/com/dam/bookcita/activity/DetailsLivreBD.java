@@ -25,7 +25,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
-import com.dam.bookcita.dialogFragment.SupprimerCitationDialogFragment;
 import com.dam.bookcita.dialogFragment.SupprimerLivreDialogFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -79,7 +77,7 @@ public class DetailsLivreBD extends AppCompatActivity {
         tvLangueDLBD = findViewById(R.id.tvLangueDLBD);
 
         btnAjouterCitation = findViewById(R.id.btnAjouterCitation);
-        btnModifierLivreBD = findViewById(R.id.btn_updat_livre_bd);
+        btnModifierLivreBD = findViewById(R.id.btn_modifier_livre_bd);
         btnSupprimerLivreBD = findViewById(R.id.btnSupprimerLivreBD);
 
         requestQueue = Volley.newRequestQueue(this);

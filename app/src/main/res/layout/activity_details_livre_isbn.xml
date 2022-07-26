@@ -102,12 +102,20 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="ISBN : "
+                            android:textColor="@color/black" />
+
+                        <TextView
                             android:id="@+id/tv_updat_isbn_livre_bd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="ISBN : "
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            tools:text="XXX" />
 
                         <TextView
                             android:id="@+id/tv_nombres_updat_pages_livres_bd"
@@ -193,13 +201,14 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/btn_updat_livre_bd"
+                    android:id="@+id/btn_ajouter_livre_bd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:onClick="ajouterLivreBD"
                     android:text="AJOUTER A MES LIVRES"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="invisible" />
 
                 <Button
                     android:id="@+id/btn_save_livre"
