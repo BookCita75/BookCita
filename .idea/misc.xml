@@ -78,6 +78,7 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_mes_livres.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/fragment_rechercher.xml" value="0.15598290598290598" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita/app/src/main/res/layout/item_book.xml" value="0.30451612903225805" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_ajouter_un_livre.xml" value="0.1" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_details_citation.xml" value="0.25" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_details_livre_bd.xml" value="0.33" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_details_livre_isbn.xml" value="0.33" />
@@ -92,6 +93,7 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/fragment_mes_citations.xml" value="0.2" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/fragment_mes_livres.xml" value="0.33" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/fragment_rechercher.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_book.xml" value="0.1" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_citation.xml" value="0.2" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_citation_avec_titre_livre.xml" value="0.25" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/nav_header.xml" value="0.20416666666666666" />

@@ -59,9 +59,6 @@
             android:name=".activity.ImportCitationsAnnotationsJSON"
             android:exported="false" />
         <activity
-            android:name=".activity.AjouterUnLivre"
-            android:exported="false" />
-        <activity
             android:name=".activity.DetailsLivreISBN"
             android:exported="false" />
         <activity
