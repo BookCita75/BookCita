@@ -1,4 +1,5 @@
 package com.dam.bookcita.activity;
+
 import static com.dam.bookcita.common.Constantes.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
@@ -48,7 +49,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DetailsLivreISBN extends AppCompatActivity{
+public class DetailsLivreISBN extends AppCompatActivity {
 
     private TextView tv_title_livre;
     private TextView tv_auteur_livre;
@@ -57,7 +58,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private TextView tv_resume_livre;
     private TextView tv_isbn_livre;
     private TextView tv_nombres_pages_livres;
-    private  TextView tvLangueDLI;
+    private TextView tvLangueDLI;
     private ImageView iv_couverture_livre;
 
     private String idGoogleBooks;
@@ -74,7 +75,6 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private static final String TAG = "AjouterLivreBD";
 
 
-
     private RequestQueue requestQueue;
     private ModelDetailsLivre detailsLivre;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -84,7 +84,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage, langue;
     private int nombres_pages_livres;
 
-    public void initUI(){
+    public void initUI() {
         tv_title_livre = findViewById(R.id.tv_title_updat_livre_bd);
         tv_auteur_livre = findViewById(R.id.tv_auteur_updat_livre_bd);
         tv_editeur_livre = findViewById(R.id.tv_updat_editeur_livre_bd);
@@ -99,8 +99,8 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
         requestQueue = Volley.newRequestQueue(this);
     }
-    
-    public void ajouterLivreBD(View view){
+
+    public void ajouterLivreBD(View view) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -118,9 +118,9 @@ public class DetailsLivreISBN extends AppCompatActivity{
         langue = detailsLivre.getLangue();
 
         Log.i(TAG, "isbn livre : " + isbn_livre);
-       // String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
+        // String nbPages = nombres_pages_livres.substring(0, nombres_pages_livres.length()-1);
 
-        Log.i(TAG, "Auteeuuuuuur: " +detailsLivre.getAuteur_livre());
+        Log.i(TAG, "Auteeuuuuuur: " + detailsLivre.getAuteur_livre());
 
         //Enlever le caractére p le textView nbr des pages il prend 244p du coup je dois supprimer p pour le convertir en int aprés
         //String nombreDesPages = nbPages.substring(0, nbPages.length()-1);
@@ -129,12 +129,12 @@ public class DetailsLivreISBN extends AppCompatActivity{
         //int nbPagesSanP = Integer.parseInt(nombreDesPages);
         //Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
 
-       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres, langue, idGoogleBooks, id_user);
+        ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, couvertureImage, isbn_livre, nombres_pages_livres, langue, idGoogleBooks, id_user);
 
-       livresRef.add(livre);
-        Log.i(TAG, "ModelDetailsLivre : ISBN"+ livre.getIsbn_livre() +" Titre : "+ livre.getTitle_livre()+ " Nombre des pages : "+ livre.getNbPages_livre());
+        livresRef.add(livre);
+        Log.i(TAG, "ModelDetailsLivre : ISBN" + livre.getIsbn_livre() + " Titre : " + livre.getTitle_livre() + " Nombre des pages : " + livre.getNbPages_livre());
 
-        Log.i(TAG, "ajouterLivreBD: livresRef.getId : "+livresRef.getId());
+        Log.i(TAG, "ajouterLivreBD: livresRef.getId : " + livresRef.getId());
 
         Toast.makeText(DetailsLivreISBN.this, "Livre ajouté avec succès !", Toast.LENGTH_SHORT).show();
 
@@ -148,21 +148,11 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
     }
 
-    public void modifierLivreBD(View view){
-        Log.i(TAG, "modifierLivreBD: ");
-        Intent modifierLivreIntent = new Intent(DetailsLivreISBN.this, ModifierLivreBD.class);
 
-        Log.i(TAG, "DeatilsLivreID : "+livresRef.getId());
-        modifierLivreIntent.putExtra("IDdb", detailsLivre.getId());
-
-        startActivity(modifierLivreIntent);
-
-    }
-
-    public String convertirLienEnHttps(String lien){
+    public String convertirLienEnHttps(String lien) {
         try {
             URL url_lien = new URL(lien);
-            URL url_lienHttps = new URL("https", url_lien.getHost(),url_lien.getPort(),url_lien.getFile());
+            URL url_lienHttps = new URL("https", url_lien.getHost(), url_lien.getPort(), url_lien.getFile());
 
             String lienHttps = url_lienHttps.toString();
             return lienHttps;
@@ -200,8 +190,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
                         JSONObject item = jsonArray.getJSONObject(0);
 
                         volumeInfo = item.getJSONObject("volumeInfo");
-                    }
-                    else {
+                    } else {
                         volumeInfo = response.getJSONObject("volumeInfo");
                     }
 
@@ -218,20 +207,20 @@ public class DetailsLivreISBN extends AppCompatActivity{
                     }
                     Log.i(TAG, "Auteur : " + auteur);
 
-                    String editeur="";
+                    String editeur = "";
                     if (volumeInfo.has("publisher")) {
                         editeur = volumeInfo.getString("publisher");
                     }
                     Log.i(TAG, "Editeur : " + editeur);
 
-                    String description="";
+                    String description = "";
                     if (volumeInfo.has("description")) {
                         description = volumeInfo.getString("description");
                     }
                     Log.i(TAG, "Description : " + description);
 
 
-                    String dateApparition="";
+                    String dateApparition = "";
                     if (volumeInfo.has("publishedDate")) {
                         dateApparition = volumeInfo.getString("publishedDate");
                     }
@@ -250,7 +239,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
                     Log.i(TAG, "CoverUrl : " + coverUrl);
 
 
-                    int pageCount=0;
+                    int pageCount = 0;
                     if (volumeInfo.has("pageCount")) {
                         pageCount = volumeInfo.getInt("pageCount");
                     }
@@ -279,9 +268,9 @@ public class DetailsLivreISBN extends AppCompatActivity{
                     }
                     Log.i(TAG, "onResponse: langue : " + langue);
 
-                   detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount, langue, idGoogleBooks);
+                    detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl, isbn, pageCount, langue, idGoogleBooks);
 
-                    Log.i(TAG, "Details Livre  : " + detailsLivre.getTitle_livre() + " || " + detailsLivre.getAuteur_livre() +" || " + detailsLivre.getEditeur_livre()+" || "+detailsLivre.getDate_parution_livre());
+                    Log.i(TAG, "Details Livre  : " + detailsLivre.getTitle_livre() + " || " + detailsLivre.getAuteur_livre() + " || " + detailsLivre.getEditeur_livre() + " || " + detailsLivre.getDate_parution_livre());
 
                     tv_title_livre.setText(titre);
                     tv_auteur_livre.setText(auteur);
@@ -289,11 +278,11 @@ public class DetailsLivreISBN extends AppCompatActivity{
                     tv_resume_livre.setText(description);
                     tv_editeur_livre.setText(editeur);
                     tv_isbn_livre.setText(isbn);
-                    tv_nombres_pages_livres.setText(String.valueOf(pageCount)+"p.");
+                    tv_nombres_pages_livres.setText(String.valueOf(pageCount) + "p.");
                     tvLangueDLI.setText(langue);
 
                     // Utilisation de Glide pour la gestion des images
-                    Context context = DetailsLivreISBN.this ;
+                    Context context = DetailsLivreISBN.this;
 
                     RequestOptions options = new RequestOptions()
                             .centerCrop()
@@ -309,7 +298,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
                             .into(iv_couverture_livre);
 
 
-                }catch (JSONException  e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -330,13 +319,12 @@ public class DetailsLivreISBN extends AppCompatActivity{
         toolbar.showOverflowMenu();
 
     }
-    
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // getSupportActionBar().hide();
+        // getSupportActionBar().hide();
         setContentView(R.layout.activity_details_livre_isbn);
         initUI();
 
@@ -356,15 +344,14 @@ public class DetailsLivreISBN extends AppCompatActivity{
         try {
             verifieExistsBookInDB();
             getBooksFromApi(isbn, idGoogleBooks);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void verifieExistsBookInDB(){
+    private void verifieExistsBookInDB() {
         existeDeja = false;
-        if (!idGoogleBooks.equals("")){
+        if (!idGoogleBooks.equals("")) {
             // verifie si idGoogleBooks deja present en BD
             db.collection(LIVRES_COLLECTION_BD)
                     .whereEqualTo(ID_USER_LIVRE_BD, id_user)
@@ -384,8 +371,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
                                     }
                                     afterOnCompleteVerifieExistsBookInDB(existeDeja);
-                                }
-                                else {
+                                } else {
                                     existeDeja = false;
                                     afterOnCompleteVerifieExistsBookInDB(existeDeja);
                                 }
@@ -414,8 +400,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
                                     }
                                     afterOnCompleteVerifieExistsBookInDB(existeDeja);
-                                }
-                                else {
+                                } else {
                                     existeDeja = false;
                                     afterOnCompleteVerifieExistsBookInDB(existeDeja);
                                 }
@@ -428,7 +413,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
     }
 
     private void afterOnCompleteVerifieExistsBookInDB(boolean existeDeja) {
-        if(!existeDeja) {
+        if (!existeDeja) {
             btn_ajouter_livre_bd.setVisibility(View.VISIBLE);
         }
     }

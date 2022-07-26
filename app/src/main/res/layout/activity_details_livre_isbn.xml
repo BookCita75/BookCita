@@ -40,7 +40,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header">
+        android:layout_below="@id/header"
+        android:layout_margin="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -204,20 +205,12 @@
                     android:id="@+id/btn_ajouter_livre_bd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
+                    android:layout_weight="1"
                     android:onClick="ajouterLivreBD"
                     android:text="AJOUTER A MES LIVRES"
                     android:textColor="@color/black"
                     android:visibility="invisible" />
 
-                <Button
-                    android:id="@+id/btn_save_livre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:onClick="modifierLivreBD"
-                    android:text="MODIFIER LIVRE"
-                    android:textColor="@color/black" />
             </LinearLayout>
 
         </LinearLayout>
