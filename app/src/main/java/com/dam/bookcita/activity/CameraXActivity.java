@@ -254,7 +254,7 @@ public class CameraXActivity extends AppCompatActivity {
                                 Intent detailIntent = new Intent(getApplicationContext(), DetailsLivreISBN.class);
 
                                 detailIntent.putExtra(ISBN, isbnScanne);
-                                detailIntent.putExtra(ID, "");
+                                detailIntent.putExtra(ID_GOOGLE_BOOKS, "");
 
                                 startActivity(detailIntent);
 

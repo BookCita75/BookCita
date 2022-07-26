@@ -211,8 +211,8 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
 
-                        String id = item.getString("id");
-                        Log.i(TAG, "onResponse: id : " + id);
+                        String idGoogleBooks = item.getString("id");
+                        Log.i(TAG, "onResponse: idGoogleBooks : " + idGoogleBooks);
 
                         JSONObject volumeInfo = item.getJSONObject("volumeInfo");
                         String titre = "";
@@ -260,7 +260,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
                         Log.i(TAG, "onResponse: coverUrl : " + coverUrl);
 
-                        bookArrayList.add(new ModelBook(coverUrl, titre, auteur, isbn, id));
+                        bookArrayList.add(new ModelBook(coverUrl, titre, auteur, isbn, idGoogleBooks));
 
                     }
 
@@ -291,7 +291,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
         Intent detailIntent = new Intent(getContext(), DetailsLivreISBN.class);
         ModelBook clickItemBook = bookArrayList.get(position);
         detailIntent.putExtra(ISBN, clickItemBook.getIsbn());
-        detailIntent.putExtra(ID, clickItemBook.getId());
+        detailIntent.putExtra(ID_GOOGLE_BOOKS, clickItemBook.getIdGoogleBooks());
 
         startActivity(detailIntent);
     }

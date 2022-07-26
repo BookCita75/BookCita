@@ -53,6 +53,8 @@ public class DetailsLivreISBN extends AppCompatActivity{
     private  TextView tvLangueDLI;
     private ImageView iv_couverture_livre;
 
+    private String idGoogleBooks;
+
     private static final String TAG = "AjouterLivreBD";
 
 
@@ -110,7 +112,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
         //int nbPagesSanP = Integer.parseInt(nombreDesPages);
         //Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
 
-       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres, langue, id_user);
+       ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre,editeur_livre, parution_livre,resume_livre,couvertureImage,isbn_livre, nombres_pages_livres, langue, idGoogleBooks, id_user);
 
        livresRef.add(livre);
         Log.i(TAG, "ModelDetailsLivre : ISBN"+ livre.getIsbn_livre() +" Titre : "+ livre.getTitle_livre()+ " Nombre des pages : "+ livre.getNbPages_livre());
@@ -154,14 +156,14 @@ public class DetailsLivreISBN extends AppCompatActivity{
 
     }
 
-    public void getBooksFromApi(String isbn, String id) throws IOException {
+    public void getBooksFromApi(String isbn, String idGoogleBooks) throws IOException {
 
         String urlJSONFile = "";
         if (isbn.equals("")) {
 
             //Toast.makeText(this, "Pas d'isbn", Toast.LENGTH_SHORT).show();
             //https://www.googleapis.com/books/v1/volumes/0W-S9jGe51cC?key=AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0
-            urlJSONFile = "https://www.googleapis.com/books/v1/volumes/" + id + "?key=AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+            urlJSONFile = "https://www.googleapis.com/books/v1/volumes/" + idGoogleBooks + "?key=AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
 
         } else {
             urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q=%22%22+isbn:" + isbn;
@@ -260,7 +262,7 @@ public class DetailsLivreISBN extends AppCompatActivity{
                     }
                     Log.i(TAG, "onResponse: langue : " + langue);
 
-                   detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount, langue);
+                   detailsLivre = new ModelDetailsLivre(titre, auteur, editeur, dateApparition, description, coverUrl,isbn,pageCount, langue, idGoogleBooks);
 
                     Log.i(TAG, "Details Livre  : " + detailsLivre.getTitle_livre() + " || " + detailsLivre.getAuteur_livre() +" || " + detailsLivre.getEditeur_livre()+" || "+detailsLivre.getDate_parution_livre());
 
@@ -324,12 +326,12 @@ public class DetailsLivreISBN extends AppCompatActivity{
         /** #1 Récupération de l'intent **/
         Intent intent = getIntent();
         String isbn = intent.getStringExtra(ISBN);
-        String id = intent.getStringExtra(ID);
+        idGoogleBooks = intent.getStringExtra(ID_GOOGLE_BOOKS);
 
         //Log.i(TAG, "ISBN BDD: "+detailsLivre.getId());
 //        intent.putExtra("IDBD",isbn);
         try {
-            getBooksFromApi(isbn, id);
+            getBooksFromApi(isbn, idGoogleBooks);
         }
         catch (IOException e) {
             e.printStackTrace();

@@ -8,17 +8,17 @@ public class ModelBook {
     private String titre;
     private String auteur;
     private String isbn;
-    private String idLivre;
+    private String idGoogleBooks;
 
     public ModelBook() {
     }
 
-    public ModelBook(String coverUrl, String titre, String auteur, String isbn, String idLivre) {
+    public ModelBook(String coverUrl, String titre, String auteur, String isbn, String idGoogleBooks) {
         this.coverUrl = coverUrl;
         this.titre = titre;
         this.auteur = auteur;
         this.isbn = isbn;
-        this.idLivre = idLivre;
+        this.idGoogleBooks = idGoogleBooks;
     }
 
     public String getCoverUrl() {
@@ -53,12 +53,11 @@ public class ModelBook {
         this.isbn = isbn;
     }
 
-    @Exclude
-    public String getId() {
-        return idLivre;
+    public String getIdGoogleBooks() {
+        return idGoogleBooks;
     }
 
-    public void setId(String idLivre) {
-        this.idLivre = idLivre;
+    public void setIdGoogleBooks(String idGoogleBooks) {
+        this.idGoogleBooks = idGoogleBooks;
     }
 }

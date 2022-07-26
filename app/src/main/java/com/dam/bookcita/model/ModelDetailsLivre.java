@@ -15,6 +15,7 @@ public class ModelDetailsLivre {
     private int nbPages_livre;
     //langue : fr/en/de
     private String langue;
+    private String idGoogleBooks;
 
 
 
@@ -22,7 +23,7 @@ public class ModelDetailsLivre {
     }
 
 
-    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue, String id_user) {
+    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue, String idGoogleBooks, String id_user) {
         this.title_livre = title_livre;
         this.auteur_livre = auteur_livre;
         this.editeur_livre = editeur_livre;
@@ -32,11 +33,12 @@ public class ModelDetailsLivre {
         this.isbn_livre = isbn_livre;
         this.nbPages_livre = nbPages_livre;
         this.langue = langue;
+        this.idGoogleBooks = idGoogleBooks;
         this.id_user = id_user;
     }
 
 
-    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue) {
+    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue, String idGoogleBooks) {
         this.title_livre = title_livre;
         this.auteur_livre = auteur_livre;
         this.editeur_livre = editeur_livre;
@@ -46,6 +48,7 @@ public class ModelDetailsLivre {
         this.isbn_livre = isbn_livre;
         this.nbPages_livre = nbPages_livre;
         this.langue = langue;
+        this.idGoogleBooks = idGoogleBooks;
     }
 
     @Exclude
@@ -135,5 +138,13 @@ public class ModelDetailsLivre {
 
     public void setLangue(String langue) {
         this.langue = langue;
+    }
+
+    public String getIdGoogleBooks() {
+        return idGoogleBooks;
+    }
+
+    public void setIdGoogleBooks(String idGoogleBooks) {
+        this.idGoogleBooks = idGoogleBooks;
     }
 }

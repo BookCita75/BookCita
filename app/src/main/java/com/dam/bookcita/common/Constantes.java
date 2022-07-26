@@ -53,7 +53,7 @@ public interface Constantes {
     int RECHERCHER_FRAGMENT = 3;
 
     String ISBN = "isbn";
-    String ID = "id";
+    String ID_GOOGLE_BOOKS = "id_google_books";
     String TYPE_ISBN_OR_OCR = "type_ISBN_or_OCR";
     String RESULT_TEXT_OCR = "result_text_OCR";
 
