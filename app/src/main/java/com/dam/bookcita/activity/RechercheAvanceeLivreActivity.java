@@ -48,6 +48,7 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
     private EditText etAuteurRA;
     private EditText etTitreRA;
     private EditText etIsbnRA;
+    private EditText etLangueRA;
 
     private Button btnClearTextRA;
     private Button btnClearTextAuteurRA;
@@ -61,18 +62,21 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
     private String auteurRA = "";
     private String titreRA = "";
     private String isbnRA = "";
+    private String langueRA = "";
 
     private ArrayList<ModelBook> bookArrayList;
     private AdapterBook adapterBook;
     private RequestQueue requestQueue;
 
     private static final String MAX_RESULTS = "40";
+    private static final String KEY_VALUE = "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
 
     private void init(){
         etKeywordRA = findViewById(R.id.etKeywordRA);
         etAuteurRA = findViewById(R.id.etAuteurRA);
         etTitreRA = findViewById(R.id.etTitreRA);
         etIsbnRA = findViewById(R.id.etIsbnRA);
+        etLangueRA = findViewById(R.id.etLangueRA);
 
         btnClearTextRA = findViewById(R.id.btnClearTextRA);
         btnClearTextAuteurRA = findViewById(R.id.btnClearTextAuteurRA);
@@ -94,23 +98,172 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
     private void parseJSON() throws UnsupportedEncodingException {
         String urlJSONFile;
         // il faut q soit egal a quelque chose sinon erreur => ici il faut que q soit "" et non pas rien
-        if (keywordRA.equals("")) {
-            //https://www.googleapis.com/books/v1/volumes?q=souris
+
+        String keywordRAEncoded;
+        String auteurRAEncoded;
+        String titreRAEncoded;
+        String isbnRAEncoded;
+
+        if (langueRA.equals("")) {
+            if (keywordRA.equals("")) {
+                keywordRAEncoded = "%22%22";
+            } else {
+                keywordRAEncoded = URLEncoder.encode(keywordRA, String.valueOf(StandardCharsets.UTF_8));
+            }
+
             urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
-                    + "%22%22"
+                    + keywordRAEncoded
                     + "&maxResults="
                     + MAX_RESULTS
                     + "&key="
-                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
-        } else {
-            //https://www.googleapis.com/books/v1/volumes?q=souris
-            urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
-                    + URLEncoder.encode(keywordRA, String.valueOf(StandardCharsets.UTF_8))
-                    + "&maxResults="
-                    + MAX_RESULTS
-                    + "&key="
-                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+                    + KEY_VALUE;
+
+
+
+            if (!isbnRA.equals("")) {
+                isbnRAEncoded = URLEncoder.encode(isbnRA, String.valueOf(StandardCharsets.UTF_8));
+                urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                        + keywordRAEncoded
+                        + "+isbn:"
+                        + isbnRAEncoded
+                        + "&maxResults="
+                        + MAX_RESULTS
+                        + "&key="
+                        + KEY_VALUE;
+            }
+
+            if (!auteurRA.equals("")) {
+                auteurRAEncoded = URLEncoder.encode(auteurRA, String.valueOf(StandardCharsets.UTF_8));
+                // https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
+                urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                        + keywordRAEncoded
+                        + "+inauthor:"
+                        + auteurRAEncoded
+                        + "&maxResults="
+                        + MAX_RESULTS
+                        + "&key="
+                        + KEY_VALUE;
+
+                if (!titreRA.equals("")) {
+                    titreRAEncoded = URLEncoder.encode(titreRA, String.valueOf(StandardCharsets.UTF_8));
+                    urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                            + keywordRAEncoded
+                            + "+inauthor:"
+                            + auteurRAEncoded
+                            + "+intitle:"
+                            + titreRAEncoded
+                            + "&maxResults="
+                            + MAX_RESULTS
+                            + "&key="
+                            + KEY_VALUE;
+                }
+            }
+            if (auteurRA.equals("")) {
+                if (!titreRA.equals("")) {
+                    titreRAEncoded = URLEncoder.encode(titreRA, String.valueOf(StandardCharsets.UTF_8));
+                    urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                            + keywordRAEncoded
+                            + "+intitle:"
+                            + titreRAEncoded
+                            + "&maxResults="
+                            + MAX_RESULTS
+                            + "&key="
+                            + KEY_VALUE;
+                }
+            }
         }
+        else {
+            if (! (
+                    (langueRA.equals("fr"))
+                    || (langueRA.equals("en"))
+                    || (langueRA.equals("de"))
+                  ) ) {
+                Toast.makeText(this, "Veuillez saisir comme langue fr, en ou de", Toast.LENGTH_LONG).show();
+                return;
+            } else {
+                // &langRestrict=
+                if (keywordRA.equals("")) {
+                    keywordRAEncoded = "%22%22";
+                } else {
+                    keywordRAEncoded = URLEncoder.encode(keywordRA, String.valueOf(StandardCharsets.UTF_8));
+                }
+
+                urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                        + keywordRAEncoded
+                        + "&langRestrict="
+                        + langueRA
+                        + "&maxResults="
+                        + MAX_RESULTS
+                        + "&key="
+                        + KEY_VALUE;
+
+                if (!isbnRA.equals("")) {
+                    isbnRAEncoded = URLEncoder.encode(isbnRA, String.valueOf(StandardCharsets.UTF_8));
+                    urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                            + keywordRAEncoded
+                            + "+isbn:"
+                            + isbnRAEncoded
+                            + "&langRestrict="
+                            + langueRA
+                            + "&maxResults="
+                            + MAX_RESULTS
+                            + "&key="
+                            + KEY_VALUE;
+                }
+
+                if (!auteurRA.equals("")) {
+                    auteurRAEncoded = URLEncoder.encode(auteurRA, String.valueOf(StandardCharsets.UTF_8));
+                    // https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
+                    urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                            + keywordRAEncoded
+                            + "+inauthor:"
+                            + auteurRAEncoded
+                            + "&langRestrict="
+                            + langueRA
+                            + "&maxResults="
+                            + MAX_RESULTS
+                            + "&key="
+                            + KEY_VALUE;
+
+                    if (!titreRA.equals("")) {
+                        titreRAEncoded = URLEncoder.encode(titreRA, String.valueOf(StandardCharsets.UTF_8));
+                        urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                                + keywordRAEncoded
+                                + "+inauthor:"
+                                + auteurRAEncoded
+                                + "+intitle:"
+                                + titreRAEncoded
+                                + "&langRestrict="
+                                + langueRA
+                                + "&maxResults="
+                                + MAX_RESULTS
+                                + "&key="
+                                + KEY_VALUE;
+                    }
+                }
+                if (auteurRA.equals("")) {
+                    if (!titreRA.equals("")) {
+                        titreRAEncoded = URLEncoder.encode(titreRA, String.valueOf(StandardCharsets.UTF_8));
+                        urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
+                                + keywordRAEncoded
+                                + "+intitle:"
+                                + titreRAEncoded
+                                + "&langRestrict="
+                                + langueRA
+                                + "&maxResults="
+                                + MAX_RESULTS
+                                + "&key="
+                                + KEY_VALUE;
+                    }
+                }
+            }
+
+
+        }
+
+
+
+
 
 
         Log.i(TAG, "parseJSON: urlJSONFile : " + urlJSONFile);
@@ -217,6 +370,7 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
                 auteurRA = etAuteurRA.getText().toString();
                 titreRA = etTitreRA.getText().toString();
                 isbnRA = etIsbnRA.getText().toString();
+                langueRA = etLangueRA.getText().toString();
 
                 try {
                     parseJSON();
