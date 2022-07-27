@@ -111,7 +111,7 @@ public class DetailsLivreBD extends AppCompatActivity {
 
                                     Log.i(TAG, "onComplete: titre : " + title_livre);
                                     Log.i(TAG, "onComplete: nombres_pages_livres : " + nombres_pages_livres);
-
+                                    Log.i(TAG, "onComplete: couvertureImage : " + couvertureImage);
                                     tv_title_livre.setText(title_livre);
                                     tv_auteur_livre.setText(auteur_livre);
                                     tv_editeur_livre.setText(editeur_livre);

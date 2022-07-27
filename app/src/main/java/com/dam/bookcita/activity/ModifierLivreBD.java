@@ -225,7 +225,9 @@ public class ModifierLivreBD extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Ajout des variables globales des uri cf 7.5
                 localFileUri = data.getData();
-
+//                data.setData(localFileUri);
+//                data.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                data.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 uploadImage();
                 Log.i(TAG, "onActivityResult: " + localFileUri);
                 // Affectation de l'image sélectionnée à l'avatar (pour la variable globale cf 7.5)

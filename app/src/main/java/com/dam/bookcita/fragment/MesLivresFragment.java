@@ -36,6 +36,8 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 
 import com.dam.bookcita.model.ModelDetailsLivre;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +61,8 @@ public class MesLivresFragment extends Fragment {
     ProgressDialog progressDialog;
 
     private FirestoreRecyclerOptions displayedList;
+
+    private StorageReference fileStorage;
 
     String id_user;
 
@@ -104,10 +108,6 @@ public class MesLivresFragment extends Fragment {
 
         }
 
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = auth.getCurrentUser();
-
-        id_user = firebaseUser.getUid();
 
 
 
@@ -122,11 +122,8 @@ public class MesLivresFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         bookArrayList = new ArrayList<ModelDetailsLivre>();
     }
-    public void getBooksFromDB(){
-        FirebaseUser firebaseUser = auth.getCurrentUser();
 
-        String id_user = firebaseUser.getUid();
-        Log.i(TAG, "getBooksFromDB: id_user : " + id_user);
+    public void getBooksFromDB(){
         try {
             Query query = livresRef
                     //On ne charge que les livres presents dans la BD de l'utilisateur connecté
@@ -173,7 +170,10 @@ public class MesLivresFragment extends Fragment {
         progressDialog.show();
 
         init(view);
+        FirebaseUser firebaseUser = auth.getCurrentUser();
 
+        id_user = firebaseUser.getUid();
+        fileStorage = FirebaseStorage.getInstance().getReference();
 
         et_search_livre.addTextChangedListener(new TextWatcher() {
             @Override
