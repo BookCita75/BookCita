@@ -96,17 +96,33 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnAjoutManuelLivre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Ajout manuel" />
+
+                    <Button
+                        android:id="@+id/btnRechAvancee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="0"
+                        android:text="Recherche avancée" />
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvBookByKeyword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
-                <Button
-                    android:id="@+id/btnAjoutManuelLivre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Ajout manuel" />
 
             </LinearLayout>
 

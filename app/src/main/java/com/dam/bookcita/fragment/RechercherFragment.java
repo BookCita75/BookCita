@@ -1,6 +1,7 @@
 package com.dam.bookcita.fragment;
 
 import static com.dam.bookcita.common.Constantes.*;
+import static com.dam.bookcita.common.Util.convertirLienEnHttps;
 
 import android.Manifest;
 import android.content.Intent;
@@ -43,6 +44,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import com.dam.bookcita.activity.RechercheAvanceeLivreActivity;
 import com.dam.bookcita.activity.SaisieManuelleLivreActivity;
 import com.dam.bookcita.adapter.AdapterBook;
 import com.dam.bookcita.R;
@@ -75,6 +77,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
     private Button btnClearText;
     private Button btnRechScanISBN;
     private Button btnAjoutManuelLivre;
+    private Button btnRechAvancee;
 
 
     private ArrayList<ModelBook> bookArrayList;
@@ -145,6 +148,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
         rvBookByKeyword = view.findViewById(R.id.rvBookByKeyword);
         btnClearText = view.findViewById(R.id.btnClearText);
         btnAjoutManuelLivre = view.findViewById(R.id.btnAjoutManuelLivre);
+        btnRechAvancee = view.findViewById(R.id.btnRechAvancee);
 
         btnRechScanISBN = view.findViewById(R.id.btnRechScanISBN);
         bookArrayList = new ArrayList<>();
@@ -160,19 +164,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
 
 
 
-    public String convertirLienEnHttps(String lien) {
-        try {
-            URL url_lien = new URL(lien);
-            URL url_lienHttps = new URL("https", url_lien.getHost(), url_lien.getPort(), url_lien.getFile());
 
-            String lienHttps = url_lienHttps.toString();
-            return lienHttps;
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 
     private void parseJSON() throws UnsupportedEncodingException {
@@ -381,6 +373,14 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
             public void onClick(View v) {
                 Intent saisieManuelleIntent = new Intent(getContext(), SaisieManuelleLivreActivity.class);
                 startActivity(saisieManuelleIntent);
+            }
+        });
+
+        btnRechAvancee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent rechAvanceeIntent = new Intent(getContext(), RechercheAvanceeLivreActivity.class);
+                startActivity(rechAvanceeIntent);
             }
         });
 
