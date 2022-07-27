@@ -129,7 +129,9 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
 
                     try {
                         if (!listeLivreSansDoublons.isEmpty()) {
-                            Query queryListeLivreSansDoublons = livresRef.whereIn(documentId(), listeLivreSansDoublons);
+                            Query queryListeLivreSansDoublons = livresRef
+                                    .whereIn(documentId(), listeLivreSansDoublons)
+                                    .orderBy(TITRE_LIVRE_BD);
 
                             FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
                                     .setQuery(queryListeLivreSansDoublons, ModelDetailsLivre.class)
