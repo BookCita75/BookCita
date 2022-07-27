@@ -183,10 +183,14 @@ public class MesLivresFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                    String sFirstLetterUpperCase = firstLetterToUpperCase(s);
                     Log.i(TAG, "SearchLivre: "+ s.toString());
                     Query querySearch = livresRef
-                            .whereEqualTo(AUTEUR_LIVRE_BD, s.toString());
+                            .orderBy(AUTEUR_LIVRE_BD)
+                            .startAt(firstLetterToUpperCase(s))
+                            .endAt(firstLetterToUpperCase(s)+"\uf8ff");
+//                            .whereArrayContains(AUTEUR_LIVRE_BD, s.toString());
+//                            .whereEqualTo(AUTEUR_LIVRE_BD, s.toString());
                     //.whereEqualTo("id_user",id_user)
                     Log.i(TAG, "onClick: "+querySearch.toString());
                     FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
@@ -219,6 +223,14 @@ public class MesLivresFragment extends Fragment {
         return view;
     }
 
+    private String firstLetterToUpperCase(CharSequence s) {
+        String result = "";
+        String str = s.toString();
+        if (!str.equals("")) {
+            result = str.substring(0, 1).toUpperCase() + str.substring(1);
+        }
+        return result;
+    }
 
     public void adapterBookSetOnItemClickListener() {
         adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
