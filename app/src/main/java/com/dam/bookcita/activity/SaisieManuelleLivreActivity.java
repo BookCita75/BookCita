@@ -3,11 +3,13 @@ package com.dam.bookcita.activity;
 import static com.dam.bookcita.common.Constantes.*;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.dam.bookcita.R;
 import com.dam.bookcita.model.ModelDetailsLivre;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +30,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
@@ -39,7 +45,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
     private EditText etNbPagesSML;
     private EditText etIsbnSML;
     private AutoCompleteTextView actvLangueSML;
-    private Button btChooseFileSML;
+    private Button btnChooseFileSML;
     private ImageView ivCoverSML;
     private EditText etmlResumeSML;
     private Button btValiderSML;
@@ -51,6 +57,15 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
     private String id_user;
 
+    private Uri localFileUri;
+
+    private StorageReference fileStorage;
+
+    private String uriPhoto="";
+
+    private Uri serverFileUri;
+
+    private String tokenStorage = "bd2fee53-f293-469c-8dcd-14ae4b5562ec";
 
     private FirebaseAuth auth;
 
@@ -68,7 +83,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
         etNbPagesSML = findViewById(R.id.etNbPagesSML);
         etIsbnSML = findViewById(R.id.etIsbnSML);
         actvLangueSML = findViewById(R.id.actvLangueSML);
-        btChooseFileSML = findViewById(R.id.btChooseFileSML);
+        btnChooseFileSML = findViewById(R.id.btnChooseFileSML);
         ivCoverSML = findViewById(R.id.ivCoverSML);
         etmlResumeSML = findViewById(R.id.etmlResumeSML);
         btValiderSML = findViewById(R.id.btValiderSML);
@@ -86,6 +101,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = auth.getCurrentUser();
 
         id_user = firebaseUser.getUid();
+        fileStorage = FirebaseStorage.getInstance().getReference();
 
         final ArrayAdapter<String> adapterLangues = new ArrayAdapter<String>(
                 this,
@@ -101,6 +117,15 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                 actvLangueSML.showDropDown();
             }
         });
+
+        btnChooseFileSML.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 101);
+            }
+        });
+
 
 
         Log.i(TAG, "onCreate: av btValider");
@@ -141,14 +166,14 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
                 String id_user = firebaseUser.getUid();
 
-                String couvertureImage = "";
+
                 int nbPages = 0;
                 if (!nbPagesStr.equals("")) {
                     nbPages = Integer.valueOf(nbPagesStr);
                 }
                 String idGoogleBooks = "";
 
-                ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume, couvertureImage, isbn, nbPages, langue, idGoogleBooks, id_user);
+                ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume, uriPhoto, isbn, nbPages, langue, idGoogleBooks, id_user);
 
                 try {
                     verifieExistsBookInDB(livre);
@@ -160,6 +185,77 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        Log.i(TAG, "onActivityResult: after upload");
+        if (requestCode == 101) {
+            // Il y'a bien eu sélection d'image (sinon resultcode = RESULT_CANCELED)
+            if (resultCode == RESULT_OK) {
+                // Ajout des variables globales des uri cf 7.5
+                localFileUri = data.getData();
+//                data.setData(localFileUri);
+//                data.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                data.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                uploadImage();
+                Log.i(TAG, "onActivityResult: " + localFileUri);
+                // Affectation de l'image sélectionnée à l'avatar (pour la variable globale cf 7.5)
+
+            }
+        }
+
+
+    }
+
+    public void uploadImage() {
+
+        long time = System.currentTimeMillis();
+        String imageName = time + ".jpg";
+        Log.i(TAG, "uploadImage: imageName" + imageName);
+        final StorageReference fileRef = fileStorage.child("couvertures_livres/" + imageName);
+
+        String fileStorageStr = fileStorage.toString();
+
+        Log.i(TAG, "uploadImage: fileStorageStr : " + fileStorageStr);
+        // fileStorageStr => gs://bookcita...
+        String fileStorageWithoutGs = fileStorageStr.substring(5);
+        uriPhoto = "https://firebasestorage.googleapis.com/v0/b/" + fileStorageWithoutGs + "o/couvertures_livres%2F" + imageName + "?alt=media&token=" + tokenStorage;
+        Log.i(TAG, "uploadImage: Uri photo : " + uriPhoto);
+
+
+        try {
+
+            fileRef.putFile(localFileUri)
+                    .addOnCompleteListener(SaisieManuelleLivreActivity.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                            if (task.isSuccessful()) {
+                                fileRef.getDownloadUrl().addOnSuccessListener(SaisieManuelleLivreActivity.this,
+                                        new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                serverFileUri = uri;
+                                                Log.i(TAG, "onSuccess: On success" + uri.getPath());
+                                                //serverFileUri = uri.getPath();
+                                                ivCoverSML.setImageURI(localFileUri);
+                                            }
+                                        });
+                            } else {
+                                Log.i(TAG, "onComplete: erreur dans le putFile ");
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "uploadImage: e.getMessage() : " + e.getMessage());
+            Toast.makeText(this, "Erreur lors du chargement de l'image : " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void verifieExistsBookInDB(ModelDetailsLivre livre) {

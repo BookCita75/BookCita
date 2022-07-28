@@ -72,7 +72,7 @@ public class ModifierLivreBD extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
     private Button btn_modifier;
-    String uriPhoto;
+    private String uriPhoto;
 
 
     public void initUI() {
@@ -209,7 +209,7 @@ public class ModifierLivreBD extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "uploadImage: e.getMessage() : " + e.getMessage());
-            Toast.makeText(this, "Erreur lors du chargement de l'image : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Erreur lors du chargement de l'image : " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }

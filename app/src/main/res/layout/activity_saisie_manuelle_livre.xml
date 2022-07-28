@@ -220,7 +220,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
                 <Button
-                    android:id="@+id/btChooseFileSML"
+                    android:id="@+id/btnChooseFileSML"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -235,7 +235,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@+id/textView38"
-                    app:layout_constraintTop_toBottomOf="@+id/btChooseFileSML"
+                    app:layout_constraintTop_toBottomOf="@+id/btnChooseFileSML"
                     app:srcCompat="@drawable/ic_books_bottom_bar_24" />
 
                 <TextView
