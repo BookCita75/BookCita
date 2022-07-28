@@ -54,6 +54,8 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
     private Button btnClearTextAuteurRA;
     private Button btnClearTextTitreRA;
     private Button btnClearTextIsbnRA;
+    private Button btnClearTextLangueRA;
+
     private Button btnRechercherRA;
 
     private RecyclerView rvBookRA;
@@ -82,6 +84,7 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
         btnClearTextAuteurRA = findViewById(R.id.btnClearTextAuteurRA);
         btnClearTextTitreRA = findViewById(R.id.btnClearTextTitreRA);
         btnClearTextIsbnRA = findViewById(R.id.btnClearTextIsbnRA);
+        btnClearTextLangueRA = findViewById(R.id.btnClearTextLangueRA);
         btnRechercherRA = findViewById(R.id.btnRechercherRA);
 
         rvBookRA = findViewById(R.id.rvBookRA);
@@ -389,6 +392,40 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
             }
         });
 
+        btnClearTextAuteurRA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etAuteurRA.setText("");
+                btnClearTextAuteurRA.setVisibility(View.GONE);
+            }
+        });
+
+        btnClearTextTitreRA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etTitreRA.setText("");
+                btnClearTextTitreRA.setVisibility(View.GONE);
+            }
+        });
+
+        btnClearTextIsbnRA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etIsbnRA.setText("");
+                btnClearTextIsbnRA.setVisibility(View.GONE);
+            }
+        });
+
+        btnClearTextLangueRA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etLangueRA.setText("");
+                btnClearTextLangueRA.setVisibility(View.GONE);
+            }
+        });
+
+
+
         etKeywordRA.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -408,7 +445,90 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
                 }
             }
         });
+
+        etAuteurRA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() != 0) {
+                    btnClearTextAuteurRA.setVisibility(View.VISIBLE);
+                } else {
+                    btnClearTextAuteurRA.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        etTitreRA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() != 0) {
+                    btnClearTextTitreRA.setVisibility(View.VISIBLE);
+                } else {
+                    btnClearTextTitreRA.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        etIsbnRA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() != 0) {
+                    btnClearTextIsbnRA.setVisibility(View.VISIBLE);
+                } else {
+                    btnClearTextIsbnRA.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        etLangueRA.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() != 0) {
+                    btnClearTextLangueRA.setVisibility(View.VISIBLE);
+                } else {
+                    btnClearTextLangueRA.setVisibility(View.GONE);
+                }
+            }
+        });
     }
+
+
+
 
     @Override
     public void onItemClick(int position, View view) {

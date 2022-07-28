@@ -100,6 +100,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0"
                     android:background="@android:drawable/ic_delete"
+                    android:visibility="gone"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             </LinearLayout>
@@ -127,6 +128,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0"
                     android:background="@android:drawable/ic_delete"
+                    android:visibility="gone"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
 
@@ -153,6 +155,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0"
                     android:background="@android:drawable/ic_delete"
+                    android:visibility="gone"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
 
@@ -179,6 +182,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0"
                     android:background="@android:drawable/ic_delete"
+                    android:visibility="gone"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             </LinearLayout>
