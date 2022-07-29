@@ -208,28 +208,28 @@ public class MesLivresFragment extends Fragment {
         rBtnEnCours.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBooksFromDB(VALUE_ETIQUETTE_ML_EN_COURS);
+                getBooksFromDB(VALUE_ETIQUETTE_EN_COURS);
             }
         });
 
         rBtnLus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBooksFromDB(VALUE_ETIQUETTE_ML_LUS);
+                getBooksFromDB(VALUE_ETIQUETTE_LU);
             }
         });
 
         rBtnALire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBooksFromDB(VALUE_ETIQUETTE_ML_A_LIRE);
+                getBooksFromDB(VALUE_ETIQUETTE_A_LIRE);
             }
         });
 
         rBtnALire2eTps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBooksFromDB(VALUE_ETIQUETTE_ML_2EME_TEMPS);
+                getBooksFromDB(VALUE_ETIQUETTE_2EME_TEMPS);
             }
         });
 
