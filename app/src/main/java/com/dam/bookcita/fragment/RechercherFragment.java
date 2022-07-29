@@ -366,7 +366,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
         if (checkPermission()) {
             //remplissageArrayListeEnDur();
         }
-        btnClearText.setVisibility(View.INVISIBLE);
+        btnClearText.setVisibility(View.GONE);
 
         btnAjoutManuelLivre.setOnClickListener(new View.OnClickListener() {
             @Override

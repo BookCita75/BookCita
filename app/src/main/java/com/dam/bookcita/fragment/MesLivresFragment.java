@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class MesLivresFragment extends Fragment {
     private RadioButton rBtnLus;
     private RadioButton rBtnALire;
     private RadioButton rBtnALire2eTps;
+    private Button btnClearTextML;
 
 
     private ArrayList<ModelDetailsLivre> bookArrayList;
@@ -124,6 +126,7 @@ public class MesLivresFragment extends Fragment {
         rvLivres = view.findViewById(R.id.rv_listesDesLivres);
         rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         et_search_livre = view.findViewById(R.id.et_search);
+        btnClearTextML = view.findViewById(R.id.btnClearTextML);
 
         rBtnTous = view.findViewById(R.id.rBtnTous);
         rBtnEnCours = view.findViewById(R.id.rBtnEnCours);
@@ -197,6 +200,17 @@ public class MesLivresFragment extends Fragment {
 
         id_user = firebaseUser.getUid();
         fileStorage = FirebaseStorage.getInstance().getReference();
+
+        btnClearTextML.setVisibility(View.GONE);
+
+        btnClearTextML.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_search_livre.setText("");
+                btnClearTextML.setVisibility(View.GONE);
+            }
+        });
+
 
         rBtnTous.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,9 +294,12 @@ public class MesLivresFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0) {
+                    btnClearTextML.setVisibility(View.GONE);
                     String etiquette = getEtiquetteRBtnChecked();
                     getBooksFromDB(etiquette);
                     adapterBook.startListening();
+                } else {
+                    btnClearTextML.setVisibility(View.VISIBLE);
                 }
             }
         });
