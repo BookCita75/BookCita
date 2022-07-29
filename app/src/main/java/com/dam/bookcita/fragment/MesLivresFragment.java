@@ -234,9 +234,6 @@ public class MesLivresFragment extends Fragment {
         });
 
 
-
-
-
         et_search_livre.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -245,12 +242,24 @@ public class MesLivresFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String etiquette = getEtiquetteRBtnChecked();
                 String sFirstLetterUpperCase = firstLetterToUpperCase(s);
                 Log.i(TAG, "SearchLivre: " + s.toString());
-                Query querySearch = livresRef
-                        .orderBy(AUTEUR_LIVRE_BD)
-                        .startAt(sFirstLetterUpperCase)
-                        .endAt(sFirstLetterUpperCase + "\uf8ff");
+                Query querySearch = null;
+
+                if(etiquette.equals(VALUE_ETIQUETTE_ML_TOUS)){
+                    querySearch = livresRef
+                            .orderBy(AUTEUR_LIVRE_BD)
+                            .startAt(sFirstLetterUpperCase)
+                            .endAt(sFirstLetterUpperCase + "\uf8ff");
+                } else {
+                    querySearch = livresRef
+                            .whereEqualTo(ETIQUETTE_LIVRE_BD, etiquette)
+                            .orderBy(AUTEUR_LIVRE_BD)
+                            .startAt(sFirstLetterUpperCase)
+                            .endAt(sFirstLetterUpperCase + "\uf8ff");
+                }
+
 //                            .whereArrayContains(AUTEUR_LIVRE_BD, s.toString());
 //                            .whereEqualTo(AUTEUR_LIVRE_BD, s.toString());
                 //.whereEqualTo("id_user",id_user)
@@ -271,7 +280,8 @@ public class MesLivresFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0) {
-                    getBooksFromDB(VALUE_ETIQUETTE_ML_TOUS);
+                    String etiquette = getEtiquetteRBtnChecked();
+                    getBooksFromDB(etiquette);
                     adapterBook.startListening();
                 }
             }
@@ -283,6 +293,26 @@ public class MesLivresFragment extends Fragment {
         return view;
     }
 
+    private String getEtiquetteRBtnChecked() {
+
+        if (rBtnTous.isChecked()) {
+            return VALUE_ETIQUETTE_ML_TOUS;
+        }
+        if (rBtnEnCours.isChecked()) {
+            return VALUE_ETIQUETTE_EN_COURS;
+        }
+        if (rBtnLus.isChecked()) {
+            return VALUE_ETIQUETTE_LU;
+        }
+        if (rBtnALire.isChecked()) {
+            return VALUE_ETIQUETTE_A_LIRE;
+        }
+        if (rBtnALire2eTps.isChecked()) {
+            return VALUE_ETIQUETTE_2EME_TEMPS;
+        }
+        // valeur par défaut
+        return VALUE_ETIQUETTE_ML_TOUS;
+    }
 
     public void adapterBookSetOnItemClickListener() {
         adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {
