@@ -20,13 +20,15 @@ public class ModelDetailsLivre {
     private String idGoogleBooks;
 
     private String etiquette;
+    private String date_ajout_livre;
+    private String heure_ajout_livre;
 
 
     public ModelDetailsLivre() {
     }
 
 
-    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue, String idGoogleBooks, String id_user) {
+    public ModelDetailsLivre(String title_livre, String auteur_livre, String editeur_livre, String date_parution_livre, String resume_livre, String url_cover_livre, String isbn_livre, int nbPages_livre, String langue, String idGoogleBooks, String date_ajout_livre, String heure_ajout_livre, String id_user) {
         this.title_livre = title_livre;
         this.auteur_livre = auteur_livre;
         this.editeur_livre = editeur_livre;
@@ -40,6 +42,8 @@ public class ModelDetailsLivre {
         this.id_user = id_user;
         //valeur par défaut
         this.etiquette = VALUE_ETIQUETTE_AUCUNE;
+        this.date_ajout_livre = date_ajout_livre;
+        this.heure_ajout_livre = heure_ajout_livre;
     }
 
 
@@ -160,5 +164,21 @@ public class ModelDetailsLivre {
 
     public void setEtiquette(String etiquette) {
         this.etiquette = etiquette;
+    }
+
+    public String getDate_ajout_livre() {
+        return date_ajout_livre;
+    }
+
+    public void setDate_ajout_livre(String date_ajout_livre) {
+        this.date_ajout_livre = date_ajout_livre;
+    }
+
+    public String getHeure_ajout_livre() {
+        return heure_ajout_livre;
+    }
+
+    public void setHeure_ajout_livre(String heure_ajout_livre) {
+        this.heure_ajout_livre = heure_ajout_livre;
     }
 }

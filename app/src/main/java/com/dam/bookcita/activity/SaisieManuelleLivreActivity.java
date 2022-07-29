@@ -34,6 +34,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
     private static final String TAG = "SaisieManuelleLivreActi";
@@ -173,7 +176,15 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                 }
                 String idGoogleBooks = "";
 
-                ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume, uriPhoto, isbn, nbPages, langue, idGoogleBooks, id_user);
+                Date dateToday = new Date();
+                Log.i(TAG, "onClick: " + dateToday.toString());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat heureFormat = new SimpleDateFormat("HH:mm");
+                //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                String strDateToday = dateFormat.format(dateToday);
+                String strHeureNow = heureFormat.format(dateToday);
+
+                ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume, uriPhoto, isbn, nbPages, langue, idGoogleBooks, strDateToday, strHeureNow, id_user);
 
                 try {
                     verifieExistsBookInDB(livre);

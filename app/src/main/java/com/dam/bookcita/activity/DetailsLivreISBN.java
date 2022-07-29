@@ -48,6 +48,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DetailsLivreISBN extends AppCompatActivity {
 
@@ -129,7 +131,15 @@ public class DetailsLivreISBN extends AppCompatActivity {
         //int nbPagesSanP = Integer.parseInt(nombreDesPages);
         //Log.i(TAG, "ajouterLivreBD: nombreDesPagesSansP"+nbPagesSanP);
 
-        ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, couvertureImage, isbn_livre, nombres_pages_livres, langue, idGoogleBooks, id_user);
+        Date dateToday = new Date();
+        Log.i(TAG, "onClick: " + dateToday.toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat heureFormat = new SimpleDateFormat("HH:mm");
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        String strDateToday = dateFormat.format(dateToday);
+        String strHeureNow = heureFormat.format(dateToday);
+
+        ModelDetailsLivre livre = new ModelDetailsLivre(title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, couvertureImage, isbn_livre, nombres_pages_livres, langue, idGoogleBooks, strDateToday, strHeureNow, id_user);
 
         livresRef.add(livre);
         Log.i(TAG, "ModelDetailsLivre : ISBN" + livre.getIsbn_livre() + " Titre : " + livre.getTitle_livre() + " Nombre des pages : " + livre.getNbPages_livre());
