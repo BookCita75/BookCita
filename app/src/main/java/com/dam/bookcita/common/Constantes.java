@@ -79,6 +79,8 @@ public interface Constantes {
     String ID_USER_LIVRE_BD = "id_user";
     String ID_GOOGLE_BOOKS_LIVRE_BD = "idGoogleBooks";
     String ETIQUETTE_LIVRE_BD = "etiquette";
+    String DATE_AJOUT_LIVRE_BD = "date_ajout_livre";
+    String HEURE_AJOUT_LIVRE_BD = "heure_ajout_livre";
 
     /* Values */
 

@@ -74,7 +74,7 @@ public class MesLivresFragment extends Fragment {
 
     private StorageReference fileStorage;
 
-    String id_user;
+    private String id_user;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
