@@ -88,6 +88,12 @@ public interface Constantes {
     String VALUE_ETIQUETTE_A_LIRE = "a lire";
     String VALUE_ETIQUETTE_2EME_TEMPS = "2eme temps";
 
+    String VALUE_ETIQUETTE_ML_TOUS = "tous";
+    String VALUE_ETIQUETTE_ML_EN_COURS = "en cours";
+    String VALUE_ETIQUETTE_ML_LUS = "lus";
+    String VALUE_ETIQUETTE_ML_A_LIRE = "a lire";
+    String VALUE_ETIQUETTE_ML_2EME_TEMPS = "2eme temps";
+
 
     /* Collection citations */
     String ID_USER_CITATION_BD = "id_user";

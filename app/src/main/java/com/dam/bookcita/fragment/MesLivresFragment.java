@@ -1,8 +1,8 @@
 package com.dam.bookcita.fragment;
 
 
-
 import static com.dam.bookcita.common.Constantes.*;
+import static com.dam.bookcita.common.Util.firstLetterToUpperCase;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -48,7 +50,13 @@ public class MesLivresFragment extends Fragment {
 
     private static final String TAG = "AfficherListeLivres";
     private RecyclerView rvLivres;
-    private EditText et_search_livre ;
+    private EditText et_search_livre;
+    private RadioButton rBtnTous;
+    private RadioButton rBtnEnCours;
+    private RadioButton rBtnLus;
+    private RadioButton rBtnALire;
+    private RadioButton rBtnALire2eTps;
+
 
     private ArrayList<ModelDetailsLivre> bookArrayList;
     private AdapterDetailsBook adapterBook;
@@ -98,7 +106,6 @@ public class MesLivresFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,27 +116,44 @@ public class MesLivresFragment extends Fragment {
         }
 
 
-
-
     }
+
     private void init(View view) {
         Log.i(TAG, "init: View");
         requestQueue = Volley.newRequestQueue(getContext());
         rvLivres = view.findViewById(R.id.rv_listesDesLivres);
-        rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
+        rvLivres.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         et_search_livre = view.findViewById(R.id.et_search);
+
+        rBtnTous = view.findViewById(R.id.rBtnTous);
+        rBtnEnCours = view.findViewById(R.id.rBtnEnCours);
+        rBtnLus = view.findViewById(R.id.rBtnLus);
+        rBtnALire = view.findViewById(R.id.rBtnALire);
+        rBtnALire2eTps = view.findViewById(R.id.rBtnALire2eTps);
+
 
         auth = FirebaseAuth.getInstance();
         bookArrayList = new ArrayList<ModelDetailsLivre>();
     }
 
-    public void getBooksFromDB(){
+    public void getBooksFromDB(String etiquette) {
         try {
-            Query query = livresRef
-                    //On ne charge que les livres presents dans la BD de l'utilisateur connecté
-                    .whereEqualTo(ID_USER_LIVRE_BD, id_user)
-                    .orderBy(TITRE_LIVRE_BD);
-            Log.i(TAG, "Query : "+query);
+            Query query = null;
+
+            if (etiquette.equals(VALUE_ETIQUETTE_ML_TOUS)) {
+                query = livresRef
+                        //On ne charge que les livres presents dans la BD de l'utilisateur connecté
+                        .whereEqualTo(ID_USER_LIVRE_BD, id_user)
+                        .orderBy(TITRE_LIVRE_BD);
+            } else {
+                query = livresRef
+                        //On ne charge que les livres presents dans la BD de l'utilisateur connecté
+                        .whereEqualTo(ID_USER_LIVRE_BD, id_user)
+                        .whereEqualTo(ETIQUETTE_LIVRE_BD, etiquette)
+                        .orderBy(TITRE_LIVRE_BD);
+            }
+
+            Log.i(TAG, "Query : " + query);
             FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
                     .setQuery(query, ModelDetailsLivre.class)
                     .build();
@@ -137,7 +161,7 @@ public class MesLivresFragment extends Fragment {
 
             adapterBook = new AdapterDetailsBook(livres);
             rvLivres.setAdapter(adapterBook);
-            if (progressDialog.isShowing()){
+            if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
         } catch (Exception e) {
@@ -158,7 +182,6 @@ public class MesLivresFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -175,6 +198,45 @@ public class MesLivresFragment extends Fragment {
         id_user = firebaseUser.getUid();
         fileStorage = FirebaseStorage.getInstance().getReference();
 
+        rBtnTous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getBooksFromDB(VALUE_ETIQUETTE_ML_TOUS);
+            }
+        });
+
+        rBtnEnCours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getBooksFromDB(VALUE_ETIQUETTE_ML_EN_COURS);
+            }
+        });
+
+        rBtnLus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getBooksFromDB(VALUE_ETIQUETTE_ML_LUS);
+            }
+        });
+
+        rBtnALire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getBooksFromDB(VALUE_ETIQUETTE_ML_A_LIRE);
+            }
+        });
+
+        rBtnALire2eTps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getBooksFromDB(VALUE_ETIQUETTE_ML_2EME_TEMPS);
+            }
+        });
+
+
+
+
+
         et_search_livre.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -183,24 +245,24 @@ public class MesLivresFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    String sFirstLetterUpperCase = firstLetterToUpperCase(s);
-                    Log.i(TAG, "SearchLivre: "+ s.toString());
-                    Query querySearch = livresRef
-                            .orderBy(AUTEUR_LIVRE_BD)
-                            .startAt(firstLetterToUpperCase(s))
-                            .endAt(firstLetterToUpperCase(s)+"\uf8ff");
+                String sFirstLetterUpperCase = firstLetterToUpperCase(s);
+                Log.i(TAG, "SearchLivre: " + s.toString());
+                Query querySearch = livresRef
+                        .orderBy(AUTEUR_LIVRE_BD)
+                        .startAt(sFirstLetterUpperCase)
+                        .endAt(sFirstLetterUpperCase + "\uf8ff");
 //                            .whereArrayContains(AUTEUR_LIVRE_BD, s.toString());
 //                            .whereEqualTo(AUTEUR_LIVRE_BD, s.toString());
-                    //.whereEqualTo("id_user",id_user)
-                    Log.i(TAG, "onClick: "+querySearch.toString());
-                    FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
-                            .setQuery(querySearch, ModelDetailsLivre.class)
-                            .build();
+                //.whereEqualTo("id_user",id_user)
+                Log.i(TAG, "onClick: " + querySearch.toString());
+                FirestoreRecyclerOptions<ModelDetailsLivre> livres = new FirestoreRecyclerOptions.Builder<ModelDetailsLivre>()
+                        .setQuery(querySearch, ModelDetailsLivre.class)
+                        .build();
 
-                    adapterBook = new AdapterDetailsBook(livres);
-                    Log.i(TAG, "livres from query search: "+adapterBook.toString());
-                    rvLivres.setAdapter(adapterBook);
-                    adapterBook.startListening();
+                adapterBook = new AdapterDetailsBook(livres);
+                Log.i(TAG, "livres from query search: " + adapterBook.toString());
+                rvLivres.setAdapter(adapterBook);
+                adapterBook.startListening();
                 adapterBookSetOnItemClickListener();
 
 
@@ -208,29 +270,19 @@ public class MesLivresFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length() == 0) {
-                    getBooksFromDB();
+                if (s.length() == 0) {
+                    getBooksFromDB(VALUE_ETIQUETTE_ML_TOUS);
                     adapterBook.startListening();
                 }
             }
         });
 
-        getBooksFromDB();
-
-
+        getBooksFromDB(VALUE_ETIQUETTE_ML_TOUS);
 
 
         return view;
     }
 
-    private String firstLetterToUpperCase(CharSequence s) {
-        String result = "";
-        String str = s.toString();
-        if (!str.equals("")) {
-            result = str.substring(0, 1).toUpperCase() + str.substring(1);
-        }
-        return result;
-    }
 
     public void adapterBookSetOnItemClickListener() {
         adapterBook.setOnItemClickListener(new AdapterDetailsBook.OnItemClickListener() {

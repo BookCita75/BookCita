@@ -33,4 +33,13 @@ public class Util {
         }
 
     }
+
+    public static String firstLetterToUpperCase(CharSequence s) {
+        String result = "";
+        String str = s.toString();
+        if (!str.equals("")) {
+            result = str.substring(0, 1).toUpperCase() + str.substring(1);
+        }
+        return result;
+    }
 }
