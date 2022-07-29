@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class DetailsLivreBD extends AppCompatActivity {
 
     private Button btnAjouterCitation, btnModifierLivreBD, btnSupprimerLivreBD;
-    private String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage, langue;
+    private String title_livre, auteur_livre, editeur_livre, parution_livre, resume_livre, isbn_livre, couvertureImage, langue, etiquette;
     long nombres_pages_livres;
     private TextView tv_title_livre;
     private TextView tv_auteur_livre;
@@ -49,6 +50,14 @@ public class DetailsLivreBD extends AppCompatActivity {
     private TextView tv_nombres_pages_livres;
     private TextView tvLangueDLBD;
     private ImageView iv_couverture_livre;
+
+    private RadioButton rBtnAucuneDL;
+    private RadioButton rBtnEnCoursDL;
+    private RadioButton rBtnLuDL;
+    private RadioButton rBtnALireDL;
+    private RadioButton rBtnALire2eTpsDL;
+
+
     private static final String TAG = "DetailsLivreBD";
     private RequestQueue requestQueue;
 
@@ -75,6 +84,13 @@ public class DetailsLivreBD extends AppCompatActivity {
         iv_couverture_livre = (ImageView) findViewById(R.id.iv_couverture_livre_bd);
         tv_resume_livre.setMovementMethod(new ScrollingMovementMethod());
         tvLangueDLBD = findViewById(R.id.tvLangueDLBD);
+
+        rBtnAucuneDL = findViewById(R.id.rBtnAucuneDL);
+        rBtnEnCoursDL = findViewById(R.id.rBtnEnCoursDL);
+        rBtnLuDL = findViewById(R.id.rBtnLuDL);
+        rBtnALireDL = findViewById(R.id.rBtnALireDL);
+        rBtnALire2eTpsDL = findViewById(R.id.rBtnALire2eTpsDL);
+
 
         btnAjouterCitation = findViewById(R.id.btnAjouterCitation);
         btnModifierLivreBD = findViewById(R.id.btn_modifier_livre_bd);
@@ -106,6 +122,25 @@ public class DetailsLivreBD extends AppCompatActivity {
                                     isbn_livre = document.getString(ISBN_LIVRE_BD);
                                     nombres_pages_livres = document.getLong(NB_PAGES_LIVRE_BD);
                                     langue = document.getString(LANGUE_LIVRE_BD);
+                                    etiquette = document.getString(ETIQUETTE_LIVRE_BD);
+
+                                    switch(etiquette) {
+                                        case VALUE_ETIQUETTE_AUCUNE:
+                                            rBtnAucuneDL.setChecked(true);
+                                            break;
+                                        case VALUE_ETIQUETTE_EN_COURS:
+                                            rBtnEnCoursDL.setChecked(true);
+                                            break;
+                                        case VALUE_ETIQUETTE_LU:
+                                            rBtnLuDL.setChecked(true);
+                                            break;
+                                        case VALUE_ETIQUETTE_A_LIRE:
+                                            rBtnALireDL.setChecked(true);
+                                            break;
+                                        case VALUE_ETIQUETTE_2EME_TEMPS:
+                                            rBtnALire2eTpsDL.setChecked(true);
+                                            break;
+                                    }
 
                                     String nbr_pages = String.valueOf(nombres_pages_livres);
 
@@ -198,6 +233,107 @@ public class DetailsLivreBD extends AppCompatActivity {
                 supprimerLivreDialogFragment.show(fragmentManager, "");
             }
         });
+
+        rBtnAucuneDL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((RadioButton) v).isChecked();
+                if (checked) {
+
+                    // update etiquette
+                    try {
+                        livresRef.document(id_BD).update(
+                                ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_AUCUNE
+                        );
+                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
+                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        rBtnEnCoursDL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((RadioButton) v).isChecked();
+                if (checked) {
+                    // update etiquette
+                    try {
+                        livresRef.document(id_BD).update(
+                                ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_EN_COURS
+                        );
+                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
+                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+
+        rBtnLuDL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((RadioButton) v).isChecked();
+                if (checked) {
+                    try {
+                        livresRef.document(id_BD).update(
+                                ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_LU
+                        );
+                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
+                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        rBtnALireDL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((RadioButton) v).isChecked();
+                if (checked) {
+                    try {
+                        livresRef.document(id_BD).update(
+                                ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_A_LIRE
+                        );
+                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
+                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        rBtnALire2eTpsDL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((RadioButton) v).isChecked();
+                if (checked) {
+                    try {
+                        livresRef.document(id_BD).update(
+                                ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_2EME_TEMPS
+                        );
+                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
+                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
     }
 
     public static void supprimerLivreBD() {

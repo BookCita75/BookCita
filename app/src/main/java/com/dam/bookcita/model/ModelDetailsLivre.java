@@ -1,5 +1,7 @@
 package com.dam.bookcita.model;
 
+import static com.dam.bookcita.common.Constantes.*;
+
 import com.google.firebase.firestore.Exclude;
 
 public class ModelDetailsLivre {
@@ -17,6 +19,7 @@ public class ModelDetailsLivre {
     private String langue;
     private String idGoogleBooks;
 
+    private String etiquette;
 
 
     public ModelDetailsLivre() {
@@ -35,6 +38,8 @@ public class ModelDetailsLivre {
         this.langue = langue;
         this.idGoogleBooks = idGoogleBooks;
         this.id_user = id_user;
+        //valeur par défaut
+        this.etiquette = VALUE_ETIQUETTE_AUCUNE;
     }
 
 
@@ -49,6 +54,7 @@ public class ModelDetailsLivre {
         this.nbPages_livre = nbPages_livre;
         this.langue = langue;
         this.idGoogleBooks = idGoogleBooks;
+        this.etiquette = VALUE_ETIQUETTE_AUCUNE;
     }
 
     @Exclude
@@ -146,5 +152,13 @@ public class ModelDetailsLivre {
 
     public void setIdGoogleBooks(String idGoogleBooks) {
         this.idGoogleBooks = idGoogleBooks;
+    }
+
+    public String getEtiquette() {
+        return etiquette;
+    }
+
+    public void setEtiquette(String etiquette) {
+        this.etiquette = etiquette;
     }
 }

@@ -78,6 +78,16 @@ public interface Constantes {
     String LANGUE_LIVRE_BD = "langue";
     String ID_USER_LIVRE_BD = "id_user";
     String ID_GOOGLE_BOOKS_LIVRE_BD = "idGoogleBooks";
+    String ETIQUETTE_LIVRE_BD = "etiquette";
+
+    /* Values */
+
+    String VALUE_ETIQUETTE_AUCUNE = "aucune";
+    String VALUE_ETIQUETTE_EN_COURS = "en cours";
+    String VALUE_ETIQUETTE_LU = "lu";
+    String VALUE_ETIQUETTE_A_LIRE = "a lire";
+    String VALUE_ETIQUETTE_2EME_TEMPS = "2eme temps";
+
 
     /* Collection citations */
     String ID_USER_CITATION_BD = "id_user";
@@ -88,6 +98,9 @@ public interface Constantes {
     String CITATION_CITATION_BD = "citation";
     String ANNOTATION_CITATION_BD = "annotation";
     String _FIRESTORE_ID_CITATION_BD = "_firestore_id";
+
+
+
 
     /* Meilisearch */
     String INDEX_CITATIONS_MEILISEARCH = "citations";

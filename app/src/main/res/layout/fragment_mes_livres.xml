@@ -53,6 +53,53 @@
                 android:padding="6dp"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rBtnTous"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="Tous" />
+
+                        <RadioButton
+                            android:id="@+id/rBtnEnCours"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="En cours" />
+
+                        <RadioButton
+                            android:id="@+id/rBtnLus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="Lus" />
+
+                        <RadioButton
+                            android:id="@+id/rBtnALire"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="A lire" />
+
+                        <RadioButton
+                            android:id="@+id/rBtnALire2eTps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="2è temps" />
+
+                    </RadioGroup>
+                </ScrollView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
