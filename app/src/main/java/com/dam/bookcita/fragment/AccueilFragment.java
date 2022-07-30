@@ -1,8 +1,15 @@
 package com.dam.bookcita.fragment;
 
+import static com.dam.bookcita.common.Constantes.ANNOTATION_CITATION_BD;
 import static com.dam.bookcita.common.Constantes.AUTEUR_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.CITATIONS_COLLECTION_BD;
+import static com.dam.bookcita.common.Constantes.CITATION_CITATION_BD;
 import static com.dam.bookcita.common.Constantes.DATE_AJOUT_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.DATE_CITATION_BD;
 import static com.dam.bookcita.common.Constantes.HEURE_AJOUT_LIVRE_BD;
+import static com.dam.bookcita.common.Constantes.HEURE_CITATION_BD;
+import static com.dam.bookcita.common.Constantes.ID_BD_LIVRE_CITATION_BD;
+import static com.dam.bookcita.common.Constantes.ID_USER_CITATION_BD;
 import static com.dam.bookcita.common.Constantes.ID_USER_LIVRE_BD;
 import static com.dam.bookcita.common.Constantes.LIVRES_COLLECTION_BD;
 import static com.dam.bookcita.common.Constantes.TITRE_LIVRE_BD;
@@ -27,6 +34,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.dam.bookcita.R;
 import com.dam.bookcita.activity.SaisieManuelleCitationActivity;
+import com.dam.bookcita.adapter.AdapterCitationAvecTitreLivre;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,12 +61,23 @@ public class AccueilFragment extends Fragment {
 
     private ImageView ivCoverBookAcc;
 
+
+    private TextView tvCitationAcc;
+    private TextView tvAnnotationAcc;
+    private TextView tvDateAjoutCitationAcc;
+    private TextView tvHeureAjoutCitationAcc;
+    private TextView tvCitationTitreLivreAcc;
+    private TextView tvCitationAuteurLivreAcc;
+
+    private ImageView ivCoverLivreCitationAcc;
+
     private String id_user;
 
     private FirebaseAuth auth;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
+    private CollectionReference citationsRef = db.collection(CITATIONS_COLLECTION_BD);
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +118,15 @@ public class AccueilFragment extends Fragment {
 
         ivCoverBookAcc = view.findViewById(R.id.ivCoverBookAcc);
 
+        tvCitationAcc = view.findViewById(R.id.tvCitationAcc);
+        tvAnnotationAcc = view.findViewById(R.id.tvAnnotationAcc);
+        tvDateAjoutCitationAcc = view.findViewById(R.id.tvDateAjoutCitationAcc);
+        tvHeureAjoutCitationAcc = view.findViewById(R.id.tvHeureAjoutCitationAcc);
+        tvCitationTitreLivreAcc = view.findViewById(R.id.tvCitationTitreLivreAcc);
+        tvCitationAuteurLivreAcc = view.findViewById(R.id.tvCitationAuteurLivreAcc);
+
+        ivCoverLivreCitationAcc = view.findViewById(R.id.ivCoverLivreCitationAcc);
+
         auth = FirebaseAuth.getInstance();
 
     }
@@ -126,6 +154,7 @@ public class AccueilFragment extends Fragment {
         tvPrenomUserAcc.setText(prenomUser);
 
         getLastAddedBookFromDB();
+        getLastAddedQuoteFromDB();
 
         return view;
     }
@@ -171,6 +200,89 @@ public class AccueilFragment extends Fragment {
                                         .fitCenter()
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(ivCoverBookAcc);
+                            }
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+    }
+
+    private void getLastAddedQuoteFromDB() {
+        Query query = citationsRef
+                .whereEqualTo(ID_USER_CITATION_BD, id_user)
+                .orderBy(DATE_CITATION_BD, Query.Direction.DESCENDING)
+                .orderBy(HEURE_CITATION_BD, Query.Direction.DESCENDING)
+                .limit(1);
+
+        query.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            // limit(1) => un seul document
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                Log.i(TAG, document.getId() + " => " + document.getData());
+                                String citation = document.getString(CITATION_CITATION_BD);
+                                String annotation = document.getString(ANNOTATION_CITATION_BD);
+                                String date_citation = document.getString(DATE_CITATION_BD);
+                                String heure_citation = document.getString(HEURE_CITATION_BD);
+                                String id_bd_livre = document.getString(ID_BD_LIVRE_CITATION_BD);
+
+
+                                tvCitationAcc.setText(citation);
+                                tvAnnotationAcc.setText(annotation);
+                                tvDateAjoutCitationAcc.setText(date_citation);
+                                tvHeureAjoutCitationAcc.setText(heure_citation);
+
+                                getThenSetTitreAuteurFromId_BD_livre(id_bd_livre);
+                            }
+                        } else {
+                            Log.i(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
+    }
+
+
+    private void getThenSetTitreAuteurFromId_BD_livre(String id_BD_livre) {
+        db.collection(LIVRES_COLLECTION_BD)
+                .whereEqualTo(documentId(), id_BD_livre)
+//                .whereEqualTo("auteur_livre", "Luc Lang")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            //comme on filtre par id, on devrait avoir ici qu'un seul resultat
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                Log.i(TAG, document.getId() + " => " + document.getData());
+                                String titre = document.getString(TITRE_LIVRE_BD);
+                                String auteur = document.getString(AUTEUR_LIVRE_BD);
+                                String coverUrl = document.getString(URL_COVER_LIVRE_BD);
+
+                                tvCitationTitreLivreAcc.setText(titre);
+                                tvCitationAuteurLivreAcc.setText(auteur);
+
+                                //Gestion de l'image avec Glide
+                                Context context = getContext();
+
+                                RequestOptions options = new RequestOptions()
+                                        .centerCrop()
+                                        .error(R.drawable.ic_couverture_livre_150)
+                                        .placeholder(R.drawable.ic_couverture_livre_150);
+
+                                // methode normale
+                                Glide.with(context)
+                                        .load(coverUrl)
+                                        .apply(options)
+                                        .fitCenter()
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .into(ivCoverLivreCitationAcc);
                             }
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
