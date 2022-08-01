@@ -2,9 +2,13 @@ package com.dam.bookcita.common;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.util.Log;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Util {
 
@@ -41,5 +45,20 @@ public class Util {
             result = str.substring(0, 1).toUpperCase() + str.substring(1);
         }
         return result;
+    }
+
+    public static String convertDateToFormatFr(String dateInFormatEnStr){
+        String dateInFormatFrStr = "";
+        SimpleDateFormat dateFormatEn = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateInFormatEn = null;
+        try {
+            dateInFormatEn = dateFormatEn.parse(dateInFormatEnStr);
+            SimpleDateFormat dateFormatFr = new SimpleDateFormat("dd/MM/yyyy");
+            dateInFormatFrStr = dateFormatFr.format(dateInFormatEn);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dateInFormatFrStr;
     }
 }

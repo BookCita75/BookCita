@@ -14,6 +14,7 @@ import static com.dam.bookcita.common.Constantes.ID_USER_LIVRE_BD;
 import static com.dam.bookcita.common.Constantes.LIVRES_COLLECTION_BD;
 import static com.dam.bookcita.common.Constantes.TITRE_LIVRE_BD;
 import static com.dam.bookcita.common.Constantes.URL_COVER_LIVRE_BD;
+import static com.dam.bookcita.common.Util.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.content.Context;
@@ -184,7 +185,7 @@ public class AccueilFragment extends Fragment {
                                 Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
                                 tvTitreAcc.setText(titre);
                                 tvAuteurAcc.setText(auteur);
-                                tvDateAjoutLivreAcc.setText(dateAjoutLivre);
+                                tvDateAjoutLivreAcc.setText(convertDateToFormatFr(dateAjoutLivre));
                                 //Gestion de l'image avec Glide
                                 Context context = getContext();
 
@@ -234,7 +235,7 @@ public class AccueilFragment extends Fragment {
 
                                 tvCitationAcc.setText(citation);
                                 tvAnnotationAcc.setText(annotation);
-                                tvDateAjoutCitationAcc.setText(date_citation);
+                                tvDateAjoutCitationAcc.setText(convertDateToFormatFr(date_citation));
                                 tvHeureAjoutCitationAcc.setText(heure_citation);
 
                                 getThenSetTitreAuteurFromId_BD_livre(id_bd_livre);

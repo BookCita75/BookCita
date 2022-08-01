@@ -1,6 +1,7 @@
 package com.dam.bookcita.adapter;
 
 import static com.dam.bookcita.common.Constantes.*;
+import static com.dam.bookcita.common.Util.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import android.content.Context;
@@ -55,7 +56,7 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
         String annotation = currentItem.getAnnotation();
         String id_BD_livre = currentItem.getId_BD_livre();
 
-        holder.tvDateItemATL.setText(date);
+        holder.tvDateItemATL.setText(convertDateToFormatFr(date));
         holder.tvHeureItemATL.setText(heure);
         holder.tvPageItemATL.setText(String.valueOf(page));
         holder.tvCitationItemATL.setText(citation);

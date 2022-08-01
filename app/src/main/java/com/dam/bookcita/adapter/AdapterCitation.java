@@ -1,5 +1,7 @@
 package com.dam.bookcita.adapter;
 
+import static com.dam.bookcita.common.Util.*;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +38,7 @@ public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, Ada
         String citation = modelCitation.getCitation();
         String annotation = modelCitation.getAnnotation();
 
-        holder.tvDate.setText(dateC);
+        holder.tvDate.setText(convertDateToFormatFr(dateC));
         holder.tvHeure.setText(heureC);
         holder.tvPage.setText(String.valueOf(pageC));
         holder.tvCitation.setText(citation);
