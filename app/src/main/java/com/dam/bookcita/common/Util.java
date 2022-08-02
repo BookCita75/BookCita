@@ -57,6 +57,21 @@ public class Util {
             dateInFormatFrStr = dateFormatFr.format(dateInFormatEn);
         } catch (ParseException e) {
             e.printStackTrace();
+            SimpleDateFormat dateFormat_YYYYMM_En = new SimpleDateFormat("yyyy-MM");
+            try{
+                Date dateInFormat_YYYY_MM_En = dateFormat_YYYYMM_En.parse(dateInFormatEnStr);
+                SimpleDateFormat dateFormat_MM_YYYY_Fr = new SimpleDateFormat("MM/yyyy");
+                dateInFormatFrStr = dateFormat_MM_YYYY_Fr.format(dateInFormat_YYYY_MM_En);
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+                SimpleDateFormat dateFormat_YYYY_En = new SimpleDateFormat("yyyy");
+                try{
+                    Date dateInFormat_YYYY_En = dateFormat_YYYY_En.parse(dateInFormatEnStr);
+                    dateInFormatFrStr = dateInFormatEnStr;
+                } catch (ParseException pE) {
+                    pE.printStackTrace();
+                }
+            }
         }
 
         return dateInFormatFrStr;

@@ -1,6 +1,7 @@
 package com.dam.bookcita.activity;
 
 import static com.dam.bookcita.common.Constantes.*;
+import static com.dam.bookcita.common.Util.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -150,7 +151,7 @@ public class DetailsLivreBD extends AppCompatActivity {
                                     tv_title_livre.setText(title_livre);
                                     tv_auteur_livre.setText(auteur_livre);
                                     tv_editeur_livre.setText(editeur_livre);
-                                    tv_parution_livre.setText(parution_livre);
+                                    tv_parution_livre.setText(convertDateToFormatFr(parution_livre));
                                     tv_resume_livre.setText(resume_livre);
                                     tv_isbn_livre.setText(isbn_livre);
                                     tv_nombres_pages_livres.setText(nbr_pages + "p.");
