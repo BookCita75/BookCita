@@ -1,6 +1,7 @@
 package com.dam.bookcita.activity;
 
 import static com.dam.bookcita.common.Constantes.*;
+import static com.dam.bookcita.common.Util.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -184,7 +186,13 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                 String strDateToday = dateFormat.format(dateToday);
                 String strHeureNow = heureFormat.format(dateToday);
 
-                ModelDetailsLivre livre = new ModelDetailsLivre(titre, auteur, editeur, date, resume, uriPhoto, isbn, nbPages, langue, idGoogleBooks, strDateToday, strHeureNow, id_user);
+                ModelDetailsLivre livre = null;
+                try {
+                    livre = new ModelDetailsLivre(titre, auteur, editeur, convertDateToFormatEn(date), resume, uriPhoto, isbn, nbPages, langue, idGoogleBooks, strDateToday, strHeureNow, id_user);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Toast.makeText(SaisieManuelleLivreActivity.this, "Veuillez saisir une date au format JJ/MM/AAAA ou MM/AAAA ou AAAA ou pas de date du tout", Toast.LENGTH_LONG).show();
+                }
 
                 try {
                     verifieExistsBookInDB(livre);

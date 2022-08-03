@@ -110,7 +110,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginBottom="-10dp"
                     android:ems="10"
-                    android:hint="AAAA-MM-JJ"
+                    android:hint="JJ/MM/AAAA"
                     android:inputType="text"
                     android:textColor="@color/black"
                     android:textSize="14sp"

@@ -49,31 +49,65 @@ public class Util {
 
     public static String convertDateToFormatFr(String dateInFormatEnStr){
         String dateInFormatFrStr = "";
-        SimpleDateFormat dateFormatEn = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateInFormatEn = null;
-        try {
-            dateInFormatEn = dateFormatEn.parse(dateInFormatEnStr);
-            SimpleDateFormat dateFormatFr = new SimpleDateFormat("dd/MM/yyyy");
-            dateInFormatFrStr = dateFormatFr.format(dateInFormatEn);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            SimpleDateFormat dateFormat_YYYYMM_En = new SimpleDateFormat("yyyy-MM");
-            try{
-                Date dateInFormat_YYYY_MM_En = dateFormat_YYYYMM_En.parse(dateInFormatEnStr);
-                SimpleDateFormat dateFormat_MM_YYYY_Fr = new SimpleDateFormat("MM/yyyy");
-                dateInFormatFrStr = dateFormat_MM_YYYY_Fr.format(dateInFormat_YYYY_MM_En);
-            } catch (ParseException parseException) {
-                parseException.printStackTrace();
-                SimpleDateFormat dateFormat_YYYY_En = new SimpleDateFormat("yyyy");
+        if(!dateInFormatEnStr.equals("")) {
+            SimpleDateFormat dateFormatEn = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateInFormatEn = null;
+            try {
+                dateInFormatEn = dateFormatEn.parse(dateInFormatEnStr);
+                SimpleDateFormat dateFormatFr = new SimpleDateFormat("dd/MM/yyyy");
+                dateInFormatFrStr = dateFormatFr.format(dateInFormatEn);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                SimpleDateFormat dateFormat_YYYYMM_En = new SimpleDateFormat("yyyy-MM");
                 try{
-                    Date dateInFormat_YYYY_En = dateFormat_YYYY_En.parse(dateInFormatEnStr);
-                    dateInFormatFrStr = dateInFormatEnStr;
-                } catch (ParseException pE) {
-                    pE.printStackTrace();
+                    Date dateInFormat_YYYY_MM_En = dateFormat_YYYYMM_En.parse(dateInFormatEnStr);
+                    SimpleDateFormat dateFormat_MM_YYYY_Fr = new SimpleDateFormat("MM/yyyy");
+                    dateInFormatFrStr = dateFormat_MM_YYYY_Fr.format(dateInFormat_YYYY_MM_En);
+                } catch (ParseException parseException) {
+                    parseException.printStackTrace();
+                    SimpleDateFormat dateFormat_YYYY_En = new SimpleDateFormat("yyyy");
+                    try{
+                        Date dateInFormat_YYYY_En = dateFormat_YYYY_En.parse(dateInFormatEnStr);
+                        dateInFormatFrStr = dateInFormatEnStr;
+                    } catch (ParseException pE) {
+                        pE.printStackTrace();
+                    }
                 }
             }
         }
-
         return dateInFormatFrStr;
+    }
+
+    public static String convertDateToFormatEn(String dateInFormatFrStr) throws ParseException {
+        String dateInFormatEnStr = "";
+        if (!dateInFormatFrStr.equals("")) {
+            SimpleDateFormat dateFormatFr = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateInFormatFr = null;
+            try {
+                dateInFormatFr = dateFormatFr.parse(dateInFormatFrStr);
+                SimpleDateFormat dateFormatEn = new SimpleDateFormat("yyyy-MM-dd");
+                dateInFormatEnStr = dateFormatEn.format(dateInFormatFr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                SimpleDateFormat dateFormat_MM_YYYY_Fr = new SimpleDateFormat("MM/yyyy");
+                try{
+                    Date dateInFormat_MM_YYYY_Fr = dateFormat_MM_YYYY_Fr.parse(dateInFormatFrStr);
+                    SimpleDateFormat dateFormat_YYYYMM_En = new SimpleDateFormat("yyyy-MM");
+                    dateInFormatEnStr = dateFormat_YYYYMM_En.format(dateInFormat_MM_YYYY_Fr);
+
+                } catch (ParseException parseException) {
+                    parseException.printStackTrace();
+                    SimpleDateFormat dateFormat_YYYY_Fr = new SimpleDateFormat("yyyy");
+                    try{
+                        Date dateInFormat_YYYY_Fr = dateFormat_YYYY_Fr.parse(dateInFormatFrStr);
+                        dateInFormatEnStr = dateInFormatFrStr;
+                    } catch (ParseException pE) {
+                        pE.printStackTrace();
+                        throw pE;
+                    }
+                }
+            }
+        }
+        return dateInFormatEnStr;
     }
 }
