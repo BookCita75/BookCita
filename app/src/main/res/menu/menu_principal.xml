@@ -16,7 +16,7 @@
             android:title="Mes citations" />
         <item
             android:id="@+id/nav_fragment_rechercher"
-            android:icon="@drawable/ic_search_barre_bottom_24"
+            android:icon="@drawable/ic_search_livres_24"
             android:title="Rechercher" />
         <item
             android:id="@+id/nav_fragment_profil"

@@ -108,7 +108,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Ajout manuel" />
+                        android:text="Ajout manuel"
+                        android:textColor="@color/black" />
 
                     <Button
                         android:id="@+id/btnRechAvancee"
@@ -116,7 +117,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="0"
-                        android:text="Recherche avancée" />
+                        android:text="Recherche avancée"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView

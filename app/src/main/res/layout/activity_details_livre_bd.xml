@@ -273,13 +273,15 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/btnSupprimerLivreBD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:background="@drawable/button_validation"
-                    android:text="Supprimer livre" />
+                    android:background="@drawable/button_special_dark"
+                    android:backgroundTint="@null"
+                    android:text="Supprimer livre"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

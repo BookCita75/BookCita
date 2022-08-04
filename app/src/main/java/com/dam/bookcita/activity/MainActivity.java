@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         tabMesCitations.setIcon(R.drawable.ic_baseline_format_quote_24);
 
         TabLayout.Tab tabChercher = tabLayout.newTab().setText("Chercher");
-        tabChercher.setIcon(R.drawable.ic_search_barre_bottom_24);
+        tabChercher.setIcon(R.drawable.ic_search_livres_24);
 
 
         tabLayout.addTab(tabAccueil);

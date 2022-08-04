@@ -199,7 +199,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="Enregistrer" />
+                    android:text="Enregistrer"
+                    android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
