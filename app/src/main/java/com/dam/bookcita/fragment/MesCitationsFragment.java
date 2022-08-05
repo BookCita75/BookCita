@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -81,6 +82,9 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
     private RecyclerView rvListeResultSearchCitation;
     private RecyclerView rv_listesDesCitations;
     private EditText etSearchMesCitations;
+
+    private Button btnClearTextMC;
+
     private ArrayList<ModelDetailsLivre> bookArrayList;
     private ArrayList<ModelCitation> citationArrayList;
 
@@ -97,6 +101,7 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
         requestQueue = Volley.newRequestQueue(getContext());
 
         etSearchMesCitations = view.findViewById(R.id.etSearchMesCitations);
+        btnClearTextMC = view.findViewById(R.id.btnClearTextMC);
         rv_listesDesCitations = view.findViewById(R.id.rv_listesDesLivresAyantCitations);
         rv_listesDesCitations.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
@@ -222,6 +227,16 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
         id_user = firebaseUser.getUid();
         Log.i(TAG, "onCreateView: id_user : " + id_user);
 
+        btnClearTextMC.setVisibility(View.GONE);
+
+        btnClearTextMC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearchMesCitations.setText("");
+                btnClearTextMC.setVisibility(View.GONE);
+            }
+        });
+
         etSearchMesCitations.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -318,7 +333,11 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (s.length() == 0) {
+                    btnClearTextMC.setVisibility(View.GONE);
+                } else {
+                    btnClearTextMC.setVisibility(View.VISIBLE);
+                }
             }
         });
 
