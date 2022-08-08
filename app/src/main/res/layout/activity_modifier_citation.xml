@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Modifier citation"
+            android:text="@string/update_quote"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +106,7 @@
                     android:id="@+id/textView20MC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de citations : "
+                    android:text="@string/number_of_quotes"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@id/tvNbCitationsMC"
                     app:layout_constraintTop_toTopOf="@id/tvNbCitationsMC" />
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="Page : "
+                    android:text="@string/page"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="Citation :"
+                    android:text="@string/quote"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView21MC" />
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Annotation :"
+                    android:text="@string/note"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/etmlCitationMC" />
@@ -199,7 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="Enregistrer"
+                    android:text="@string/save"
                     android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>

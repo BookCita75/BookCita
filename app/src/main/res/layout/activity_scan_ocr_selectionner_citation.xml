@@ -21,38 +21,18 @@
             app:srcCompat="@drawable/titre_barre_top" />
 
         <TextView
-            android:id="@+id/tvTitreSaisie"
+            android:id="@+id/tvTitreScanOCRSelCita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Saisie manuelle citation"
+            android:text="@string/OCR_scan_quote_selection"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/titre_barre_top" />
-
-    <TextView
-        android:id="@+id/tvScanOCRSelectionne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Scan OCR sélection citation"
-        android:textColor="@color/black"
-        android:textSize="28dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -98,7 +78,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="24dp"
-                    android:text="Titre"
+                    android:text="@string/title"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -110,7 +90,7 @@
                     android:layout_width="250dp"
                     android:layout_height="32dp"
                     android:layout_marginTop="12dp"
-                    android:text="Auteur"
+                    android:text="@string/author"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tvTitreSOS"
                     app:layout_constraintTop_toBottomOf="@id/tvTitreSOS" />
@@ -129,7 +109,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de citations : "
+                    android:text="@string/number_of_quotes"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@id/tvNbCitationsSOS"
                     app:layout_constraintTop_toTopOf="@id/tvNbCitationsSOS" />
@@ -141,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Veuillez copier la citation que vous souhaitez extraire"
+                android:text="@string/copy_quote_extract"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -159,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Collez-la ci-dessous :"
+                android:text="@string/paste_it_here"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -176,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Valider la sélection" />
+                android:text="@string/validate_selection" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

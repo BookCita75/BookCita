@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
-            android:text="Page : "
+            android:text="@string/page"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/tvHeureItemC"
             app:layout_constraintStart_toEndOf="@+id/tvHeureItemC" />
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Citation : "
+            android:text="@string/quote"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/tvDateItemC"
             app:layout_constraintTop_toBottomOf="@+id/tvDateItemC" />
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Annotation : "
+            android:text="@string/note"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/tvCitationItemC"
             app:layout_constraintTop_toBottomOf="@+id/tvCitationItemC" />

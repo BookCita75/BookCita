@@ -30,9 +30,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Mes livres"
+                android:text="@string/my_books"
                 android:textColor="@color/black"
-                android:textSize="28dp"
+                android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,35 +68,35 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:checked="true"
-                            android:text="Tous" />
+                            android:text="@string/all" />
 
                         <RadioButton
                             android:id="@+id/rBtnEnCours"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="En cours" />
+                            android:text="@string/in_progress" />
 
                         <RadioButton
                             android:id="@+id/rBtnLus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="Lus" />
+                            android:text="@string/read" />
 
                         <RadioButton
                             android:id="@+id/rBtnALire"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="A lire" />
+                            android:text="@string/to_read" />
 
                         <RadioButton
                             android:id="@+id/rBtnALire2eTps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="2è temps" />
+                            android:text="@string/later" />
 
                     </RadioGroup>
                 </ScrollView>
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="Rechercher dans mes livres"
+                        android:hint="@string/search_in_my_books"
                         android:inputType="textPersonName"
                         tools:ignore="TouchTargetSizeCheck" />
 

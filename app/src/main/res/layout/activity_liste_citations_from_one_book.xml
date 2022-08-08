@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Mes citations"
+            android:text="@string/quotes_from_one_book"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +106,7 @@
                     android:id="@+id/textView19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de citations : "
+                    android:text="@string/number_of_quotes"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@id/tvNbCitationsLC"
                     app:layout_constraintTop_toTopOf="@id/tvNbCitationsLC" />

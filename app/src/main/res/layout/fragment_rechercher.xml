@@ -32,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Chercher"
+                android:text="@string/search"
                 android:textColor="@color/black"
-                android:textSize="28dp"
+                android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,9 +69,10 @@
                         android:layout_height="42dp"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="Rechercher un livre"
+                        android:hint="@string/search_a_book"
                         android:imeOptions="actionDone"
                         android:inputType="text"
+                        android:textColorHint="#757575"
                         tools:ignore="TouchTargetSizeCheck" />
 
                     <Button
@@ -108,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Ajout manuel"
+                        android:text="@string/add_manually"
                         android:textColor="@color/black" />
 
                     <Button
@@ -117,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="0"
-                        android:text="Recherche avancée"
+                        android:text="@string/advanced_search"
                         android:textColor="@color/black" />
                 </LinearLayout>
 

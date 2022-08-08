@@ -39,7 +39,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/ivCover"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Titre" />
+            tools:text="@string/title" />
 
         <TextView
             android:id="@+id/tvAuteurLivre"
@@ -48,7 +48,7 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/tvTitreLivre"
             app:layout_constraintTop_toBottomOf="@+id/tvTitreLivre"
-            tools:text="Auteur" />
+            tools:text="@string/author" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

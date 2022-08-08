@@ -29,9 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Détails Livre"
+            android:text="@string/book_details"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,7 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="ISBN : "
+                            android:text="@string/isbn"
                             android:textColor="@color/black" />
 
                         <TextView
@@ -150,7 +150,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="Langue : "
+                            android:text="@string/language"
                             android:textColor="@color/black" />
 
                         <TextView
@@ -179,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:text="Résumé : "
+                    android:text="@string/summary"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 

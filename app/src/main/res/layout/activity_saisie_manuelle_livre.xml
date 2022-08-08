@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Saisie manuelle livre"
+            android:text="@string/book_manual_input"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="Titre"
+                    android:text="@string/title"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Auteur"
+                    android:text="@string/author"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView31"
                     app:layout_constraintTop_toBottomOf="@+id/textView31" />
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Date de parution"
+                    android:text="@string/published_date"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView32"
                     app:layout_constraintTop_toBottomOf="@+id/textView32" />
@@ -110,7 +110,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginBottom="-10dp"
                     android:ems="10"
-                    android:hint="JJ/MM/AAAA"
+                    android:hint="@string/date_format"
                     android:inputType="text"
                     android:textColor="@color/black"
                     android:textSize="14sp"
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Editeur"
+                    android:text="@string/publisher"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView33"
                     app:layout_constraintTop_toBottomOf="@+id/textView33" />
@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Nombre de pages"
+                    android:text="@string/page_count"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView34"
                     app:layout_constraintTop_toBottomOf="@+id/textView34" />
@@ -167,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Langue"
+                    android:text="@string/language_alone"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView35"
                     app:layout_constraintTop_toBottomOf="@+id/textView35" />
@@ -192,7 +192,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginBottom="-10dp"
                     android:ems="10"
-                    android:hint="13 caractères"
+                    android:hint="@string/_13_digits"
                     android:inputType="textPersonName"
                     android:textColor="@color/black"
                     android:textSize="14sp"
@@ -204,7 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="ISBN"
+                    android:text="@string/isbn_alone"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView36"
                     app:layout_constraintTop_toBottomOf="@+id/textView36" />
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Image de couverture"
+                    android:text="@string/cover_picture"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView37"
                     app:layout_constraintTop_toBottomOf="@+id/textView37" />
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/button_validation"
-                    android:text="Sélectionner un fichier"
+                    android:text="@string/choose_file"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/textView38"
                     app:layout_constraintTop_toBottomOf="@+id/textView38" />
@@ -244,7 +244,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Résumé"
+                    android:text="@string/summary_alone"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/ivCoverSML"
                     app:layout_constraintTop_toBottomOf="@+id/ivCoverSML" />
@@ -267,7 +267,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/button_validation"
-                    android:text="Valider"
+                    android:text="@string/validate"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

@@ -192,7 +192,7 @@ public class MesLivresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mes_livres, container, false);
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching Data...");
+        progressDialog.setMessage(getString(R.string.fetching_data));
         progressDialog.show();
 
         init(view);

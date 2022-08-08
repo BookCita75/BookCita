@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Détails citation"
+            android:text="@string/quote_details"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,7 +109,7 @@
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de citations : "
+                    android:text="@string/number_of_quotes"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@id/tvNbCitationsDC"
                     app:layout_constraintTop_toTopOf="@id/tvNbCitationsDC" />
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="Page : "
+                    android:text="@string/page"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:text="Citation :"
+                    android:text="@string/quote"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView21" />
@@ -173,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Annotation :"
+                    android:text="@string/note"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/etmlCitationDC" />
@@ -203,7 +203,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_validation"
-                    android:text="Modifier Citation"
+                    android:text="@string/update_quote"
                     android:textColor="@color/black" />
 
                 <android.widget.Button
@@ -213,7 +213,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_special_dark"
-                    android:text="Supprimer Citation"
+                    android:text="@string/delete_quote"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>

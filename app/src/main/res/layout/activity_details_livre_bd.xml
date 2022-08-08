@@ -29,9 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Détails Livre"
+            android:text="@string/book_details"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,7 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="ISBN : "
+                            android:text="@string/isbn"
                             android:textColor="@color/black" />
 
                         <TextView
@@ -150,7 +150,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="Langue : "
+                            android:text="@string/language"
                             android:textColor="@color/black" />
 
                         <TextView
@@ -185,35 +185,35 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:checked="false"
-                        android:text="Aucune" />
+                        android:text="@string/none_BoD" />
 
                     <RadioButton
                         android:id="@+id/rBtnEnCoursDL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="En cours" />
+                        android:text="@string/in_progress" />
 
                     <RadioButton
                         android:id="@+id/rBtnLuDL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="Lu" />
+                        android:text="@string/read_BoD" />
 
                     <RadioButton
                         android:id="@+id/rBtnALireDL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="A lire" />
+                        android:text="@string/to_read" />
 
                     <RadioButton
                         android:id="@+id/rBtnALire2eTpsDL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="2è temps" />
+                        android:text="@string/later" />
 
                 </RadioGroup>
 
@@ -222,7 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:text="Résumé : "
+                    android:text="@string/summary"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -252,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_validation"
-                    android:text="Ajouter citation"
+                    android:text="@string/add_quote"
                     android:textColor="@color/black" />
 
                 <Button
@@ -261,7 +261,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:background="@drawable/button_validation"
-                    android:text="MODIFIER LIVRE"
+                    android:text="@string/update_book"
                     android:textColor="@color/black"
                     tools:ignore="TouchTargetSizeCheck" />
 
@@ -280,7 +280,7 @@
                     android:layout_weight="0"
                     android:background="@drawable/button_special_dark"
                     android:backgroundTint="@null"
-                    android:text="Supprimer livre"
+                    android:text="@string/delete_book"
                     android:textColor="@color/white" />
             </LinearLayout>
 

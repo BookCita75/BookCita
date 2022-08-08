@@ -101,16 +101,16 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         adapter = new FragmentAdapter(fragmentManager, getLifecycle());
         viewPager2.setAdapter(adapter);
 
-        TabLayout.Tab tabAccueil = tabLayout.newTab().setText("Accueil");
+        TabLayout.Tab tabAccueil = tabLayout.newTab().setText(getString(R.string.home));
         tabAccueil.setIcon(R.drawable.ic_accueil_24);
 
-        TabLayout.Tab tabMesLivres = tabLayout.newTab().setText("Mes livres");
+        TabLayout.Tab tabMesLivres = tabLayout.newTab().setText(getString(R.string.my_books));
         tabMesLivres.setIcon(R.drawable.ic_books_bottom_bar_24);
 
-        TabLayout.Tab tabMesCitations = tabLayout.newTab().setText("Citations");
+        TabLayout.Tab tabMesCitations = tabLayout.newTab().setText(getString(R.string.quotes));
         tabMesCitations.setIcon(R.drawable.ic_baseline_format_quote_24);
 
-        TabLayout.Tab tabChercher = tabLayout.newTab().setText("Chercher");
+        TabLayout.Tab tabChercher = tabLayout.newTab().setText(getString(R.string.search));
         tabChercher.setIcon(R.drawable.ic_search_livres_24);
 
 

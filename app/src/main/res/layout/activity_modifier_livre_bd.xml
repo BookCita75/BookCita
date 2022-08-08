@@ -27,9 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Modifier Livre"
+            android:text="@string/update_book"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Titre"
+                        android:hint="@string/title"
                         android:inputType="textPersonName"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -84,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Auteur"
+                        android:hint="@string/author"
                         android:inputType="textPersonName"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -93,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Editeur"
+                        android:hint="@string/publisher"
                         android:inputType="textPersonName"
                         android:minHeight="48dp" />
 
@@ -102,7 +102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Date de parution"
+                        android:hint="@string/published_date"
                         android:inputType="date"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="ISBN"
+                    android:hint="@string/isbn_alone"
                     android:inputType="textPersonName"
                     tools:ignore="TouchTargetSizeCheck" />
 
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Nombre des pages"
+                    android:hint="@string/page_count"
                     android:inputType="textPersonName"
                     tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
@@ -142,9 +142,8 @@
                 android:layout_height="wrap_content"
                 android:editable="true"
                 android:ems="10"
-                android:hint="Résumé"
+                android:hint="@string/summary_alone"
                 android:inputType="none"
-                android:paddingLeft="8dp"
                 android:scrollbars="vertical"
                 android:textAlignment="viewStart"
                 android:textColor="#000000"
@@ -155,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Langue"
+                android:hint="@string/language_alone"
                 android:inputType="text" />
 
             <Button
@@ -164,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="4dp"
-                android:text="ENREGISTRER"
+                android:text="@string/save"
                 android:textColor="@color/black" />
 
         </LinearLayout>

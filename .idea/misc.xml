@@ -103,6 +103,7 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_details_citation.xml" value="0.25" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_details_livre_bd.xml" value="0.33" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_details_livre_isbn.xml" value="0.19298245614035087" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_import_citations_annotations_json.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_import_txt_file.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_liste_citations_from_one_book.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_liste_des_livres_bd.xml" value="0.33" />
@@ -110,11 +111,11 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_login_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_login_reset_pasword.xml" value="0.1" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_modifier_citation.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_modifier_citation.xml" value="0.22" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_modifier_livre_bd.xml" value="0.33" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_recherche_avancee_livre.xml" value="0.22" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_saisie_manuelle_citation.xml" value="0.14010416666666667" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_saisie_manuelle_livre.xml" value="0.22" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_saisie_manuelle_citation.xml" value="0.22" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_saisie_manuelle_livre.xml" value="0.2" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_scan_ocr_selectionner_citation.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_scanner_isbn.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
@@ -123,7 +124,8 @@
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/fragment_mes_citations.xml" value="0.2" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/fragment_mes_livres.xml" value="0.33" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/fragment_rechercher.xml" value="0.3048211508553655" />
-        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_book.xml" value="0.1" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_book.xml" value="0.25" />
+        <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_book_nbr_citation.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_citation.xml" value="0.2" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/item_citation_avec_titre_livre.xml" value="0.25" />
         <entry key="..\:/Users/entwa/AndroidStudioProjects/BookCita75/app/src/main/res/layout/nav_header.xml" value="0.20416666666666666" />

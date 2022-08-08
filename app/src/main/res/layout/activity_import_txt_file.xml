@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Import citation"
+            android:text="@string/quote_import"
             android:textColor="@color/black"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +106,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de citations : "
+                    android:text="@string/number_of_quotes"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@id/tvNbCitationsIC"
                     app:layout_constraintTop_toTopOf="@id/tvNbCitationsIC" />
@@ -121,7 +121,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_validation"
                 android:onClick="generateJSONfromTxt"
-                android:text="CHOISIR UN FICHIER TXT"
+                android:text="@string/choose_txt_file"
                 android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>

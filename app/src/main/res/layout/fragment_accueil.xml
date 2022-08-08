@@ -25,14 +25,14 @@
                 app:srcCompat="@drawable/titre_barre_top" />
 
             <TextView
-                android:id="@+id/tvAjouterCitation2"
+                android:id="@+id/tvAccueilTitre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Accueil"
+                android:text="@string/home"
                 android:textColor="@color/black"
-                android:textSize="28dp"
+                android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +73,7 @@
                             android:id="@+id/textView44"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bienvenue "
+                            android:text="@string/welcome_home"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -93,7 +93,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="!"
+                            android:text="@string/exclamation_mark"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="Vous ne vous souvenez plus d'où provient une citation? Pas de soucis ! BookCita est là pour vous aider à retrouver facilement vos citations. "
+                        android:text="@string/opening_sentence_home"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Dernier livre ajouté"
+                    android:text="@string/last_added_book"
                     android:textAlignment="center"
                     android:textColor="@color/primary_color"
                     android:textSize="16sp"
@@ -163,7 +163,7 @@
                                 android:id="@+id/textView42"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Livre ajouté le : "
+                                android:text="@string/book_added_on"
                                 android:textColor="@color/black" />
 
                             <TextView
@@ -183,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:text="Dernière citation ajoutée"
+                    android:text="@string/last_added_quote"
                     android:textAlignment="center"
                     android:textColor="@color/primary_color"
                     android:textSize="16sp"
@@ -231,7 +231,7 @@
                                 android:id="@+id/textView45"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Citation ajoutée le : "
+                                android:text="@string/quote_added_on"
                                 android:textColor="@color/black" />
 
                             <TextView
@@ -247,7 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0"
-                                android:text=" à "
+                                android:text="@string/at_home"
                                 android:textColor="@color/black" />
 
                             <TextView
