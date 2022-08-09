@@ -176,7 +176,7 @@ public class DetailsLivreBD extends AppCompatActivity {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     Log.e(TAG, "onComplete: erreur : e.getMessage() : " + e.getMessage());
-                                    Toast.makeText(DetailsLivreBD.this, "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(DetailsLivreBD.this, getString(R.string.t_error) + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
 
                             }
@@ -246,11 +246,11 @@ public class DetailsLivreBD extends AppCompatActivity {
                         livresRef.document(id_BD).update(
                                 ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_AUCUNE
                         );
-                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_flag_updated_successfully), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
-                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_failed_to_update_flag) + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -266,11 +266,11 @@ public class DetailsLivreBD extends AppCompatActivity {
                         livresRef.document(id_BD).update(
                                 ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_EN_COURS
                         );
-                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_flag_updated_successfully), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
-                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_failed_to_update_flag) + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -286,11 +286,11 @@ public class DetailsLivreBD extends AppCompatActivity {
                         livresRef.document(id_BD).update(
                                 ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_LU
                         );
-                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_flag_updated_successfully), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
-                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_failed_to_update_flag) + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -305,11 +305,11 @@ public class DetailsLivreBD extends AppCompatActivity {
                         livresRef.document(id_BD).update(
                                 ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_A_LIRE
                         );
-                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_flag_updated_successfully), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
-                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_failed_to_update_flag) + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -324,11 +324,11 @@ public class DetailsLivreBD extends AppCompatActivity {
                         livresRef.document(id_BD).update(
                                 ETIQUETTE_LIVRE_BD, VALUE_ETIQUETTE_2EME_TEMPS
                         );
-                        Toast.makeText(DetailsLivreBD.this, "Mise à jour de l'étiquette effectuée avec succès", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_flag_updated_successfully), Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.i(TAG, "onClick: e.getMessage() :" + e.getMessage());
-                        Toast.makeText(DetailsLivreBD.this, "Erreur lors de la mise à jour de l'étiquette : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsLivreBD.this, getString(R.string.t_failed_to_update_flag) + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

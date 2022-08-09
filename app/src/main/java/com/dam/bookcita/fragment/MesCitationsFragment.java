@@ -317,15 +317,15 @@ public class MesCitationsFragment extends Fragment  implements AdapterBookNbrCit
                 } catch (ConnectException e) {
                     e.printStackTrace();
                     Log.i(TAG, "onTextChanged: e.getMessage() : " + e.getMessage());
-                    Toast.makeText(getContext(), "Erreur connection : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.t_error_connection) + e.getMessage(), Toast.LENGTH_LONG).show();
                 } catch (MeiliSearchApiException e) {
                     e.printStackTrace();
                     Log.i(TAG, "onTextChanged: MeiliSearchApiException e.getMessage() :" + e.getMessage());
-                    Toast.makeText(getContext(), "Erreur meilisearch : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.t_error_meilisearch) + e.getMessage(), Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.i(TAG, "onTextChanged: e.getMessage() : " + e.getMessage());
-                    Toast.makeText(getContext(), "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.t_error) + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
 

@@ -114,7 +114,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                 String pageCitationStr = etPageCitation.getText().toString();
                 Log.i(TAG, "onClick: pageCitationStr : " + pageCitationStr);
                 if (pageCitationStr.equals("")) {
-                    Toast.makeText(SaisieManuelleCitationActivity.this, "Veuillez saisir un numéro de page.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SaisieManuelleCitationActivity.this, getString(R.string.t_please_enter_page_number), Toast.LENGTH_LONG).show();
                     return;
                 }
                 int pageCitation = 0;
@@ -128,7 +128,7 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick: pageCitation : " + String.valueOf(pageCitation));
                 String citation = etmlCitation.getText().toString();
                 if (citation.equals("")) {
-                    Toast.makeText(SaisieManuelleCitationActivity.this, "Veuillez saisir une citation.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SaisieManuelleCitationActivity.this, getString(R.string.t_please_enter_quote), Toast.LENGTH_LONG).show();
                     return;
                 }
                 Log.i(TAG, "onClick: citation : " + citation);
@@ -149,11 +149,11 @@ public class SaisieManuelleCitationActivity extends AppCompatActivity {
                     citationsRef.add(citationSaisie);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(SaisieManuelleCitationActivity.this, "Problème dans l'enregistrement de la citation.\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SaisieManuelleCitationActivity.this, getString(R.string.t_failed_save_quote) + e.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.i(TAG, "onClick: " + e.getMessage());
                     return;
                 }
-                Toast.makeText(SaisieManuelleCitationActivity.this, "Citation enregistrée avec succès.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SaisieManuelleCitationActivity.this, getString(R.string.t_quote_saved_successfully), Toast.LENGTH_SHORT).show();
                 Intent mainIntent = new Intent(SaisieManuelleCitationActivity.this, MainActivity.class);
                 mainIntent.putExtra(FRAG_TO_LOAD, MES_CITATIONS_FRAGMENT);
                 startActivity(mainIntent);

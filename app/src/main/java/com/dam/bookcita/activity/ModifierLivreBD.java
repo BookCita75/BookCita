@@ -119,12 +119,12 @@ public class ModifierLivreBD extends AppCompatActivity {
                     int nombredespages = Integer.parseInt(tv_nombres_pages_livres.getText().toString());
                     Log.i(TAG, "nombredespages: " + nombredespages);
                     if (tv_title_livre.getText().toString().equals("")) {
-                        Toast.makeText(ModifierLivreBD.this, "Veuillez saisir un titre.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ModifierLivreBD.this, getString(R.string.t_please_enter_title), Toast.LENGTH_LONG).show();
                         return;
                     }
                     String langue = etLangueMLBD.getText().toString();
                     if (!(langue.equals("fr") || langue.equals("en") || langue.equals("de"))) {
-                        Toast.makeText(ModifierLivreBD.this, "Veuillez choisir une langue entre fr, en ou de.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ModifierLivreBD.this, getString(R.string.t_please_choose_language), Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -144,11 +144,11 @@ public class ModifierLivreBD extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.i(TAG, "onClick: e.getMessage() : " + e.getMessage());
-                    Toast.makeText(ModifierLivreBD.this, "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ModifierLivreBD.this, getString(R.string.t_error) + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
 
-                Toast.makeText(ModifierLivreBD.this, "Mise à jour effectuée avec succès.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ModifierLivreBD.this, getString(R.string.t_book_updated_successfully), Toast.LENGTH_LONG).show();
                 Intent mainIntent = new Intent(ModifierLivreBD.this, MainActivity.class);
                 mainIntent.putExtra(FRAG_TO_LOAD, MES_LIVRES_FRAGMENT);
 
@@ -209,7 +209,7 @@ public class ModifierLivreBD extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "uploadImage: e.getMessage() : " + e.getMessage());
-            Toast.makeText(this, "Erreur lors du chargement de l'image : " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.t_failed_to_load_picture) + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }

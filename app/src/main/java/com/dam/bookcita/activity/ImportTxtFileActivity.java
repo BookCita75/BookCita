@@ -142,7 +142,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             case PERMISSION_READ: {
                 if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                        Toast.makeText(this, "Veuillez autoriser l'accès à la lecture des fichiers.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.t_please_grant_access_read_files), Toast.LENGTH_LONG).show();
                     } else {
                         // Lancement de l'app
 
@@ -153,7 +153,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             case PERMISSION_WRITE: {
                 if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                        Toast.makeText(this, "Veuillez autoriser l'accès à l'écriture de fichiers", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.t_please_grant_access_write_files), Toast.LENGTH_LONG).show();
                     } else {
                         // Lancement de l'app
 
@@ -313,7 +313,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             br.close();
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Veuillez vérifier les autorisations de l'application.\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.t_please_check_app_permissions) + e.getMessage(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -330,7 +330,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         context = getApplicationContext();
         if (requestCode == requestCode && resultCode == Activity.RESULT_OK) {
             if (data == null) {
-                Toast.makeText(context, "Selectionner un fichier Texte", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.t_choose_txt_file), Toast.LENGTH_SHORT).show();
             }
 
             uri = data.getData();
@@ -516,7 +516,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Erreur dans l'importation des citations et annotations à partir du fichier texte.\n" + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.t_error_import_quotes_from_txt_file) + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -530,7 +530,7 @@ public class ImportTxtFileActivity extends AppCompatActivity {
         }
         if ((cptCitationsImportees + cptCitationsDejaExistantesEnBD) == nbTotalCitationAImporter) {
             //dernière citation à importer a été traitée
-            Toast.makeText(this, String.valueOf(cptCitationsImportees) + " citation(s) et annotation(s) importée(s) avec succès.\n" + String.valueOf(cptCitationsDejaExistantesEnBD) + " citation(s) et annotation(s) non importée(s) car déjà existante(s) dans la base de données.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.valueOf(cptCitationsImportees) + getString(R.string.t_quotes_and_notes_imported_successfully) + String.valueOf(cptCitationsDejaExistantesEnBD) + " citation(s) et annotation(s) non importée(s) car déjà existante(s) dans la base de données.", Toast.LENGTH_LONG).show();
             Intent mainIntent = new Intent(ImportTxtFileActivity.this, MainActivity.class);
             mainIntent.putExtra(FRAG_TO_LOAD, MES_CITATIONS_FRAGMENT);
             startActivity(mainIntent);

@@ -1,7 +1,6 @@
 package com.dam.bookcita.dialogFragment;
 
 import static com.dam.bookcita.common.Constantes.FRAG_TO_LOAD;
-import static com.dam.bookcita.common.Constantes.MES_CITATIONS_FRAGMENT;
 import static com.dam.bookcita.common.Constantes.MES_LIVRES_FRAGMENT;
 
 import android.app.Dialog;
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.dam.bookcita.R;
-import com.dam.bookcita.activity.DetailsCitationActivity;
 import com.dam.bookcita.activity.DetailsLivreBD;
 import com.dam.bookcita.activity.MainActivity;
 
@@ -27,20 +25,20 @@ public class SupprimerLivreDialogFragment extends DialogFragment {
 //        return super.onCreateDialog(savedInstanceState);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.dialog_supprimer_livre)
-                .setPositiveButton(R.string.supprimer, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // suppression de la citation
                         DetailsLivreBD.supprimerLivreBD();
-                        Toast.makeText(getContext(), "Livre supprimé avec succès.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.t_book_deleted_successfully), Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(getContext(), MainActivity.class);
                         mainIntent.putExtra(FRAG_TO_LOAD, MES_LIVRES_FRAGMENT);
 
                         startActivity(mainIntent);
                     }
                 })
-                .setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getContext(), "Suppression du livre annulée", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.t_book_deletion_canceled), Toast.LENGTH_LONG).show();
                         return;
                     }
                 });

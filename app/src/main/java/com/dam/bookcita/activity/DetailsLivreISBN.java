@@ -146,7 +146,7 @@ public class DetailsLivreISBN extends AppCompatActivity {
 
         Log.i(TAG, "ajouterLivreBD: livresRef.getId : " + livresRef.getId());
 
-        Toast.makeText(DetailsLivreISBN.this, "Livre ajouté avec succès !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(DetailsLivreISBN.this, getString(R.string.t_book_added_successfully), Toast.LENGTH_SHORT).show();
 
         Intent mainIntent = new Intent(this, MainActivity.class);
         mainIntent.putExtra(FRAG_TO_LOAD, MES_LIVRES_FRAGMENT);

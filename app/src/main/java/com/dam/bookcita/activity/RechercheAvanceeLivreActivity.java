@@ -181,7 +181,7 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
                     || (langueRA.equals("en"))
                     || (langueRA.equals("de"))
                   ) ) {
-                Toast.makeText(this, "Veuillez saisir comme langue fr, en ou de", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.t_please_choose_language), Toast.LENGTH_LONG).show();
                 return;
             } else {
                 // &langRestrict=
@@ -351,7 +351,7 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Log.i(TAG, "onErrorResponse: " + error.getMessage());
-                Toast.makeText(RechercheAvanceeLivreActivity.this, "Veuillez vérifier votre connexion à Internet\n" + error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RechercheAvanceeLivreActivity.this, getString(R.string.t_please_check_internet_connection) + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(request);

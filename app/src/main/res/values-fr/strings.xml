@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="my_books">Mes livres</string>
-    <string name="annuler">Annuler</string>
-    <string name="supprimer">Supprimer</string>
+    <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
     <string name="dialog_supprimer_citation">Voulez-vous vraiment supprimer cette citation?</string>
     <string name="dialog_supprimer_livre">Voulez-vous vraiment supprimer ce livre?</string>
     <string name="navigation_drawer_open">Ouvrir navation drawer</string>
@@ -116,4 +116,43 @@
     <string name="validate_selection">Valider la sélection</string>
     <string name="quotes">Citations</string>
     <string name="fetching_data">Chargement des données...</string>
+    <string name="t_OCR_scan">Scan OCR</string>
+    <string name="pic_capture_failed">Enregistrement de l\'image échouée</string>
+    <string name="t_permissions_not_granted_by_user">Autorisations non accordées par l\'utilisateur</string>
+    <string name="t_ISBN_not_recognized">ISBN non reconnu</string>
+    <string name="t_scanned_ISBN">"ISBN scanné : "</string>
+    <string name="t_OCR_succeeded">OCR réussie!</string>
+    <string name="t_OCR_failed">OCR échouée!</string>
+    <string name="t_error">"Erreur : "</string>
+    <string name="t_flag_updated_successfully">Mise à jour de l\'étiquette effectuée avec succès!</string>
+    <string name="t_failed_to_update_flag">"\"Erreur lors de la mise à jour de l'étiquette : "</string>
+    <string name="add_to_my_books">Ajouter à mes livres</string>
+    <string name="t_please_grant_access_read_files">Veuillez autoriser l\'accès à la lecture des fichiers.</string>
+    <string name="t_please_grant_access_write_files">Veuillez autoriser l\'accès à l\'écriture de fichiers.</string>
+    <string name="t_please_check_app_permissions">Veuillez vérifier les autorisations de l\\\'application.\\n</string>
+    <string name="t_choose_txt_file">Sélectionnez  un fichier txt</string>
+    <string name="t_error_import_quotes_from_txt_file">Erreur dans l\\\'importation des citations et annotations à partir du fichier texte.\\n</string>
+    <string name="t_quotes_and_notes_imported_successfully">" citation(s) et annotation(s) importée(s) avec succès.\\n"</string>
+    <string name="t_please_enter_page_number">Veuillez saisir un numéro de page.</string>
+    <string name="t_please_enter_quote">Veuillez saisir une citation.</string>
+    <string name="t_quote_updated_successfully">Citation mis à jour avcec succès.</string>
+    <string name="t_please_enter_title">Veuillez saisir un titre.</string>
+    <string name="t_please_choose_language">Veuillez choisir une langue entre \'fr\', \'en\' et \'de\'.</string>
+    <string name="t_book_updated_successfully">Livre mis à jour avec succès.</string>
+    <string name="t_failed_to_load_picture">"Erreur lors du chargement de l'image : "</string>
+    <string name="t_please_check_internet_connection">Veuillez vérifier votre connexion à Internet.\\n</string>
+    <string name="t_failed_save_quote">Problème dans l\\\'enregistrement de la citation.\\n</string>
+    <string name="t_quote_saved_successfully">Citation enregistrée avec succès.</string>
+    <string name="t_please_enter_date">Veuillez saisir une date au format JJ/MM/AAAA ou MM/AAAA ou AAAA ou pas de date du tout.</string>
+    <string name="t_failed_loading_picture">"Erreur lors du chargement de l'image : "</string>
+    <string name="t_book_already_exists">Ce livre existe déjà dans la base de données. Veuillez saisir un autre ISBN.</string>
+    <string name="t_book_added_successfully">Livre ajouté avec succès!</string>
+    <string name="t_please_paste_quote">Veuillez coller une citation dans le champ texte prévu pour.</string>
+    <string name="t_quote_deleted_successfully">Citation supprimée avec succès.</string>
+    <string name="t_quote_deletion_canceled">Suppression de la citation annulée.</string>
+    <string name="t_book_deleted_successfully">Livre supprimé avec succès.</string>
+    <string name="t_book_deletion_canceled">Suppression du livre annulée.</string>
+    <string name="t_error_connection">"Erreur connexion : "</string>
+    <string name="t_error_meilisearch">"Erreur meilisearch : "</string>
+    <string name="t_please_allow_internet_permission">Veuillez autoriser l\'accès à Internet.</string>
 </resources>

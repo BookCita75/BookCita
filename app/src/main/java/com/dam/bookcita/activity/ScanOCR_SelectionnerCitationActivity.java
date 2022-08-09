@@ -84,7 +84,7 @@ public class ScanOCR_SelectionnerCitationActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(etmlTexteExtrait.getText().toString().isEmpty()) {
-                    Toast.makeText(ScanOCR_SelectionnerCitationActivity.this, "Veuillez coller une citation dans le champ texte prévu pour.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScanOCR_SelectionnerCitationActivity.this, getString(R.string.t_please_paste_quote), Toast.LENGTH_SHORT).show();
                 } else {
                     String texteExtrait = etmlTexteExtrait.getText().toString();
                     Log.i(TAG, "onClick: texteExtrait : " + texteExtrait);

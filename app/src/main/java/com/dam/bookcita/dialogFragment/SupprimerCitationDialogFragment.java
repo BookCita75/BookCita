@@ -17,7 +17,6 @@ import androidx.fragment.app.DialogFragment;
 import com.dam.bookcita.R;
 import com.dam.bookcita.activity.DetailsCitationActivity;
 import com.dam.bookcita.activity.MainActivity;
-import com.dam.bookcita.activity.ModifierCitationActivity;
 
 public class SupprimerCitationDialogFragment extends DialogFragment {
     @NonNull
@@ -27,20 +26,20 @@ public class SupprimerCitationDialogFragment extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.dialog_supprimer_citation)
-                .setPositiveButton(R.string.supprimer, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // suppression de la citation
                         DetailsCitationActivity.supprimerCitation();
-                        Toast.makeText(getContext(), "Citation supprimée avec succès.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.t_quote_deleted_successfully), Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(getContext(), MainActivity.class);
                         mainIntent.putExtra(FRAG_TO_LOAD, MES_CITATIONS_FRAGMENT);
 
                         startActivity(mainIntent);
                     }
                 })
-                .setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getContext(), "Suppression de la citation annulée", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.t_quote_deletion_canceled), Toast.LENGTH_LONG).show();
                         return;
                     }
                 });

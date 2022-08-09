@@ -135,14 +135,14 @@ public class CameraXActivity extends AppCompatActivity {
                         if (type_ISBN_or_OCR.equals("ISBN")) {
                             extractISBN();
                         } else if (type_ISBN_or_OCR.equals("OCR")) {
-                            Toast.makeText(CameraXActivity.this, "Scan OCR", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(CameraXActivity.this, getString(R.string.t_OCR_scan), Toast.LENGTH_LONG).show();
                             scanOCR();
                         }
                     }
 
                     @Override
                     public void onError(@NonNull ImageCapture.UseCaseError useCaseError, @NonNull String message, @Nullable Throwable cause) {
-                        String msg = "Pic capture failed : " + message;
+                        String msg = getString(R.string.pic_capture_failed) + message;
                         Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
                         if (cause != null) {
                             cause.printStackTrace();
@@ -197,7 +197,7 @@ public class CameraXActivity extends AppCompatActivity {
             if (allPermissionsGranted()) {
                 startCamera();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.t_permissions_not_granted_by_user), Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -239,7 +239,7 @@ public class CameraXActivity extends AppCompatActivity {
                         // Task completed successfully
                         Log.i(TAG, "onSuccess: Task completed successfully " + barcodes.toString());
                         if (barcodes.isEmpty()) {
-                            Toast.makeText(CameraXActivity.this, "ISBN non reconnu", Toast.LENGTH_LONG).show();
+                            Toast.makeText(CameraXActivity.this, getString(R.string.t_ISBN_not_recognized), Toast.LENGTH_LONG).show();
                         } else {
                             for (Barcode barcode: barcodes) {
                                 Rect bounds = barcode.getBoundingBox();
@@ -247,7 +247,7 @@ public class CameraXActivity extends AppCompatActivity {
                                 // on suppose qu'on a scanné qu'un seul isbn;
                                 isbnScanne = barcode.getRawValue();
                                 Log.i(TAG, "onSuccess: isbnScanne : " + isbnScanne);
-                                Toast.makeText(CameraXActivity.this, "ISBN scanné : " + isbnScanne, Toast.LENGTH_LONG).show();
+                                Toast.makeText(CameraXActivity.this, getString(R.string.t_scanned_ISBN) + isbnScanne, Toast.LENGTH_LONG).show();
                                 int valueType = barcode.getValueType();
                                 Log.i(TAG, "onSuccess: valueType : " + valueType);
 
@@ -289,7 +289,7 @@ public class CameraXActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Text>() {
                             @Override
                             public void onSuccess(Text text) {
-                                Toast.makeText(CameraXActivity.this, "OCR réussie!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CameraXActivity.this, getString(R.string.t_OCR_succeeded), Toast.LENGTH_LONG).show();
                                 resultTextOCR = text.getText();
                                 Log.i(TAG, "onSuccess: resultTextOCR : " + resultTextOCR);
                                 Intent selectionCitationIntent = new Intent(CameraXActivity.this, ScanOCR_SelectionnerCitationActivity.class);
@@ -301,7 +301,7 @@ public class CameraXActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(CameraXActivity.this, "OCR échouée!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(CameraXActivity.this, getString(R.string.t_OCR_failed), Toast.LENGTH_LONG).show();
                                 Log.i(TAG, "onFailure: e.getMessage() : " + e.getMessage());
                             }
                         });

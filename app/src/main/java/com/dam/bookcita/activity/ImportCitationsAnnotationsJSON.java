@@ -32,7 +32,7 @@ public class ImportCitationsAnnotationsJSON extends AppCompatActivity {
                 return;
             }
             Uri uri = data.getData();
-            Toast.makeText(context, uri.getPath(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, uri.getPath(), Toast.LENGTH_SHORT).show();
            // String path
            // Log.i("tag", "URI  : ",  );
 

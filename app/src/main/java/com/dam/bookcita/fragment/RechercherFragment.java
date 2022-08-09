@@ -133,7 +133,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
             case PERMISSION_INTERNET: {
                 if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.INTERNET)) {
                     if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                        Toast.makeText(getContext(), "Please allow internet permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.t_please_allow_internet_permission), Toast.LENGTH_SHORT).show();
                     } else {
                         // Lancement de l'app
 
@@ -271,7 +271,7 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Log.i(TAG, "onErrorResponse: " + error.getMessage());
-                Toast.makeText(getContext(), "Veuillez vérifier votre connexion à Internet\n" + error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.t_please_check_internet_connection) + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(request);

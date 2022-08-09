@@ -19,12 +19,12 @@
     <!-- String pour l'alertDialog supprimerCitation  -->
     <string name="dialog_supprimer_livre">Do you really want to delete this book?</string>
 
-    <string name="annuler">Cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="my_books">My books</string>
-    <string name="supprimer">Delete</string>
+    <string name="delete">Delete</string>
     <string name="no_internet">Check you internet connection</string>
     <string name="loading_please_wait">Please wait, loading...</string>
-    <string name="login_failed">Conection failure : %1$s</string>
+    <string name="login_failed">Connection failure : %1$s</string>
     <string name="resend_timer">Resend in : %1$s</string>
     <string name="failed_to_send_email">Failed to send the email : %1$s</string>
     <string name="close">Close</string>
@@ -125,6 +125,45 @@
     <string name="validate_selection">Validate selection</string>
     <string name="quotes">Quotes</string>
     <string name="fetching_data">Fetching Data...</string>
+    <string name="t_OCR_scan">OCR scan</string>
+    <string name="pic_capture_failed">"Pic capture failed : "</string>
+    <string name="t_permissions_not_granted_by_user">Permissions not granted by the user.</string>
+    <string name="t_ISBN_not_recognized">ISBN not recognized</string>
+    <string name="t_scanned_ISBN">"Scanned ISBN : "</string>
+    <string name="t_OCR_succeeded">OCR succeeded!</string>
+    <string name="t_OCR_failed">OCR failed!</string>
+    <string name="t_error">"Error : "</string>
+    <string name="t_flag_updated_successfully">Flag updated successfully!</string>
+    <string name="t_failed_to_update_flag">"Failed to update flag : "</string>
+    <string name="add_to_my_books">Add to my books</string>
+    <string name="t_please_grant_access_read_files">Plesae grant the access to read files.</string>
+    <string name="t_please_grant_access_write_files">Please grant the access to write files.</string>
+    <string name="t_please_check_app_permissions">Please check app permissions.\\n</string>
+    <string name="t_choose_txt_file">Choose a txt file</string>
+    <string name="t_error_import_quotes_from_txt_file">Falied to import quotes and notes from txt file.\\n</string>
+    <string name="t_quotes_and_notes_imported_successfully">" quote(s) and note(s) imported successfully.\\n"</string>
+    <string name="t_please_enter_page_number">Please enter a page number.</string>
+    <string name="t_please_enter_quote">Please enter a quote.</string>
+    <string name="t_quote_updated_successfully">Quote updated successfully.</string>
+    <string name="t_please_enter_title">Please enter a title.</string>
+    <string name="t_please_choose_language">Please choose a language between \'en\', \'fr\' and \'de\'.</string>
+    <string name="t_book_updated_successfully">Book updated successfully.</string>
+    <string name="t_failed_to_load_picture">"Failed to load the picture : "</string>
+    <string name="t_please_check_internet_connection">Please check your internet connection.\\n</string>
+    <string name="t_failed_save_quote">Failed to save the quote.\\n</string>
+    <string name="t_quote_saved_successfully">Quote saved successfully.</string>
+    <string name="t_please_enter_date">Please enter a date with following format : DD/MM/YYYY or MM/YYYY or YYYY or no date.</string>
+    <string name="t_failed_loading_picture">"Failed loading picture : "</string>
+    <string name="t_book_already_exists">This book already exists in database. Please enter another ISBN.</string>
+    <string name="t_book_added_successfully">Book added successfully!</string>
+    <string name="t_please_paste_quote">Please paste a quote in the provided textfield.</string>
+    <string name="t_quote_deleted_successfully">Quote deleted successfully.</string>
+    <string name="t_quote_deletion_canceled">Quote deletion canceled.</string>
+    <string name="t_book_deleted_successfully">Book deleted successfully.</string>
+    <string name="t_book_deletion_canceled">Book deletion canceled.</string>
+    <string name="t_error_connection">"Connection error : "</string>
+    <string name="t_error_meilisearch">"Meilisearch error : "</string>
+    <string name="t_please_allow_internet_permission">Please allow internet permission.</string>
 
 
 </resources>

@@ -141,7 +141,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick: titre : " + titre);
 
                 if (titre.equals("")) {
-                    Toast.makeText(SaisieManuelleLivreActivity.this, "Veuillez saisir un titre.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SaisieManuelleLivreActivity.this, getString(R.string.t_please_enter_title), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -158,7 +158,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                 String langue = actvLangueSML.getText().toString();
                 Log.i(TAG, "onClick: langue : " + langue);
                 if (!(langue.equals("fr") || langue.equals("en") || langue.equals("de"))) {
-                    Toast.makeText(SaisieManuelleLivreActivity.this, "Veuillez choisir une langue entre fr, en ou de.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SaisieManuelleLivreActivity.this, getString(R.string.t_please_choose_language), Toast.LENGTH_LONG).show();
                     return;
                 }
                 //ivCoverSML
@@ -191,7 +191,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
                     livre = new ModelDetailsLivre(titre, auteur, editeur, convertDateToFormatEn(date), resume, uriPhoto, isbn, nbPages, langue, idGoogleBooks, strDateToday, strHeureNow, id_user);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    Toast.makeText(SaisieManuelleLivreActivity.this, "Veuillez saisir une date au format JJ/MM/AAAA ou MM/AAAA ou AAAA ou pas de date du tout", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SaisieManuelleLivreActivity.this, getString(R.string.t_please_enter_date), Toast.LENGTH_LONG).show();
                 }
 
                 try {
@@ -272,7 +272,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "uploadImage: e.getMessage() : " + e.getMessage());
-            Toast.makeText(this, "Erreur lors du chargement de l'image : " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.t_failed_loading_picture) + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -318,7 +318,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
     private void afterOnCompleteVerifieExistsBookInDB(boolean existeDeja, ModelDetailsLivre livre) {
         if(existeDeja) {
-            Toast.makeText(this, "Ce livre existe déjà dans la BD. Veuillez saisir un autre ISBN.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.t_book_already_exists), Toast.LENGTH_LONG).show();
         } else {
             // le livre n'existe pas encore dans la BD (selon l'ISBN)
             ajouterLivreBD(livre);
@@ -327,7 +327,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
     private void ajouterLivreBD(ModelDetailsLivre livre) {
         livresRef.add(livre);
-        Toast.makeText(SaisieManuelleLivreActivity.this, "Livre ajouté avec succès !", Toast.LENGTH_LONG).show();
+        Toast.makeText(SaisieManuelleLivreActivity.this, getString(R.string.t_book_added_successfully), Toast.LENGTH_LONG).show();
 
         Intent mainIntent = new Intent(SaisieManuelleLivreActivity.this, MainActivity.class);
         mainIntent.putExtra(FRAG_TO_LOAD, MES_LIVRES_FRAGMENT);

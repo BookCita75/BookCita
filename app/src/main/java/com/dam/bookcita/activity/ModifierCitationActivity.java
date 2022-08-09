@@ -111,7 +111,7 @@ public class ModifierCitationActivity extends AppCompatActivity {
                     String numeroPageStr = etPageCitationMC.getText().toString();
                     int numeroPage = 0;
                     if(numeroPageStr.equals("")) {
-                        Toast.makeText(ModifierCitationActivity.this, "Veuillez saisir un numéro de page.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ModifierCitationActivity.this, getString(R.string.t_please_enter_page_number), Toast.LENGTH_LONG).show();
                         return;
                     }
                     numeroPage = Integer.parseInt(numeroPageStr);
@@ -119,7 +119,7 @@ public class ModifierCitationActivity extends AppCompatActivity {
 
                     String citation = etmlCitationMC.getText().toString();
                     if (citation.equals("")) {
-                        Toast.makeText(ModifierCitationActivity.this, "Veuillez saisir une citation.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ModifierCitationActivity.this, getString(R.string.t_please_enter_quote), Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -134,11 +134,11 @@ public class ModifierCitationActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.i(TAG, "onClick: e.getMessage() : " + e.getMessage());
-                    Toast.makeText(ModifierCitationActivity.this, "Erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ModifierCitationActivity.this, getString(R.string.t_error) + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
 
-                Toast.makeText(ModifierCitationActivity.this, "Modification enregistrée avec succès.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ModifierCitationActivity.this, getString(R.string.t_quote_updated_successfully), Toast.LENGTH_LONG).show();
                 Intent mainIntent = new Intent(ModifierCitationActivity.this, MainActivity.class);
                 mainIntent.putExtra(FRAG_TO_LOAD, MES_CITATIONS_FRAGMENT);
 
