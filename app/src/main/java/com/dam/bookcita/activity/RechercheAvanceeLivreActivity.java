@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.dam.bookcita.BuildConfig;
 import com.dam.bookcita.R;
 import com.dam.bookcita.adapter.AdapterBook;
 import com.dam.bookcita.fragment.RechercherFragment;
@@ -71,7 +72,7 @@ public class RechercheAvanceeLivreActivity extends AppCompatActivity implements 
     private RequestQueue requestQueue;
 
     private static final String MAX_RESULTS = "40";
-    private static final String KEY_VALUE = "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+    private static final String KEY_VALUE = BuildConfig.BC75_GOOGLE_API_KEY;
 
     private void init(){
         etKeywordRA = findViewById(R.id.etKeywordRA);

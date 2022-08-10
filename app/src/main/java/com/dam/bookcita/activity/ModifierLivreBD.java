@@ -22,11 +22,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.dam.bookcita.BuildConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -65,7 +67,7 @@ public class ModifierLivreBD extends AppCompatActivity {
 
     private Uri localFileUri;
 
-    private String tokenStorage = "bd2fee53-f293-469c-8dcd-14ae4b5562ec";
+    private static final String tokenStorage = BuildConfig.BC75_FIREBASE_STORAGE_TOKEN;
 
     private FirebaseAuth auth;
 

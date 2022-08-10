@@ -44,6 +44,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import com.dam.bookcita.BuildConfig;
 import com.dam.bookcita.activity.RechercheAvanceeLivreActivity;
 import com.dam.bookcita.activity.SaisieManuelleLivreActivity;
 import com.dam.bookcita.adapter.AdapterBook;
@@ -85,6 +86,8 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
     private AdapterBook adapterBook;
 
     public static final int PERMISSION_INTERNET = 0;
+
+    private static final String API_KEY_GOOGLE = BuildConfig.BC75_GOOGLE_API_KEY;
 
     private RequestQueue requestQueue;  //Pour volley
 
@@ -177,7 +180,8 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
                     + "&maxResults="
                     + MAX_RESULTS
                     + "&key="
-                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+                    + API_KEY_GOOGLE;
+//                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
         } else {
             //https://www.googleapis.com/books/v1/volumes?q=souris
             urlJSONFile = "https://www.googleapis.com/books/v1/volumes?q="
@@ -185,7 +189,8 @@ public class RechercherFragment extends Fragment implements AdapterBook.OnItemCl
                     + "&maxResults="
                     + MAX_RESULTS
                     + "&key="
-                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
+                    + API_KEY_GOOGLE;
+//                    + "AIzaSyARotakRwdwvBqUpRRHwZ3X7URwamy86G0";
         }
 
 

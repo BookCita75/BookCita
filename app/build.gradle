@@ -20,13 +20,39 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BC75_GOOGLE_API_KEY", "\"" + getGoogleApiKey() + "\"")
+            buildConfigField("String", "BC75_FIREBASE_STORAGE_TOKEN", "\"" + getFBStorageToken() + "\"")
+
         }
+
+        debug {
+            buildConfigField("String", "BC75_GOOGLE_API_KEY", "\"" + getGoogleApiKey() + "\"")
+            buildConfigField("String", "BC75_FIREBASE_STORAGE_TOKEN", "\"" + getFBStorageToken() + "\"")
+        }
+//        android.buildTypes.each {
+//            it.buildConfigField 'String', 'GOOGLE_BC75_API_KEY', "\"$System.env.GOOGLE_BC75_API_KEY\""
+//        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
+def getGoogleApiKey() {
+    // au préalable : avoir créé une variable d'environnement utilisateur BC75_GOOGLE_API_KEY avec comme valeur la clé en question (et un redémarrage est nécessaire)
+    def googleApiKey = System.getenv("BC75_GOOGLE_API_KEY")
+    return googleApiKey
+}
+
+def getFBStorageToken() {
+    // au préalable : avoir créé une variable d'environnement utilisateur BC75_GOOGLE_API_KEY avec comme valeur la clé en question (et un redémarrage est nécessaire)
+    def fBStorageToken = System.getenv("BC75_FIREBASE_STORAGE_TOKEN")
+    return fBStorageToken
+}
+
+
+
 
 dependencies {
 

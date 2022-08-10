@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dam.bookcita.BuildConfig;
 import com.dam.bookcita.R;
 import com.dam.bookcita.model.ModelDetailsLivre;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -70,7 +71,7 @@ public class SaisieManuelleLivreActivity extends AppCompatActivity {
 
     private Uri serverFileUri;
 
-    private String tokenStorage = "bd2fee53-f293-469c-8dcd-14ae4b5562ec";
+    private static final String tokenStorage = BuildConfig.BC75_FIREBASE_STORAGE_TOKEN;
 
     private FirebaseAuth auth;
 
