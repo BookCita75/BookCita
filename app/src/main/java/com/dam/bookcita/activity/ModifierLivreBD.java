@@ -1,6 +1,7 @@
 package com.dam.bookcita.activity;
 
 import static com.dam.bookcita.common.Constantes.*;
+import static com.dam.bookcita.common.Util.*;
 import static com.google.firebase.firestore.FieldPath.documentId;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import com.dam.bookcita.R;
+
+import java.text.ParseException;
 
 public class ModifierLivreBD extends AppCompatActivity {
 
@@ -128,11 +131,13 @@ public class ModifierLivreBD extends AppCompatActivity {
                         return;
                     }
 
+                    String date_parution_livre = tv_parution_livre.getText().toString();
+
                     livresRef.document(id_BD).update(
                             TITRE_LIVRE_BD, tv_title_livre.getText().toString(),
                             AUTEUR_LIVRE_BD, tv_auteur_livre.getText().toString(),
                             EDITEUR_LIVRE_BD, tv_editeur_livre.getText().toString(),
-                            DATE_PARUTION_LIVRE_BD, tv_parution_livre.getText().toString(),
+                            DATE_PARUTION_LIVRE_BD, convertDateToFormatEn(date_parution_livre),
                             RESUME_LIVRE_BD, tv_resume_livre.getText().toString(),
                             ISBN_LIVRE_BD, tv_isbn_livre.getText().toString(),
                             NB_PAGES_LIVRE_BD, nombredespages,
@@ -141,7 +146,12 @@ public class ModifierLivreBD extends AppCompatActivity {
 
                     );
 
-                } catch (Exception e) {
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ModifierLivreBD.this, getString(R.string.t_please_enter_date), Toast.LENGTH_LONG).show();
+                }
+
+                catch (Exception e) {
                     e.printStackTrace();
                     Log.i(TAG, "onClick: e.getMessage() : " + e.getMessage());
                     Toast.makeText(ModifierLivreBD.this, getString(R.string.t_error) + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -266,7 +276,7 @@ public class ModifierLivreBD extends AppCompatActivity {
                                 tv_title_livre.setText(title_livre);
                                 tv_auteur_livre.setText(auteur_livre);
                                 tv_editeur_livre.setText(editeur_livre);
-                                tv_parution_livre.setText(parution_livre);
+                                tv_parution_livre.setText(convertDateToFormatFr(parution_livre));
                                 tv_resume_livre.setText(resume_livre);
                                 tv_isbn_livre.setText(isbn_livre);
                                 tv_nombres_pages_livres.setText(nbr_pages);
