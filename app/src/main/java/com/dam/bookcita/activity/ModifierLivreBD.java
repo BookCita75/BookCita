@@ -77,7 +77,7 @@ public class ModifierLivreBD extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference livresRef = db.collection(LIVRES_COLLECTION_BD);
     private Button btn_modifier;
-    private String uriPhoto;
+    private String uriPhoto = "";
 
 
     public void initUI() {
@@ -143,17 +143,21 @@ public class ModifierLivreBD extends AppCompatActivity {
                             RESUME_LIVRE_BD, tv_resume_livre.getText().toString(),
                             ISBN_LIVRE_BD, tv_isbn_livre.getText().toString(),
                             NB_PAGES_LIVRE_BD, nombredespages,
-                            LANGUE_LIVRE_BD, langue,
-                            URL_COVER_LIVRE_BD, uriPhoto
-
+                            LANGUE_LIVRE_BD, langue
                     );
+
+                    if (!uriPhoto.equals("")) {
+                        //l'utilisateur veut modifier l'image de couverture
+                        livresRef.document(id_BD).update(
+                                URL_COVER_LIVRE_BD, uriPhoto
+                        );
+                    }
+
 
                 } catch (ParseException e) {
                     e.printStackTrace();
                     Toast.makeText(ModifierLivreBD.this, getString(R.string.t_please_enter_date), Toast.LENGTH_LONG).show();
-                }
-
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.i(TAG, "onClick: e.getMessage() : " + e.getMessage());
                     Toast.makeText(ModifierLivreBD.this, getString(R.string.t_error) + e.getMessage(), Toast.LENGTH_LONG).show();
