@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.dam.bookcita.adapter.FragmentAdapter;
@@ -28,6 +29,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
     /**
      * Variables globales
      **/
@@ -196,6 +198,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 //                        commit();
                 Intent mesLivresIntent = new Intent(getApplicationContext(), MainActivity.class);
                 mesLivresIntent.putExtra(FRAG_TO_LOAD, MES_LIVRES_FRAGMENT);
+//                mesLivresIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(mesLivresIntent);
                 break;
             case R.id.nav_fragment_mes_citations:
@@ -229,5 +232,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         drawer_layout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        /*This is called for activities that set launchMode to "singleTop" in their package,
+        or if a client used the Intent#FLAG_ACTIVITY_SINGLE_TOP flag when calling startActivity(Intent).
+        In either case, when the activity is re-launched while at the top of the activity stack instead
+        of a new instance of the activity being started, onNewIntent() will be called on the existing instance
+        with the Intent that was used to re-launch it.*/
+
+        super.onNewIntent(intent);
+        int intentFragment = intent.getIntExtra(FRAG_TO_LOAD, ACCUEIL_FRAGMENT);
+        Log.i(TAG, "onNewIntent: intentFragment : "+ intentFragment);
+        viewPager2.setCurrentItem(intentFragment);
     }
 }

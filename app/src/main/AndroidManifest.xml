@@ -75,6 +75,7 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
+            android:launchMode="singleTop"
             android:exported="false" />
         <activity android:name=".activity.NoInternetActivity" />
         <activity android:name=".login.ResetPaswordActivity" />
