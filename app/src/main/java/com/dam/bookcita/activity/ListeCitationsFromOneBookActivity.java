@@ -87,7 +87,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching Data...");
+        progressDialog.setMessage(getString(R.string.fetching_data));
         progressDialog.show();
 
         getCitationsFOBFromDB();
