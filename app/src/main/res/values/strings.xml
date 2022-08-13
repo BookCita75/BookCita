@@ -164,6 +164,8 @@
     <string name="t_error_connection">"Connection error : "</string>
     <string name="t_error_meilisearch">"Meilisearch error : "</string>
     <string name="t_please_allow_internet_permission">Please allow internet permission.</string>
+    <string name="default_message_NLAQ">You don\'t have any quote yet. You can add one by selecting one of your books and by clicking on \'add quote\'.</string>
+    <string name="default_message_NLAB">You don\'t have any book yet. You can add one by clicking on the \'search\' tab and finding one book there.</string>
 
 
 </resources>

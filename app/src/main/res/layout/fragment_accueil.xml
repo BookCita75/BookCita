@@ -133,6 +133,7 @@
                         android:src="@drawable/ic_couverture_livre_150" />
 
                     <LinearLayout
+                        android:id="@+id/llLastAddedBookFilled"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="4dp"
@@ -176,6 +177,21 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLastAddedBookDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvDefaultMessageNoLastAddedBook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/default_message_NLAB" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <TextView
@@ -201,6 +217,7 @@
                         android:src="@drawable/ic_baseline_format_quote_24" />
 
                     <LinearLayout
+                        android:id="@+id/llLastAddedQuoteFilled"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="4dp"
@@ -275,6 +292,20 @@
                             android:textColor="@color/black"
                             tools:text="Auteur" />
 
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLastAddedQuoteDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tvDefaultMessageNoLastAddedQuote"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/default_message_NLAQ" />
                     </LinearLayout>
                 </LinearLayout>
 

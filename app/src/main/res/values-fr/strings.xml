@@ -155,4 +155,6 @@
     <string name="t_error_connection">"Erreur connexion : "</string>
     <string name="t_error_meilisearch">"Erreur meilisearch : "</string>
     <string name="t_please_allow_internet_permission">Veuillez autoriser l\'accès à Internet.</string>
+    <string name="default_message_NLAQ">Vous n\'avez pas encore de citation enregistrée. Vous pouvez en ajouter une en sélectionnant un de vos livres et en cliquant sur \'Ajouter citation\'.</string>
+    <string name="default_message_NLAB">Vous n\'avez pas encore de livre enregistré. Vous pouvez en ajouter un en allant sur l\'onglet \'Chercher\' et en trouvant un livre là-bas.</string>
 </resources>

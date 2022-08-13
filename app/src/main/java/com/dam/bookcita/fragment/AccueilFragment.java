@@ -28,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -71,6 +72,14 @@ public class AccueilFragment extends Fragment {
     private TextView tvCitationAuteurLivreAcc;
 
     private ImageView ivCoverLivreCitationAcc;
+
+    private LinearLayout llLastAddedQuoteFilled;
+    private LinearLayout llLastAddedQuoteDefault;
+
+    private LinearLayout llLastAddedBookFilled;
+    private LinearLayout llLastAddedBookDefault;
+
+
 
     private String id_user;
 
@@ -128,6 +137,12 @@ public class AccueilFragment extends Fragment {
 
         ivCoverLivreCitationAcc = view.findViewById(R.id.ivCoverLivreCitationAcc);
 
+        llLastAddedQuoteFilled = view.findViewById(R.id.llLastAddedQuoteFilled);
+        llLastAddedQuoteDefault = view.findViewById(R.id.llLastAddedQuoteDefault);
+
+        llLastAddedBookFilled = view.findViewById(R.id.llLastAddedBookFilled);
+        llLastAddedBookDefault = view.findViewById(R.id.llLastAddedBookDefault);
+
         auth = FirebaseAuth.getInstance();
 
     }
@@ -173,35 +188,44 @@ public class AccueilFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
+                            if (querySnapshot.size() == 0) {
+                                // il n'y a pas de livre dans la BD
+                                llLastAddedBookFilled.setVisibility(View.GONE);
+                                llLastAddedBookDefault.setVisibility(View.VISIBLE);
+                            } else {
+                                llLastAddedBookDefault.setVisibility(View.GONE);
+                                llLastAddedBookFilled.setVisibility(View.VISIBLE);
 
-                            for (QueryDocumentSnapshot document : querySnapshot) {
-                                Log.i(TAG, document.getId() + " => " + document.getData());
-                                String titre = document.getString(TITRE_LIVRE_BD);
-                                String auteur = document.getString(AUTEUR_LIVRE_BD);
-                                String coverUrl = document.getString(URL_COVER_LIVRE_BD);
-                                String dateAjoutLivre = document.getString(DATE_AJOUT_LIVRE_BD);
-                                Log.i(TAG, "onComplete: titre : " + titre);
-                                Log.i(TAG, "onComplete: auteur : " + auteur);
-                                Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
-                                tvTitreAcc.setText(titre);
-                                tvAuteurAcc.setText(auteur);
-                                tvDateAjoutLivreAcc.setText(convertDateToFormatFr(dateAjoutLivre));
-                                //Gestion de l'image avec Glide
-                                Context context = getContext();
+                                for (QueryDocumentSnapshot document : querySnapshot) {
+                                    Log.i(TAG, document.getId() + " => " + document.getData());
+                                    String titre = document.getString(TITRE_LIVRE_BD);
+                                    String auteur = document.getString(AUTEUR_LIVRE_BD);
+                                    String coverUrl = document.getString(URL_COVER_LIVRE_BD);
+                                    String dateAjoutLivre = document.getString(DATE_AJOUT_LIVRE_BD);
+                                    Log.i(TAG, "onComplete: titre : " + titre);
+                                    Log.i(TAG, "onComplete: auteur : " + auteur);
+                                    Log.i(TAG, "onComplete: coverUrl : " + coverUrl);
+                                    tvTitreAcc.setText(titre);
+                                    tvAuteurAcc.setText(auteur);
+                                    tvDateAjoutLivreAcc.setText(convertDateToFormatFr(dateAjoutLivre));
+                                    //Gestion de l'image avec Glide
+                                    Context context = getContext();
 
-                                RequestOptions options = new RequestOptions()
-                                        .centerCrop()
-                                        .error(R.drawable.ic_couverture_livre_150)
-                                        .placeholder(R.drawable.ic_couverture_livre_150);
+                                    RequestOptions options = new RequestOptions()
+                                            .centerCrop()
+                                            .error(R.drawable.ic_couverture_livre_150)
+                                            .placeholder(R.drawable.ic_couverture_livre_150);
 
-                                // methode normale
-                                Glide.with(context)
-                                        .load(coverUrl)
-                                        .apply(options)
-                                        .fitCenter()
-                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                        .into(ivCoverBookAcc);
+                                    // methode normale
+                                    Glide.with(context)
+                                            .load(coverUrl)
+                                            .apply(options)
+                                            .fitCenter()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                            .into(ivCoverBookAcc);
+                                }
                             }
+
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
                         }
@@ -223,23 +247,32 @@ public class AccueilFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
-                            // limit(1) => un seul document
-                            for (QueryDocumentSnapshot document : querySnapshot) {
-                                Log.i(TAG, document.getId() + " => " + document.getData());
-                                String citation = document.getString(CITATION_CITATION_BD);
-                                String annotation = document.getString(ANNOTATION_CITATION_BD);
-                                String date_citation = document.getString(DATE_CITATION_BD);
-                                String heure_citation = document.getString(HEURE_CITATION_BD);
-                                String id_bd_livre = document.getString(ID_BD_LIVRE_CITATION_BD);
+                            if (querySnapshot.size() == 0) {
+                               // il n'y a pas de citation dans la BD
+                                llLastAddedQuoteFilled.setVisibility(View.GONE);
+                                llLastAddedQuoteDefault.setVisibility(View.VISIBLE);
+                            } else {
+                                llLastAddedQuoteDefault.setVisibility(View.GONE);
+                                llLastAddedQuoteFilled.setVisibility(View.VISIBLE);
+                                // limit(1) => un seul document
+                                for (QueryDocumentSnapshot document : querySnapshot) {
+                                    Log.i(TAG, document.getId() + " => " + document.getData());
+                                    String citation = document.getString(CITATION_CITATION_BD);
+                                    String annotation = document.getString(ANNOTATION_CITATION_BD);
+                                    String date_citation = document.getString(DATE_CITATION_BD);
+                                    String heure_citation = document.getString(HEURE_CITATION_BD);
+                                    String id_bd_livre = document.getString(ID_BD_LIVRE_CITATION_BD);
 
 
-                                tvCitationAcc.setText(citation);
-                                tvAnnotationAcc.setText(annotation);
-                                tvDateAjoutCitationAcc.setText(convertDateToFormatFr(date_citation));
-                                tvHeureAjoutCitationAcc.setText(heure_citation);
+                                    tvCitationAcc.setText(citation);
+                                    tvAnnotationAcc.setText(annotation);
+                                    tvDateAjoutCitationAcc.setText(convertDateToFormatFr(date_citation));
+                                    tvHeureAjoutCitationAcc.setText(heure_citation);
 
-                                getThenSetTitreAuteurFromId_BD_livre(id_bd_livre);
+                                    getThenSetTitreAuteurFromId_BD_livre(id_bd_livre);
+                                }
                             }
+
                         } else {
                             Log.i(TAG, "Error getting documents: ", task.getException());
                         }
