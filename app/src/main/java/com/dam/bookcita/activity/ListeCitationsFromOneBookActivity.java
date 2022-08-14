@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +46,8 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
     private TextView tvNbCitationsLC;
     private RecyclerView rvCitationsFOB;
 
+    private Button btnAddQuoteFOB;
+
     private AdapterCitation adapterCitation;
 
     private ProgressDialog progressDialog;
@@ -63,6 +67,7 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
         ivCoverLC = findViewById(R.id.ivCoverLC);
         tvNbCitationsLC = findViewById(R.id.tvNbCitationsLC);
         rvCitationsFOB = findViewById(R.id.rvCitationsFOB);
+        btnAddQuoteFOB = findViewById(R.id.btnAddQuoteFOB);
 
     }
 
@@ -85,6 +90,16 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
 
         rvCitationsFOB.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
+        btnAddQuoteFOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ajoutCitationIntent = new Intent(ListeCitationsFromOneBookActivity.this, AjoutCitationActivity.class);
+                ajoutCitationIntent.putExtra(ID_BD, id_BD);
+
+                startActivity(ajoutCitationIntent);
+            }
+        });
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage(getString(R.string.fetching_data));
@@ -97,7 +112,10 @@ public class ListeCitationsFromOneBookActivity extends AppCompatActivity impleme
     public void getCitationsFOBFromDB(){
         Query query = citationsRef
                 .whereEqualTo(ID_USER_CITATION_BD,id_user)
-                .whereEqualTo(ID_BD_LIVRE_CITATION_BD,id_BD);
+                .whereEqualTo(ID_BD_LIVRE_CITATION_BD,id_BD)
+                .orderBy(DATE_CITATION_BD, Query.Direction.DESCENDING)
+                .orderBy(HEURE_CITATION_BD, Query.Direction.DESCENDING);
+
 //        Query query = citationsRef.orderBy(CITATION_CITATION_BD);
         Log.i(TAG, "Query : "+query);
         FirestoreRecyclerOptions<ModelCitation> citationsFOB = new FirestoreRecyclerOptions.Builder<ModelCitation>()
