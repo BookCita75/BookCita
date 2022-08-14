@@ -60,7 +60,15 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
         holder.tvHeureItemATL.setText(heure);
         holder.tvPageItemATL.setText(String.valueOf(page));
         holder.tvCitationItemATL.setText(citation);
-        holder.tvAnnotationItemATL.setText(annotation);
+
+        if (annotation.equals("")){
+            holder.tvLblAnnotationItemATL.setVisibility(View.GONE);
+            holder.tvAnnotationItemATL.setVisibility(View.GONE);
+        } else {
+            holder.tvAnnotationItemATL.setText(annotation);
+        }
+
+
 
         //TODO à remplacer par le titre plus tard
         //holder.tvTitreATL.setText(id_BD_livre);
@@ -103,7 +111,7 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvDateItemATL, tvHeureItemATL, tvPageItemATL, tvCitationItemATL,
-                tvAnnotationItemATL, tvTitreATL, tvAuteurATL;
+                tvAnnotationItemATL, tvTitreATL, tvAuteurATL, tvLblAnnotationItemATL;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -112,6 +120,7 @@ public class AdapterCitationAvecTitreLivre extends RecyclerView.Adapter<AdapterC
             tvPageItemATL = itemView.findViewById(R.id.tvPageItemATL);
             tvCitationItemATL = itemView.findViewById(R.id.tvCitationItemATL);
             tvAnnotationItemATL = itemView.findViewById(R.id.tvAnnotationItemATL);
+            tvLblAnnotationItemATL = itemView.findViewById(R.id.tvLblAnnotationItemATL);
             tvTitreATL = itemView.findViewById(R.id.tvTitreATL);
             tvAuteurATL = itemView.findViewById(R.id.tvAuteurATL);
 

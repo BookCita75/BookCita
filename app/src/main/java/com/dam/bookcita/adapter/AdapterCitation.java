@@ -42,7 +42,13 @@ public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, Ada
         holder.tvHeure.setText(heureC);
         holder.tvPage.setText(String.valueOf(pageC));
         holder.tvCitation.setText(citation);
-        holder.tvAnnotation.setText(annotation);
+        if (annotation.equals("")){
+            holder.tvLblAnnotation.setVisibility(View.GONE);
+            holder.tvAnnotation.setVisibility(View.GONE);
+        } else {
+            holder.tvAnnotation.setText(annotation);
+        }
+
 
     }
 
@@ -64,7 +70,7 @@ public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, Ada
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDate, tvHeure, tvPage, tvCitation, tvAnnotation;
+        TextView tvDate, tvHeure, tvPage, tvCitation, tvAnnotation, tvLblAnnotation;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.tvDateItemC);
@@ -72,6 +78,7 @@ public class AdapterCitation extends FirestoreRecyclerAdapter<ModelCitation, Ada
             tvPage = itemView.findViewById(R.id.tvPageItemIC);
             tvCitation = itemView.findViewById(R.id.tvCitationItemC);
             tvAnnotation = itemView.findViewById(R.id.tvAnnotationItemC);
+            tvLblAnnotation = itemView.findViewById(R.id.tvLblAnnotationItemC);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
